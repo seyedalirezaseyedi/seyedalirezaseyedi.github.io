@@ -404,6 +404,19 @@ a{color:inherit}
 .work-card h3{font-size:16px;line-height:1.3;margin:5px 0 7px}
 .work-card p{font-size:11.5px;line-height:1.52;color:#566268;margin:0}
 .work-card .portfolio-links{margin-top:12px}
+.dashboard-card{border-color:#cddfe1;background:linear-gradient(180deg,#fff 0%,#fbfdfd 100%)}
+.dashboard-card .type{display:flex;align-items:center;gap:7px}
+.dashboard-card .type:before{
+  content:"";width:8px;height:8px;border-radius:2px;background:var(--accent);
+  box-shadow:10px 0 0 rgba(17,108,118,.32),0 10px 0 rgba(17,108,118,.32),10px 10px 0 rgba(17,108,118,.18);
+  margin-right:10px
+}
+.dashboard-link{
+  display:inline-flex!important;align-items:center!important;gap:7px!important;
+  background:var(--dark)!important;color:#fff!important;border-color:var(--dark)!important;
+}
+.dashboard-link:hover{background:var(--accent)!important;border-color:var(--accent)!important}
+.dashboard-icon{font-size:13px;line-height:1}
 @media(max-width:860px){
       .portfolio-grid-pro{grid-template-columns:1fr}
 }
@@ -1028,43 +1041,61 @@ a{color:inherit}
 
  <div class="featured-work">
   <div class="featured-work-head">
-   <div><div class="kicker">Featured work</div><h2>Portfolio & Sample Works</h2></div>
+   <div><div class="kicker">Featured work</div><h2>Interactive Projects & Selected Work</h2></div>
    
   </div>
 
   <div class="portfolio-grid-pro">
 
-   <article class="work-card">
-<h3>Environmental Economics & ESG Analytics</h3>
-    <p>Applied analytics for sustainability, environmental-economics indicators and ESG-oriented decision support, implemented as a public computational portfolio.</p><div class="evidence-note"><strong>Evidence source.</strong> Evidence: public GitHub repository <em>Environmental-Economics-and-ESG-Analytics</em>.</div>
-<div class="portfolio-links"><a href="https://github.com/59alireza59/Environmental-Economics-and-ESG-Analytics" target="_blank" rel="noopener">Open Repository ↗</a></div>
+   <article class="work-card dashboard-card">
+    <div class="type">Interactive Decision Analytics</div>
+    <h3>Water Governance Fit & Structural Decision Analytics</h3>
+    <p>Quantitative governance-structure analysis for water systems, combining statistical-mechanics modelling, scenario testing, institutional fit, sector supply–demand analysis and decision interpretation.</p>
+    <div class="evidence-note"><strong>Project focus.</strong> Water governance · institutional restructuring · scenario analytics · environmental decision support.</div>
+    <div class="portfolio-links"><a class="dashboard-link" href="water-governance-analytics.html"><span class="dashboard-icon">▦</span>Open Dashboard ↗</a></div>
+   </article>
+
+   <article class="work-card dashboard-card">
+    <div class="type">Environmental Economics & Policy Analytics</div>
+    <h3>Dynamic Forest Governance & Biodiversity Policy Analytics</h3>
+    <p>Interactive bioeconomic decision analytics comparing decentralized and cooperative forest-management regimes through biodiversity, harvesting pressure, optimal control and policy sensitivity.</p>
+    <div class="evidence-note"><strong>Project focus.</strong> Forest economics · biodiversity · dynamic games · optimal control · policy sensitivity.</div>
+    <div class="portfolio-links"><a class="dashboard-link" href="forest-governance-biodiversity-analytics.html"><span class="dashboard-icon">▦</span>Open Dashboard ↗</a></div>
+   </article>
+
+   <article class="work-card dashboard-card">
+    <div class="type">Biomedical & Health Analytics</div>
+    <h3>Longitudinal Immunity & Vaccine Response Analytics</h3>
+    <p>Interactive biomedical analytics for population segmentation, cross-cohort serology harmonization, longitudinal antibody-response tracking and immune-response classification across vaccination phases.</p>
+    <div class="evidence-note"><strong>Project focus.</strong> Longitudinal serology · healthcare analytics · neural networks · subgroup analysis · response classification.</div>
+    <div class="portfolio-links"><a class="dashboard-link" href="longitudinal-immunity-analytics.html"><span class="dashboard-icon">▦</span>Open Dashboard ↗</a></div>
    </article>
 
    <article class="work-card">
-<h3>Quantitative BioMedicine Analytics</h3>
-    <p>Computational portfolio focused on biomedical data, quantitative health analysis and modelling workflows that complement my academic work in epidemiology and immune-response analysis.</p><div class="evidence-note"><strong>Evidence source.</strong> Evidence: public GitHub repository <em>Quantitative-BioMedicine</em> and ORCHESTRA-related research record.</div>
-<div class="portfolio-links"><a href="https://github.com/59alireza59/Quantitative-BioMedicine" target="_blank" rel="noopener">Open Repository ↗</a></div>
+    <div class="type">Business Analytics</div>
+    <h3>Business Analytics & Decision Support</h3>
+    <p>A business-oriented collection of analytical workflows demonstrating data exploration, modelling, reporting and decision-support applications.</p>
+    <div class="evidence-note"><strong>Evidence source.</strong> Public GitHub repository <em>Business-Analytics-Portfolios</em>.</div>
+    <div class="portfolio-links"><a href="https://github.com/59alireza59/Business-Analytics-Portfolios" target="_blank" rel="noopener">Open Repository ↗</a></div>
    </article>
 
    <article class="work-card">
-<h3>Business Analytics & Decision Support</h3>
-    <p>A business-oriented collection of analytical workflows demonstrating data exploration, modelling, reporting and decision-support applications.</p><div class="evidence-note"><strong>Evidence source.</strong> Evidence: public GitHub repository <em>Business-Analytics-Portfolios</em>.</div>
-<div class="portfolio-links"><a href="https://github.com/59alireza59/Business-Analytics-Portfolios" target="_blank" rel="noopener">Open Repository ↗</a></div>
+    <div class="type">Quantitative Finance</div>
+    <h3>Quantitative Finance & Risk Analytics</h3>
+    <p>Computational work in statistical modelling, market-data analysis and quantitative finance, designed to demonstrate transferable analytical and modelling capability.</p>
+    <div class="evidence-note"><strong>Evidence source.</strong> Public GitHub repository <em>Quantitative-Finance</em>.</div>
+    <div class="portfolio-links"><a href="https://github.com/59alireza59/Quantitative-Finance" target="_blank" rel="noopener">Open Repository ↗</a></div>
    </article>
 
    <article class="work-card">
-<h3>Quantitative Finance & Risk Analytics</h3>
-    <p>Computational work in statistical modelling, market-data analysis and quantitative finance, designed to demonstrate transferable analytical and modelling capability.</p><div class="evidence-note"><strong>Evidence source.</strong> Evidence: public GitHub repository <em>Quantitative-Finance</em>.</div>
-<div class="portfolio-links"><a href="https://github.com/59alireza59/Quantitative-Finance" target="_blank" rel="noopener">Open Repository ↗</a></div>
+    <div class="type">Technical Writing</div>
+    <h3>Mathematical & Data Science Insights</h3>
+    <p>Technical writing that explains mathematical, statistical and data-science ideas in an applied and accessible format for research and professional audiences.</p>
+    <div class="evidence-note"><strong>Evidence source.</strong> Public blog at seyedalirezaseyedi.blogspot.com.</div>
+    <div class="portfolio-links"><a href="https://seyedalirezaseyedi.blogspot.com/" target="_blank" rel="noopener">Visit Blog ↗</a></div>
    </article>
 
-   <article class="work-card">
-<h3>Mathematical & Data Science Insights</h3>
-    <p>Technical writing that explains mathematical, statistical and data-science ideas in an applied and accessible format for research and professional audiences.</p><div class="evidence-note"><strong>Evidence source.</strong> Evidence: public blog at seyedalirezaseyedi.blogspot.com.</div>
-<div class="portfolio-links"><a href="https://seyedalirezaseyedi.blogspot.com/" target="_blank" rel="noopener">Visit Blog ↗</a></div>
-   </article>
-
-   </div>
+  </div>
  </div>
 
  </div></section>

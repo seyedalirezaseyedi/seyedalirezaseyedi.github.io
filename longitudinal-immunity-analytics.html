@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Longitudinal Immunity & Vaccine Response Analytics</title>
+<style>
+:root{--bg:#f5f7f9;--surface:#fff;--ink:#172936;--muted:#697b87;--line:#dce5ea;--soft:#f8fafb;--navy:#17364e;--teal:#2e7d83;--green:#4f8665;--violet:#75568a;--blue:#5a91ae;--amber:#a87329;--shadow:0 12px 30px rgba(18,48,68,.055)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}a{color:inherit}.wrap{max-width:1320px;margin:auto;padding:28px 24px 70px}
+.hero{background:linear-gradient(135deg,#17364e,#225e70);color:#fff;border-radius:24px;padding:30px 32px;box-shadow:0 20px 44px rgba(18,48,68,.14)}.eyebrow,.label{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.eyebrow{color:#a8dbe0}.label{color:var(--teal);margin-bottom:6px}.hero h1{font-size:34px;line-height:1.12;letter-spacing:-.035em;margin:7px 0 10px}.hero p{margin:0;color:#dce9ee;max-width:900px}.hero-grid{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:start}.pub{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);border-radius:14px;padding:13px 14px;min-width:245px}.pub strong{display:block;font-size:12px}.pub span{font-size:10px;color:#dce8ed}.btn{display:inline-block;margin-top:10px;background:#fff;color:var(--navy);text-decoration:none;padding:8px 11px;border-radius:9px;font-size:10px;font-weight:850}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.section{margin-top:18px}.panel{padding:20px 22px}h2,h3{margin:0;color:var(--ink)}h2{font-size:22px;letter-spacing:-.02em}h3{font-size:17px}.sub{color:var(--muted);font-size:11px;margin-top:4px}
+.project-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(300px,.7fr);gap:24px}.project p{color:var(--muted);margin:8px 0 0}.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:15px}.fact{background:var(--soft);border:1px solid #edf2f4;border-radius:12px;padding:12px}.fact span{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:800}.fact strong{display:block;margin-top:5px;font-size:12px}.meta{border-left:1px solid var(--line);padding-left:20px}.meta-row{padding:9px 0;border-bottom:1px solid #edf2f4}.meta-row:last-child{border-bottom:0}.meta-row span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:800}.meta-row strong{display:block;font-size:12px;margin-top:3px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.tab{border:1px solid var(--line);background:white;border-radius:999px;padding:6px 10px;font-size:10px;font-weight:800;color:#5f707c;cursor:pointer}.tab.active{background:var(--navy);color:white;border-color:var(--navy)}
+.figpair{display:grid;grid-template-columns:1fr 1fr;gap:14px}.figcard{background:#fbfcfd;border:1px solid var(--line);border-radius:14px;padding:10px}.figcard img{width:100%;display:block;border-radius:10px}.figcap{font-size:10px;color:var(--muted);margin-top:6px;text-align:center}
+.assay-grid{display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px}select{width:100%;border:1px solid #cdd9df;border-radius:10px;padding:9px;background:white;font-size:12px}.metric-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.metric{background:var(--soft);border:1px solid #edf2f4;border-radius:12px;padding:12px}.metric span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:800}.metric strong{display:block;margin-top:5px;font-size:12px}canvas{width:100%;height:320px;display:block;border:1px solid #edf2f4;border-radius:12px;background:#fff}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.field{min-width:180px}.field label{display:block;font-size:10px;font-weight:800;color:#4d6270;margin-bottom:5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.callout{background:#f0f7f7;border-left:3px solid var(--teal);border-radius:10px;padding:12px 13px;font-size:11px;color:#425c60;margin-top:12px}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;min-width:760px}th{text-align:left;background:#f7f9fa;color:#667886;font-size:9px;text-transform:uppercase;letter-spacing:.06em;padding:10px}td{padding:10px;border-top:1px solid #edf2f4;font-size:11px}td.num{text-align:right;font-variant-numeric:tabular-nums}.badge{display:inline-block;padding:3px 7px;border-radius:999px;font-size:9px;font-weight:800}.vacc{background:#edf4f8;color:#3f6f88}.adapt{background:#eaf5ef;color:#3f7458}.hyb{background:#eee8f3;color:#6c4c7d}.na{background:#f1f3f4;color:#7a878f}
+.matrix-note{font-size:10px;color:var(--muted);margin:4px 0 8px}.flag{display:inline-block;margin-left:4px;background:#fff3df;color:#8c5d16;padding:2px 5px;border-radius:6px;font-size:8px;font-weight:800}
+.footer{padding:15px 18px;font-size:10px;color:var(--muted)}
+@media(max-width:950px){.hero-grid,.project-grid,.assay-grid,.two{grid-template-columns:1fr}.meta{border-left:0;border-top:1px solid var(--line);padding:15px 0 0}.facts,.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.wrap{padding:14px 12px 45px}.hero{padding:22px 19px;border-radius:18px}.hero h1{font-size:26px}.figpair,.facts,.metric-grid{grid-template-columns:1fr}.panel{padding:16px}canvas{height:280px}}
+
+/* Professional analytics refinements */
+.chart-shell{border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px}
+.chart-caption{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:9px;color:var(--muted)}
+.signal-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:9px;color:var(--muted)}
+.signal-legend span{display:flex;align-items:center;gap:5px}
+.legend-box{width:10px;height:10px;border-radius:3px;display:inline-block}
+.legend-line{width:18px;height:2px;display:inline-block}
+.quality-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.quality-item{border:1px solid var(--line);border-radius:10px;padding:9px;background:#fbfcfd}
+.quality-item span{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800}
+.quality-item strong{display:block;font-size:11px;margin-top:3px}
+@media(max-width:700px){.quality-strip{grid-template-columns:1fr}}
+
+
+/* High-resolution rendering */
+canvas{image-rendering:auto}
+.figpair{grid-template-columns:1fr 1fr;gap:18px}
+.figcard{padding:12px;background:#fff}
+.figcard img{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  image-rendering:auto;
+  border-radius:12px;
+}
+.figcap{font-size:11px;font-weight:700;color:#506572;margin-top:8px}
+.chart-shell{padding:14px}
+canvas{min-height:360px}
+@media(max-width:800px){
+  .figpair{grid-template-columns:1fr}
+  canvas{min-height:320px}
+}
+
+
+/* Rebuilt  charts */
+.s1pair{margin-top:14px}
+.s1canvas{display:block}
+.legend-wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.legend-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fbfcfd;font-size:10px;color:var(--ink)}
+.legend-swatch{width:12px;height:12px;border-radius:3px;flex:0 0 auto}
+@media(max-width:900px){.legend-wrap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.legend-wrap{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">Biomedical Data Science · ORCHESTRA Project</div>
+      <h1>Longitudinal Immunity & Vaccine Response Analytics</h1>
+      <p>Interactive biomedical analytics for population segmentation, laboratory-data harmonization, longitudinal serological response tracking, and immune-response classification across vaccination phases.</p>
+    </div>
+    <div class="pub">
+      <strong>Research output</strong>
+      <span>Vaccines · 13(6):611 · 2025</span><br>
+      <a class="btn" href="https://pubmed.ncbi.nlm.nih.gov/40573941/" target="_blank" rel="noopener">View publication ↗</a>
+    </div>
+  </div>
+</header>
+
+<section class="card panel project section">
+  <div class="project-grid">
+    <div>
+      <div class="label">Biomedical Analytics Project</div>
+      <h2>Longitudinal Immunity & Vaccine Response Analytics</h2>
+      <p>This project integrates longitudinal anti-spike serology, infection history, demographic variables, and occupational information to characterize Vaccine-induced, Adaptive, and Hybrid immune-response profiles across successive vaccination phases.</p>
+      <div class="facts">
+        <div class="fact"><span>Participants</span><strong>23,616 HCWs</strong></div>
+        <div class="fact"><span>Serology</span><strong>81,855 measurements</strong></div>
+        <div class="fact"><span>Cohorts</span><strong>9 European cohorts</strong></div>
+        <div class="fact"><span>Analytical methods</span><strong>Observed · NN · Bass</strong></div>
+      </div>
+    </div>
+    <aside class="meta">
+      <div class="meta-row"><span>Project focus</span><strong>Immune-response profiling across repeated vaccination</strong></div>
+      <div class="meta-row"><span>Response classes</span><strong>Vaccine-induced · Adaptive · Hybrid</strong></div>
+      <div class="meta-row"><span>Primary inputs</span><strong>Anti-S peaks · PCR · Anti-N · age · sex · job title · cohort</strong></div>
+      <div class="meta-row"><span>Classification comparison</span><strong>Observed classification vs Neural Network vs Bass diffusion</strong></div>
+      <div class="meta-row"><span>Decision applications</span><strong>Population monitoring · booster-response analytics · subgroup comparison · data harmonization</strong></div>
+    </aside>
+  </div>
+</section>
+
+<section class="card panel section">
+  <div class="label">Population Analytics</div>
+  <h2>Population Composition by Infection History</h2>
+  <div class="sub">Compare population composition across sex, age, and occupational segments for previously infected and non-pre-infected healthcare workers.</div>
+  <div class="tabs">
+    <button class="tab active" data-s1="gender">Gender</button>
+    <button class="tab" data-s1="age">Age group</button>
+    <button class="tab" data-s1="job">Job title</button>
+  </div>
+  <div class="figpair s1pair">
+    <div class="figcard">
+      <canvas id="s1preCanvas" class="s1canvas" style="width:100%;height:500px"></canvas>
+      <div class="figcap">Previously infected</div>
+    </div>
+    <div class="figcard">
+      <canvas id="s1noCanvas" class="s1canvas" style="width:100%;height:500px"></canvas>
+      <div class="figcap">No prior infection</div>
+    </div>
+  </div>
+  <div class="legend-wrap" id="s1Legend"></div>
+  <div class="callout" id="s1Interpretation"></div>
+</section>
+
+<section class="card panel section">
+  <div class="label">Laboratory Data Integration</div>
+  <h2>Cross-Cohort Serology Harmonization</h2>
+  <div class="sub">Assess cross-site assay heterogeneity, standardized anti-S measurements, and availability of supporting infection-history markers.</div>
+  <div class="assay-grid" style="margin-top:14px">
+    <div>
+      <div class="field"><label>Cohort</label><select id="cohortSel"></select></div>
+      <div class="callout" id="cohortInterpretation"></div>
+    </div>
+    <div class="metric-grid" id="cohortMetrics"></div>
+  </div>
+  <div class="chart-shell" style="margin-top:14px">
+    <canvas id="standardizedChart" width="1000" height="340"></canvas>
+    <div class="chart-caption">
+      <span>Standardized mean anti-S serology by cohort</span>
+      <span>Standardized values only</span>
+    </div>
+  </div>
+  <div class="quality-strip" id="labReadiness"></div>
+  <div class="matrix-note">The chart compares standardized mean serology across cohorts; assay-specific raw units are retained in the cohort cards rather than mixed on a single axis.</div>
+</section>
+
+<section class="card panel section">
+  <div class="label">Longitudinal Response Analytics</div>
+  <h2>Serological Response Intensity by Vaccination Phase</h2>
+  <div class="sub">Track above-threshold anti-S response frequency and sample composition across successive vaccination phases.</div>
+  <div class="controls">
+    <div class="field"><label>Prior infection status</label><select id="freqStatus"></select></div>
+    <div class="field"><label>Population dimension</label><select id="freqCategory"></select></div>
+    <div class="field"><label>Population segment</label><select id="freqGroup"></select></div>
+  </div>
+  <div class="matrix-note" id="frequencySelection"></div>
+  <div class="chart-shell">
+    <canvas id="frequencyChart" width="1000" height="360"></canvas>
+    <div class="signal-legend">
+      <span><i class="legend-box" style="background:#2e7d83"></i>Above threshold (#AT)</span>
+      <span><i class="legend-box" style="background:#dfe8ec"></i>Below threshold (#BT)</span>
+      <span><i class="legend-line" style="background:#17364e"></i>% above threshold</span>
+    </div>
+  </div>
+  <div class="callout" id="frequencyInterpretation"></div>
+</section>
+
+<section class="card panel section">
+  <div class="label">Longitudinal Response Analytics</div>
+  <h2>Immune-Response Classification by Analytical Method</h2>
+  <div class="sub">Compare immune-response classifications derived from observed serological patterns, neural-network inference, and Bass diffusion analytics.</div>
+  <div class="controls">
+    <div class="field"><label>Prior infection status</label><select id="detectStatus"></select></div>
+    <div class="field"><label>Population dimension</label><select id="detectCategory"></select></div>
+    <div class="field"><label>Population segment</label><select id="detectGroup"></select></div>
+  </div>
+  <div class="matrix-note" id="detectionSelection"></div>
+  <div class="chart-shell">
+    <canvas id="detectionChart" width="1000" height="380"></canvas>
+    <div class="signal-legend">
+      <span><i class="legend-box" style="background:#5a91ae"></i>Vaccine-induced</span>
+      <span><i class="legend-box" style="background:#4f8665"></i>Adaptive</span>
+      <span><i class="legend-box" style="background:#75568a"></i>Hybrid</span>
+    </div>
+  </div>
+  <div class="callout" id="detectionInterpretation"></div>
+</section>
+
+<section class="card panel section">
+  <div class="label">Longitudinal Response Analytics</div>
+  <h2>Immune-Response Mix Across Population Segments</h2>
+  <div class="sub">Compare the mix of Vaccine-induced, Adaptive, and Hybrid response classifications across demographic and occupational segments.</div>
+  <div class="controls">
+    <div class="field"><label>Vaccination phase</label><select id="distInterval"></select></div>
+    <div class="field"><label>Prior infection status</label><select id="distStatus"></select></div>
+  </div>
+  <div class="matrix-note" id="distributionSelection"></div>
+  <div class="chart-shell">
+    <canvas id="distributionChart" width="1000" height="360"></canvas>
+    
+  </div>
+  <div class="tablewrap" style="margin-top:12px"><table id="distributionTable"><thead><tr><th>Response type</th><th>Observed</th><th>Neural network</th><th>Bass</th><th>Observed in</th></tr></thead><tbody></tbody></table></div>
+  <div class="callout" id="distributionInterpretation"></div>
+</section>
+
+
+
+</div>
+<script>
+const MANUSCRIPT_STATUSES=["Non-pre-infected","Pre-infected"];
+const DATA={"cohorts":[{"cohort":"Germany - Munich","assay":"Roche Elecsys\u00ae anti SARS-CoV-2 S","unit":"U/mL","mean":"320.972 (386.849)","standardized":"11.068 (1.535)","antiN":"Available","pcr":"Available"},{"cohort":"Italy - Bari","assay":"Abbott SARS-CoV-2 IgG II Quant","unit":"AU/mL","mean":"19281.100 (27702.280)","standardized":"11.050 (1.490)","antiN":"NA","pcr":"Available"},{"cohort":"Italy - Bologna","assay":"Anti SARS-CoV-2 S (RBD) IgG ECLIA","unit":"BAU/mL","mean":"1129.939 (820.610)","standardized":"10.967 (1.442)","antiN":"NA","pcr":"Available"},{"cohort":"Italy - Brescia","assay":"Roche Elecsys\u00ae anti SARS-CoV-2 S","unit":"U/mL","mean":"2411.005 (1903.055)","standardized":"11.558 (1.571)","antiN":"Available","pcr":"Available"},{"cohort":"Italy - Trieste","assay":"CMIA anti S1-RBD","unit":"RLU","mean":"15994.470 (33170.560)","standardized":"10.987 (1.558)","antiN":"NA","pcr":"Available"},{"cohort":"Italy - Verona","assay":"CLIA trimeric S IgG","unit":"BAU/mL","mean":"3812.833 (5853.338)","standardized":"10.985 (1.581)","antiN":"NA","pcr":"Available"},{"cohort":"Romania - Multicenter","assay":"Abbott SARS-CoV-2 IgG II Quant","unit":"AU/mL","mean":"6738.409 (10204.490)","standardized":"10.986 (1.602)","antiN":"NA","pcr":"Available"},{"cohort":"Slovakia - Multicenter","assay":"QuantiVac ELISA (IgG) EUROIMMUN","unit":"RU/mL","mean":"1002.487 (562.674)","standardized":"10.341 (1.328)","antiN":"NA","pcr":"Available"},{"cohort":"Spain - Barcelona","assay":"DECOV1901 ELISA (IgG-S)","unit":"IU/mL","mean":"1839.756 (9952.308)","standardized":"10.993 (1.541)","antiN":"Available","pcr":"Available"}],"immunityTables":{"Dose 1 \u2192 Dose 2":{"Non-pre-infected":[{"category":"Total","group":"Total","AT":45,"BT":43,"pctAT":51.14,"actual":"Adaptive","nn":"Vaccine-induced","bass":"Adaptive","accuracy":62.67},{"category":"Gender","group":"Male","AT":12,"BT":7,"pctAT":63.16,"actual":"Adaptive","nn":"Adaptive","bass":"Adaptive","accuracy":75.0},{"category":"Gender","group":"Female","AT":33,"BT":36,"pctAT":47.83,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Adaptive","accuracy":60.32},{"category":"Age group","group":"\u226429","AT":6,"BT":2,"pctAT":75.0,"actual":"Adaptive","nn":"Adaptive","bass":"Adaptive","accuracy":71.43},{"category":"Age group","group":"30\u201339","AT":8,"BT":2,"pctAT":80.0,"actual":"Adaptive","nn":"Adaptive","bass":"Adaptive","accuracy":88.89},{"category":"Age group","group":"40\u201349","AT":11,"BT":18,"pctAT":37.93,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Adaptive","accuracy":56.52},{"category":"Age group","group":"50+","AT":20,"BT":21,"pctAT":48.78,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Vaccine-induced","accuracy":58.33},{"category":"Job title","group":"Administration","AT":13,"BT":11,"pctAT":54.17,"actual":"Adaptive","nn":"Vaccine-induced","bass":"Adaptive","accuracy":66.67},{"category":"Job title","group":"Technician","AT":0,"BT":0,"pctAT":0.0,"actual":"NA","nn":"NA","bass":"NA","accuracy":null},{"category":"Job title","group":"Nurse","AT":6,"BT":7,"pctAT":46.15,"actual":"Vaccine-induced","nn":"Adaptive","bass":"Vaccine-induced","accuracy":53.85},{"category":"Job title","group":"Physician","AT":11,"BT":12,"pctAT":47.83,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Adaptive","accuracy":65.22},{"category":"Job title","group":"Other HCPs","AT":9,"BT":6,"pctAT":60.0,"actual":"Adaptive","nn":"Adaptive","bass":"Adaptive","accuracy":60.0}],"Pre-infected":[{"category":"Total","group":"Total","AT":399,"BT":438,"pctAT":47.67,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":55.07},{"category":"Gender","group":"Male","AT":108,"BT":116,"pctAT":48.21,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":54.01},{"category":"Gender","group":"Female","AT":291,"BT":322,"pctAT":47.47,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":55.42},{"category":"Age group","group":"\u226429","AT":52,"BT":51,"pctAT":50.49,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":53.41},{"category":"Age group","group":"30\u201339","AT":61,"BT":67,"pctAT":47.66,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":57.02},{"category":"Age group","group":"40\u201349","AT":123,"BT":137,"pctAT":47.31,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":51.1},{"category":"Age group","group":"50+","AT":163,"BT":183,"pctAT":47.11,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":57.64},{"category":"Job title","group":"Administration","AT":75,"BT":84,"pctAT":47.17,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":53.46},{"category":"Job title","group":"Technician","AT":22,"BT":22,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":56.82},{"category":"Job title","group":"Nurse","AT":39,"BT":32,"pctAT":54.93,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":54.93},{"category":"Job title","group":"Physician","AT":149,"BT":173,"pctAT":46.27,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":55.59},{"category":"Job title","group":"Other HCPs","AT":72,"BT":82,"pctAT":46.75,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":55.19}]},"Dose 2 \u2192 Dose 3":{"Non-pre-infected":[{"category":"Total","group":"Total","AT":8066,"BT":7773,"pctAT":50.92,"actual":"Adaptive","nn":"Adaptive","bass":"Vaccine-induced","accuracy":51.37},{"category":"Gender","group":"Male","AT":2088,"BT":1993,"pctAT":51.16,"actual":"Adaptive","nn":"Adaptive","bass":"Vaccine-induced","accuracy":52.26},{"category":"Gender","group":"Female","AT":5978,"BT":5780,"pctAT":50.84,"actual":"Adaptive","nn":"Adaptive","bass":"Adaptive","accuracy":51.06},{"category":"Age group","group":"\u226429","AT":1028,"BT":986,"pctAT":51.04,"actual":"Adaptive","nn":"Adaptive","bass":"Vaccine-induced","accuracy":51.23},{"category":"Age group","group":"30\u201339","AT":1544,"BT":1436,"pctAT":51.81,"actual":"Adaptive","nn":"Adaptive","bass":"Adaptive","accuracy":52.32},{"category":"Age group","group":"40\u201349","AT":2020,"BT":1960,"pctAT":50.75,"actual":"Adaptive","nn":"Vaccine-induced","bass":"Vaccine-induced","accuracy":50.85},{"category":"Age group","group":"50+","AT":3473,"BT":3391,"pctAT":50.6,"actual":"Adaptive","nn":"Adaptive","bass":"Vaccine-induced","accuracy":51.31},{"category":"Job title","group":"Administration","AT":1958,"BT":1911,"pctAT":50.61,"actual":"Adaptive","nn":"Adaptive","bass":"Vaccine-induced","accuracy":50.76},{"category":"Job title","group":"Technician","AT":703,"BT":657,"pctAT":0.0,"actual":"Adaptive","nn":"Adaptive","bass":"NA","accuracy":51.54},{"category":"Job title","group":"Nurse","AT":1012,"BT":981,"pctAT":50.78,"actual":"Adaptive","nn":"Adaptive","bass":"Vaccine-induced","accuracy":51.13},{"category":"Job title","group":"Physician","AT":2659,"BT":2607,"pctAT":50.49,"actual":"Adaptive","nn":"Vaccine-induced","bass":"Vaccine-induced","accuracy":51.39},{"category":"Job title","group":"Other HCPs","AT":1468,"BT":1341,"pctAT":52.26,"actual":"Adaptive","nn":"Adaptive","bass":"Adaptive","accuracy":52.26}],"Pre-infected":[{"category":"Total","group":"Total","AT":4338,"BT":2346,"pctAT":64.9,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":65.09},{"category":"Gender","group":"Male","AT":1152,"BT":606,"pctAT":65.53,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":65.78},{"category":"Gender","group":"Female","AT":3186,"BT":1740,"pctAT":64.68,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":64.85},{"category":"Age group","group":"\u226429","AT":677,"BT":306,"pctAT":68.87,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":68.8},{"category":"Age group","group":"30\u201339","AT":830,"BT":469,"pctAT":63.9,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":64.49},{"category":"Age group","group":"40\u201349","AT":1134,"BT":628,"pctAT":64.36,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":64.15},{"category":"Age group","group":"50+","AT":1697,"BT":943,"pctAT":64.28,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":64.64},{"category":"Job title","group":"Administration","AT":965,"BT":468,"pctAT":67.34,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":67.27},{"category":"Job title","group":"Technician","AT":300,"BT":137,"pctAT":0.0,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":68.88},{"category":"Job title","group":"Nurse","AT":381,"BT":164,"pctAT":69.91,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":69.72},{"category":"Job title","group":"Physician","AT":1791,"BT":1032,"pctAT":63.44,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":63.41},{"category":"Job title","group":"Other HCPs","AT":856,"BT":501,"pctAT":63.08,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":63.23}]},"Dose 3 \u2192 Dose 4":{"Non-pre-infected":[{"category":"Total","group":"Total","AT":132,"BT":145,"pctAT":47.65,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Vaccine-induced","accuracy":59.65},{"category":"Gender","group":"Male","AT":33,"BT":41,"pctAT":44.59,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Vaccine-induced","accuracy":50.0},{"category":"Gender","group":"Female","AT":99,"BT":104,"pctAT":48.77,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Vaccine-induced","accuracy":61.7},{"category":"Age group","group":"\u226429","AT":11,"BT":16,"pctAT":40.74,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Adaptive","accuracy":null},{"category":"Age group","group":"30\u201339","AT":22,"BT":37,"pctAT":37.29,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Adaptive","accuracy":100.0},{"category":"Age group","group":"40\u201349","AT":32,"BT":36,"pctAT":47.06,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Vaccine-induced","accuracy":41.18},{"category":"Age group","group":"50+","AT":67,"BT":56,"pctAT":54.47,"actual":"Adaptive","nn":"Vaccine-induced","bass":"Vaccine-induced","accuracy":62.86},{"category":"Job title","group":"Administration","AT":18,"BT":8,"pctAT":69.23,"actual":"Adaptive","nn":"Adaptive","bass":"Vaccine-induced","accuracy":69.23},{"category":"Job title","group":"Technician","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Adaptive","accuracy":null},{"category":"Job title","group":"Nurse","AT":3,"BT":3,"pctAT":50.0,"actual":"Vaccine-induced","nn":"Adaptive","bass":"Vaccine-induced","accuracy":50.0},{"category":"Job title","group":"Physician","AT":11,"BT":9,"pctAT":55.0,"actual":"Adaptive","nn":"Adaptive","bass":"Adaptive","accuracy":55.0},{"category":"Job title","group":"Other HCPs","AT":1,"BT":4,"pctAT":20.0,"actual":"Vaccine-induced","nn":"Adaptive","bass":"Adaptive","accuracy":40.0}],"Pre-infected":[{"category":"Total","group":"Total","AT":93,"BT":70,"pctAT":57.06,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":60.45},{"category":"Gender","group":"Male","AT":31,"BT":24,"pctAT":56.36,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":61.9},{"category":"Gender","group":"Female","AT":62,"BT":46,"pctAT":57.41,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":59.78},{"category":"Age group","group":"\u226429","AT":10,"BT":3,"pctAT":76.92,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":75.0},{"category":"Age group","group":"30\u201339","AT":3,"BT":9,"pctAT":25.0,"actual":"Vaccine-induced","nn":"Hybrid","bass":"Hybrid","accuracy":25.0},{"category":"Age group","group":"40\u201349","AT":20,"BT":19,"pctAT":51.28,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":52.94},{"category":"Age group","group":"50+","AT":60,"BT":39,"pctAT":60.61,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":65.0},{"category":"Job title","group":"Administration","AT":40,"BT":22,"pctAT":64.52,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":64.52},{"category":"Job title","group":"Technician","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":null},{"category":"Job title","group":"Nurse","AT":11,"BT":2,"pctAT":84.62,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":84.62},{"category":"Job title","group":"Physician","AT":27,"BT":27,"pctAT":50.0,"actual":"Vaccine-induced","nn":"Hybrid","bass":"Hybrid","accuracy":50.0},{"category":"Job title","group":"Other HCPs","AT":3,"BT":2,"pctAT":60.0,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":60.0}]},"After Dose 4":{"Non-pre-infected":[{"category":"Total","group":"Total","AT":1,"BT":0,"pctAT":100.0,"actual":"Adaptive","nn":"Vaccine-induced","bass":"Adaptive","accuracy":null},{"category":"Gender","group":"Male","AT":1,"BT":0,"pctAT":100.0,"actual":"Adaptive","nn":"Vaccine-induced","bass":"Adaptive","accuracy":null},{"category":"Gender","group":"Female","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Adaptive","accuracy":null},{"category":"Age group","group":"\u226429","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"NA","accuracy":null},{"category":"Age group","group":"30\u201339","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Adaptive","accuracy":null},{"category":"Age group","group":"40\u201349","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Adaptive","accuracy":null},{"category":"Age group","group":"50+","AT":1,"BT":0,"pctAT":100.0,"actual":"Adaptive","nn":"Vaccine-induced","bass":"Adaptive","accuracy":null},{"category":"Job title","group":"Administration","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Adaptive","accuracy":null},{"category":"Job title","group":"Technician","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"NA","accuracy":null},{"category":"Job title","group":"Nurse","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Adaptive","accuracy":null},{"category":"Job title","group":"Physician","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Adaptive","accuracy":null},{"category":"Job title","group":"Other HCPs","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"NA","accuracy":null}],"Pre-infected":[{"category":"Total","group":"Total","AT":3,"BT":4,"pctAT":42.86,"actual":"Vaccine-induced","nn":"Hybrid","bass":"Hybrid","accuracy":33.33},{"category":"Gender","group":"Male","AT":3,"BT":2,"pctAT":60.0,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":50.0},{"category":"Gender","group":"Female","AT":0,"BT":2,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Hybrid","bass":"Hybrid","accuracy":0.0},{"category":"Age group","group":"\u226429","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":null},{"category":"Age group","group":"30\u201339","AT":0,"BT":1,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Hybrid","bass":"Hybrid","accuracy":0.0},{"category":"Age group","group":"40\u201349","AT":0,"BT":1,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Hybrid","bass":"Hybrid","accuracy":0.0},{"category":"Age group","group":"50+","AT":3,"BT":2,"pctAT":60.0,"actual":"Hybrid","nn":"Hybrid","bass":"Hybrid","accuracy":50.0},{"category":"Job title","group":"Administration","AT":1,"BT":2,"pctAT":33.33,"actual":"Vaccine-induced","nn":"Hybrid","bass":"Hybrid","accuracy":33.33},{"category":"Job title","group":"Technician","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":null},{"category":"Job title","group":"Nurse","AT":0,"BT":0,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Vaccine-induced","bass":"Hybrid","accuracy":null},{"category":"Job title","group":"Physician","AT":1,"BT":1,"pctAT":50.0,"actual":"Vaccine-induced","nn":"Hybrid","bass":"Hybrid","accuracy":50.0},{"category":"Job title","group":"Other HCPs","AT":0,"BT":1,"pctAT":0.0,"actual":"Vaccine-induced","nn":"Hybrid","bass":"Hybrid","accuracy":0.0}]}},"intervals":["Dose 1 \u2192 Dose 2","Dose 2 \u2192 Dose 3","Dose 3 \u2192 Dose 4","After Dose 4"],"statuses":["No pre-infection","Pre-infection"],"cats":{"Total":["Total"],"Gender":["Male","Female"],"Age group":["\u226429","30\u201339","40\u201349","50+"],"Job title":["Administration","Technician","Nurse","Physician","Other HCPs"]},"figS1":{"gender_pre":"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","gender_no":"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","age_pre":"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","age_no":"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","job_pre":"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","job_no":"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"},"pctIssues":[{"interval":"Dose 1 \u2192 Dose 2","status":"Pre-infected","category":"Job title","group":"Technician","reported":0.0,"calculated":50.0},{"interval":"Dose 2 \u2192 Dose 3","status":"Non-pre-infected","category":"Job title","group":"Technician","reported":0.0,"calculated":51.69117647058823},{"interval":"Dose 2 \u2192 Dose 3","status":"Pre-infected","category":"Job title","group":"Technician","reported":0.0,"calculated":68.64988558352402}]};
+const figS1=DATA.figS1;
+
+function opt(sel,arr){sel.innerHTML=arr.map(x=>`<option>${x}</option>`).join("")}
+function fmt(v,d=2){return v===null||v===undefined||Number.isNaN(v)?"NA":Number(v).toFixed(d)}
+function prepareCanvas(c){
+  const dpr=Math.max(1,window.devicePixelRatio||1);
+  const cssW=Math.max(320,c.clientWidth||c.width);
+  const cssH=parseFloat(getComputedStyle(c).height)||360;
+  const w=Math.round(cssW*dpr), h=Math.round(cssH*dpr);
+  if(c.width!==w||c.height!==h){c.width=w;c.height=h}
+  const ctx=c.getContext("2d");
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,cssW,cssH);
+  return {ctx,W:cssW,H:cssH};
+}
+function clear(c){return prepareCanvas(c).ctx}
+function getRow(iv,status,category,group){
+  const rows=DATA.immunityTables?.[iv]?.[status]||[];
+  return rows.find(r=>r.category===category && r.group===group)||null;
+}
+function groupsFor(cat){return cat==="Total"?["Total"]:(DATA.cats[cat]||[])}
+function responseColor(label){return label==="Vaccine-induced"?"#5a91ae":label==="Adaptive"?"#4f8665":label==="Hybrid"?"#75568a":"#a7b0b6"}
+function badge(label){const c=label==="Vaccine-induced"?"vacc":label==="Adaptive"?"adapt":label==="Hybrid"?"hyb":"na";return `<span class="badge ${c}">${label||"NA"}</span>`}
+
+// Population Structure
+
+const S1_REBUILT = {
+  centers:["Spain - Barcelona","Slovakia - Multicenter","Romania - Multicenter","Italy - Verona","Italy - Trieste","Italy - Brescia","Italy - Bologna","Italy - Bari","Germany - Munich"],
+  colors:["#2F4858","#F28E2B","#6C7A89","#59A14F","#4E79A7","#F1C40F","#9C9C9C","#E07A2F","#76B7EB"],
+  gender:{
+    categories:["female","male"],
+    pre:{
+      female:[18,4,0.3,8,27,31,6,2,2],
+      male:[20,2,0.1,7,27,32,0.5,4,1.5]
+    },
+    no:{
+      female:[1,2,0.1,15,23,30,24,1,2],
+      male:[1,0.5,0.1,13,25,30,25,1,1.5]
+    }
+  },
+  age:{
+    categories:["50+","40–49","30–39","<29"],
+    pre:{
+      "50+":[18,4,0.1,9,31,30,3,1,2],
+      "40–49":[21,5,0.1,8,27,29,8,1,1],
+      "30–39":[16,3,0.1,7,27,32,6,2,3],
+      "<29":[19,3,0.1,7,19,43,5,1,3]
+    },
+    no:{
+      "50+":[1.5,1,0.1,14,29,29,0.1,0.5,2],
+      "40–49":[2,3,0.1,14,22,32,23,0.5,2],
+      "30–39":[1,0.1,0.1,13,19,28,34,0.5,3],
+      "<29":[2,2,0.1,18,15,37,0.1,0.5,3]
+    }
+  },
+  job:{
+    categories:["Other HCPs","Physician","Nurse","Technician","Administration"],
+    pre:{
+      "Other HCPs":[12,1,0.1,10,25,35,0.1,0.1,0.1],
+      "Physician":[21,2,0.1,0.5,20,36,0.1,5,0.1],
+      "Nurse":[16,0.5,0.1,10,30,30,0.1,2,0.1],
+      "Technician":[0.5,1,0.1,9,50,30,0.1,0.1,0.1],
+      "Administration":[20,5,0.1,3,0.5,34,0.1,1,1]
+    },
+    no:{
+      "Other HCPs":[1,3,0.1,14,20,33,0.1,1,0.1],
+      "Physician":[2,1,0.1,12,18,34,28,1,0.1],
+      "Nurse":[0.1,0.5,0.1,0.5,28,31,29,1,0.1],
+      "Technician":[1,1,0.1,14,25,24,0.1,0.1,0.1],
+      "Administration":[2,1,0.1,14,25,40,0.1,0.1,0.5]
+    }
+  }
+};
+
+let activeS1="gender";
+function roundedMax(v){
+  if(v<=10) return 10;
+  if(v<=25) return 25;
+  if(v<=40) return 40;
+  if(v<=50) return 50;
+  return Math.ceil(v/10)*10;
+}
+function drawS1Panel(canvasId, panelKey){
+  const c=document.getElementById(canvasId), prep=prepareCanvas(c), ctx=prep.ctx, W=prep.W, H=prep.H;
+  const block=S1_REBUILT[activeS1], cats=block.categories, centers=S1_REBUILT.centers, colors=S1_REBUILT.colors;
+  const series=block[panelKey];
+  const vmax=roundedMax(Math.max(...cats.flatMap(cat=>series[cat])));
+  const left=120,right=22,top=24,bottom=40;
+  const barH=activeS1==="gender"?14:8, gap=2, groupGap=16;
+  const groupH=centers.length*barH+(centers.length-1)*gap;
+  const totalH=cats.length*groupH+(cats.length-1)*groupGap;
+  const startY=Math.max(top, top + ((H-top-bottom)-totalH)/2);
+  const x0=left, x1=W-right;
+  const X=v=>x0 + (v/vmax)*(x1-x0);
+
+  ctx.font="12px Arial";
+  ctx.strokeStyle="#E3EAF0";
+  ctx.fillStyle="#677785";
+
+  const ticks = vmax===25 ? [0,5,10,15,20,25] : Array.from({length:Math.floor(vmax/10)+1}, (_,i)=>i*10);
+  ticks.forEach(t=>{
+    const x=X(t);
+    ctx.beginPath(); ctx.moveTo(x, top-4); ctx.lineTo(x, H-bottom); ctx.stroke();
+    ctx.textAlign="center"; ctx.fillText(String(t), x, H-16);
+  });
+
+  cats.forEach((cat, ci)=>{
+    const gy = startY + ci*(groupH+groupGap);
+    ctx.fillStyle="#17364E";
+    ctx.font="bold 12px Arial";
+    ctx.textAlign="right";
+    ctx.fillText(cat, left-10, gy + groupH/2 + 4);
+
+    centers.forEach((center, si)=>{
+      const y = gy + si*(barH+gap);
+      const val = series[cat][si];
+      ctx.fillStyle = colors[si];
+      const w = X(val)-x0;
+      ctx.fillRect(x0, y, w, barH);
+      if(val >= 2){
+        ctx.fillStyle = "#24323C";
+        ctx.font = "11px Arial";
+        ctx.textAlign = "left";
+        ctx.fillText(val % 1 === 0 ? String(val) : val.toFixed(1), Math.min(x0+w+4, W-18), y + barH - 1);
+      }
+    });
+  });
+
+  ctx.fillStyle="#5F7280";
+  ctx.font="11px Arial";
+  ctx.textAlign="left";
+  ctx.fillText("Relative frequency (%)", x0, H-4);
+}
+function renderS1Legend(){
+  document.getElementById("s1Legend").innerHTML = S1_REBUILT.centers.map((c,i)=>
+    `<div class="legend-item"><span class="legend-swatch" style="background:${S1_REBUILT.colors[i]}"></span><span>${c}</span></div>`
+  ).join("");
+}
+function renderS1(){
+  drawS1Panel("s1preCanvas","pre");
+  drawS1Panel("s1noCanvas","no");
+  const txt=activeS1==="gender"
+    ? "Female participation is higher across several major cohorts, with notable contributions from Brescia and Trieste."
+    : activeS1==="age"
+    ? "Age coverage is broad across cohorts, with concentration patterns varying by site and prior-infection status."
+    : "Occupational coverage spans physicians, nurses, technicians, administration, and other healthcare professionals, with substantial cross-site variation.";
+  document.getElementById("s1Interpretation").innerHTML = txt;
+}
+document.querySelectorAll("[data-s1]").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("[data-s1]").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");
+  activeS1=b.dataset.s1;
+  renderS1();
+}));
+window.addEventListener("resize",()=>renderS1());
+renderS1Legend();
+renderS1();
+
+
+// Laboratory Harmonization
+const cohortSel=document.getElementById("cohortSel");
+opt(cohortSel,DATA.cohorts.map(x=>x.cohort));
+function renderCohort(){
+  const r=DATA.cohorts.find(x=>x.cohort===cohortSel.value);
+  document.getElementById("cohortMetrics").innerHTML=`
+    <div class="metric"><span>Serology platform</span><strong>${r.assay}</strong></div>
+    <div class="metric"><span>Original unit</span><strong>${r.unit}</strong></div>
+    <div class="metric"><span>Raw mean (SD)</span><strong>${r.mean}</strong></div>
+    <div class="metric"><span>Standardized mean (SD)</span><strong>${r.standardized}</strong></div>
+    <div class="metric"><span>Anti-N testing</span><strong>${r.antiN}</strong></div>
+    <div class="metric"><span>PCR information</span><strong>${r.pcr}</strong></div>`;
+  document.getElementById("cohortInterpretation").innerHTML=`<strong>${r.cohort}</strong><br>Raw antibody values are assay-specific; standardized values are used to improve cross-cohort comparability.`;
+}
+cohortSel.addEventListener("change",()=>{renderCohort();drawStandardized()});renderCohort();
+
+
+function drawStandardized(){
+  const c=document.getElementById("standardizedChart"),prep=prepareCanvas(c),ctx=prep.ctx,W=prep.W,H=prep.H,p={l:185,r:70,t:28,b:42};
+  const vals=DATA.cohorts.map(r=>parseFloat(r.standardized.split(" ")[0]));
+  const min=Math.min(...vals)-.15,max=Math.max(...vals)+.15;
+  const Y=i=>p.t+i*(H-p.t-p.b)/(DATA.cohorts.length-1);
+  const X=v=>p.l+(v-min)/(max-min)*(W-p.l-p.r);
+  ctx.font="12px Arial";ctx.strokeStyle="#e7edf0";ctx.fillStyle="#5f7280";
+  for(let j=0;j<=4;j++){
+    const v=min+(max-min)*j/4,x=X(v);
+    ctx.beginPath();ctx.moveTo(x,p.t-8);ctx.lineTo(x,H-p.b);ctx.stroke();
+    ctx.textAlign="center";ctx.fillText(v.toFixed(2),x,H-18);
+  }
+  DATA.cohorts.forEach((r,i)=>{
+    const y=Y(i),val=vals[i],selected=r.cohort===cohortSel.value;
+    ctx.textAlign="right";ctx.fillStyle=selected?"#17364e":"#5f7280";ctx.font=selected?"bold 10px Arial":"10px Arial";ctx.fillText(r.cohort,p.l-12,y+4);
+    ctx.strokeStyle="#d9e3e8";ctx.beginPath();ctx.moveTo(X(min),y);ctx.lineTo(X(val),y);ctx.stroke();
+    ctx.fillStyle=selected?"#17364e":"#2e7d83";ctx.beginPath();ctx.arc(X(val),y,selected?7:5,0,Math.PI*2);ctx.fill();
+    ctx.textAlign="left";ctx.fillStyle="#5f7280";ctx.font="12px Arial";ctx.fillText(val.toFixed(3),X(val)+10,y+4);
+  });
+  ctx.textAlign="left";ctx.fillStyle="#536875";ctx.fillText("Standardized mean serology",p.l,H-5);
+}
+function renderLabReadiness(){
+  const antiN=DATA.cohorts.filter(r=>r.antiN==="Available").length;
+  const pcr=DATA.cohorts.filter(r=>r.pcr==="Available").length;
+  const platforms=new Set(DATA.cohorts.map(r=>r.assay)).size;
+  document.getElementById("labReadiness").innerHTML=`
+    <div class="quality-item"><span>Assay diversity</span><strong>${platforms} platforms across ${DATA.cohorts.length} cohorts</strong></div>
+    <div class="quality-item"><span>Anti-N availability</span><strong>${antiN} of ${DATA.cohorts.length} cohorts</strong></div>
+    <div class="quality-item"><span>PCR availability</span><strong>${pcr} of ${DATA.cohorts.length} cohorts</strong></div>`;
+}
+drawStandardized();renderLabReadiness();
+
+// Frequency
+const freqStatus=document.getElementById("freqStatus"),freqCategory=document.getElementById("freqCategory"),freqGroup=document.getElementById("freqGroup");
+opt(freqStatus,MANUSCRIPT_STATUSES);opt(freqCategory,["Total","Gender","Age group","Job title"]);
+function refreshFreq(){opt(freqGroup,groupsFor(freqCategory.value))}refreshFreq();
+
+function drawFrequency(){
+  const c=document.getElementById("frequencyChart"),prep=prepareCanvas(c),ctx=prep.ctx,W=prep.W,H=prep.H,p={l:72,r:72,t:32,b:60};
+  document.getElementById("frequencySelection").textContent=`Selected segment: ${freqStatus.value} · ${freqCategory.value} · ${freqGroup.value}`;
+  const rows=DATA.intervals.map(iv=>getRow(iv,freqStatus.value,freqCategory.value,freqGroup.value));
+  const maxN=Math.max(1,...rows.map(r=>r?(r.AT||0)+(r.BT||0):0));
+  const X=i=>p.l+(i+.5)*(W-p.l-p.r)/4,barW=Math.min(88,(W-p.l-p.r)/7);
+  const Ycount=v=>H-p.b-v/maxN*(H-p.t-p.b),Ypct=v=>H-p.b-v/100*(H-p.t-p.b);
+
+  ctx.font="12px Arial";ctx.strokeStyle="#e5ecef";ctx.fillStyle="#647784";
+  [0,.25,.5,.75,1].forEach(fr=>{
+    const n=maxN*fr,y=Ycount(n);
+    ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(W-p.r,y);ctx.stroke();
+    ctx.textAlign="right";ctx.fillText(Math.round(n).toLocaleString(),p.l-10,y+3);
+    ctx.textAlign="left";ctx.fillText(Math.round(fr*100)+"%",W-p.r+10,y+3);
+  });
+
+  rows.forEach((r,i)=>{
+    const x=X(i);ctx.textAlign="center";ctx.fillStyle="#5d707c";
+    ctx.fillText(["D1→D2","D2→D3","D3→D4","After D4"][i],x,H-22);
+    if(!r)return;
+    const at=r.AT||0,bt=r.BT||0,total=at+bt;
+    const yAT=Ycount(at),yTotal=Ycount(total);
+    ctx.fillStyle="#2e7d83";ctx.fillRect(x-barW/2,yAT,barW,H-p.b-yAT);
+    ctx.fillStyle="#dfe8ec";ctx.fillRect(x-barW/2,yTotal,barW,yAT-yTotal);
+    ctx.fillStyle="#17364e";ctx.font="bold 12px Arial";ctx.fillText(`${at.toLocaleString()} / ${total.toLocaleString()}`,x,yTotal-8);
+  });
+
+  ctx.strokeStyle="#17364e";ctx.lineWidth=2.6;ctx.beginPath();let started=false;
+  rows.forEach((r,i)=>{
+    if(!r||r.pctAT===null)return;
+    const x=X(i),y=Ypct(r.pctAT);
+    if(!started){ctx.moveTo(x,y);started=true}else ctx.lineTo(x,y);
+  });ctx.stroke();
+  rows.forEach((r,i)=>{
+    if(!r||r.pctAT===null)return;
+    const x=X(i),y=Ypct(r.pctAT);
+    ctx.fillStyle="#17364e";ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fill();
+    ctx.font="bold 12px Arial";ctx.textAlign="center";ctx.fillText(fmt(r.pctAT,1)+"%",x,y-10);
+  });
+
+  const av=rows.map((r,i)=>({r,i})).filter(x=>x.r&&x.r.pctAT!==null);
+  let txt="No response data are available for this segment.";
+  if(av.length){
+    const hi=[...av].sort((a,b)=>b.r.pctAT-a.r.pctAT)[0],totalHi=(hi.r.AT||0)+(hi.r.BT||0);
+    txt=`The strongest reported above-threshold signal for <strong>${freqGroup.value}</strong> is <strong>${fmt(hi.r.pctAT,2)}%</strong> in <strong>${DATA.intervals[hi.i]}</strong> (${hi.r.AT} of ${totalHi} observations). `;
+    if(freqStatus.value==="Pre-infected"&&hi.i===1)txt+=`This aligns with the project’s stronger Dose 2 → Dose 3 response pattern among previously infected HCWs. `;
+    if(freqGroup.value==="Technician")txt+=`Technician results should be interpreted cautiously because the underlying percentage fields are internally inconsistent in selected intervals.`;
+  }
+  document.getElementById("frequencyInterpretation").innerHTML=`${txt}`;
+}
+freqCategory.addEventListener("change",()=>{refreshFreq();drawFrequency()});freqStatus.addEventListener("change",drawFrequency);freqGroup.addEventListener("change",drawFrequency);drawFrequency();
+
+// Detection
+const detectStatus=document.getElementById("detectStatus"),detectCategory=document.getElementById("detectCategory"),detectGroup=document.getElementById("detectGroup");
+opt(detectStatus,MANUSCRIPT_STATUSES);opt(detectCategory,["Total","Gender","Age group","Job title"]);
+function refreshDetect(){opt(detectGroup,groupsFor(detectCategory.value))}refreshDetect();
+
+function drawDetection(){
+  const c=document.getElementById("detectionChart"),prep=prepareCanvas(c),ctx=prep.ctx,W=prep.W,H=prep.H,p={l:155,r:25,t:54,b:62};
+  document.getElementById("detectionSelection").textContent=`Selected segment: ${detectStatus.value} · ${detectCategory.value} · ${detectGroup.value}`;
+  const methods=[["Observed serology","actual"],["Neural network","nn"],["Bass diffusion","bass"]];
+  const colW=(W-p.l-p.r)/4,cellW=colW-14,cellH=68;
+  const X=i=>p.l+i*colW+7,Y=mi=>p.t+mi*(cellH+18);
+
+  ctx.font="12px Arial";ctx.fillStyle="#617481";
+  ["D1→D2","D2→D3","D3→D4","After D4"].forEach((lab,i)=>{ctx.textAlign="center";ctx.fillText(lab,X(i)+cellW/2,28)});
+  methods.forEach((m,mi)=>{
+    ctx.textAlign="right";ctx.font="bold 12px Arial";ctx.fillStyle="#536875";ctx.fillText(m[0],p.l-14,Y(mi)+cellH/2+4);
+    DATA.intervals.forEach((iv,i)=>{
+      const r=getRow(iv,detectStatus.value,detectCategory.value,detectGroup.value),lab=r?(r[m[1]]||"NA"):"NA",x=X(i),y=Y(mi);
+      ctx.fillStyle=responseColor(lab);ctx.globalAlpha=lab==="NA"?.30:.96;ctx.fillRect(x,y,cellW,cellH);ctx.globalAlpha=1;
+      ctx.fillStyle="#fff";ctx.textAlign="center";ctx.font="bold 12px Arial";ctx.fillText(lab,x+cellW/2,y+cellH/2+4);
+    });
+  });
+
+  const rows=DATA.intervals.map(iv=>({iv,r:getRow(iv,detectStatus.value,detectCategory.value,detectGroup.value)})).filter(x=>x.r);
+  const full=rows.filter(x=>x.r.actual===x.r.nn&&x.r.actual===x.r.bass&&x.r.actual!=="NA");
+  const hybridObs=rows.filter(x=>x.r.actual==="Hybrid");
+  const partial=rows.filter(x=>new Set([x.r.actual,x.r.nn,x.r.bass].filter(v=>v&&v!=="NA")).size===2);
+
+  let txt=`For <strong>${detectGroup.value}</strong> (${detectStatus.value.toLowerCase()}), `;
+  txt+=hybridObs.length?`the observed serological pattern is classified as Hybrid in <strong>${hybridObs.map(x=>x.iv).join(", ")}</strong>. `:`the observed serological pattern is not classified as Hybrid in the displayed intervals. `;
+  if(full.length)txt+=`Observed, NN, and Bass classifications fully agree in <strong>${full.map(x=>x.iv).join(", ")}</strong>. `;
+  if(partial.length)txt+=`Partial cross-method agreement occurs in <strong>${partial.map(x=>x.iv).join(", ")}</strong>.`;
+  document.getElementById("detectionInterpretation").innerHTML=`${txt}`;
+}
+detectCategory.addEventListener("change",()=>{refreshDetect();drawDetection()});detectStatus.addEventListener("change",drawDetection);detectGroup.addEventListener("change",drawDetection);drawDetection();
+
+// Distribution across subgroup rows
+const distInterval=document.getElementById("distInterval"),distStatus=document.getElementById("distStatus");opt(distInterval,DATA.intervals);opt(distStatus,MANUSCRIPT_STATUSES);
+
+function drawDistribution(){
+  const c=document.getElementById("distributionChart"),prep=prepareCanvas(c),ctx=prep.ctx,W=prep.W,H=prep.H,p={l:68,r:25,t:44,b:66};
+  document.getElementById("distributionSelection").textContent=`Selected phase: ${distInterval.value} · ${distStatus.value}`;
+  const rows=(DATA.immunityTables?.[distInterval.value]?.[distStatus.value]||[]).filter(r=>r.group!=="Total");
+  const types=["Vaccine-induced","Adaptive","Hybrid"],methods=[["Observed","actual"],["Neural network","nn"],["Bass","bass"]];
+  const counts=methods.map(m=>types.map(t=>rows.filter(r=>r[m[1]]===t).length));
+  const max=Math.max(1,...counts.flat()),Y=v=>H-p.b-v/max*(H-p.t-p.b),gw=(W-p.l-p.r)/3,bw=Math.min(58,gw/5);
+
+  ctx.font="12px Arial";ctx.strokeStyle="#e5ecef";ctx.fillStyle="#647784";
+  for(let j=0;j<=4;j++){
+    const v=max*j/4,y=Y(v);ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(W-p.r,y);ctx.stroke();ctx.textAlign="right";ctx.fillText(v.toFixed(v<5?1:0),p.l-10,y+3);
+  }
+  let lx=p.l;
+  methods.forEach((m,mi)=>{
+    const col=["#5a91ae","#4f8665","#75568a"][mi];ctx.fillStyle=col;ctx.fillRect(lx,14,12,7);ctx.fillStyle="#5d707c";ctx.textAlign="left";ctx.fillText(m[0],lx+18,21);lx+=145;
+  });
+
+  types.forEach((t,ti)=>{
+    const cx=p.l+gw*(ti+.5);
+    methods.forEach((m,mi)=>{
+      const v=counts[mi][ti],x=cx+(mi-1)*(bw+10),y=Y(v);
+      ctx.fillStyle=["#5a91ae","#4f8665","#75568a"][mi];ctx.fillRect(x-bw/2,y,bw,H-p.b-y);
+      ctx.fillStyle="#17364e";ctx.textAlign="center";ctx.font="bold 12px Arial";ctx.fillText(v,x,y-7);
+    });
+    ctx.fillStyle="#536875";ctx.font="12px Arial";ctx.fillText(t,cx,H-25);
+  });
+
+  document.querySelector("#distributionTable tbody").innerHTML=types.map((t,ti)=>{
+    const obs=rows.filter(r=>r.actual===t);
+    return `<tr><td>${badge(t)}</td><td class="num">${counts[0][ti]}</td><td class="num">${counts[1][ti]}</td><td class="num">${counts[2][ti]}</td><td>${obs.length?obs.map(r=>r.category+": "+r.group).join(" · "):"None reported"}</td></tr>`;
+  }).join("");
+
+  const obsTop=types.map((t,i)=>({t,n:counts[0][i]})).sort((a,b)=>b.n-a.n)[0];
+  const nnTop=types.map((t,i)=>({t,n:counts[1][i]})).sort((a,b)=>b.n-a.n)[0];
+  const bassTop=types.map((t,i)=>({t,n:counts[2][i]})).sort((a,b)=>b.n-a.n)[0];
+  let txt=`In <strong>${distInterval.value}</strong> (${distStatus.value.toLowerCase()}), the leading subgroup-level classification is <strong>${obsTop.t}</strong> in observed data, <strong>${nnTop.t}</strong> for the neural network, and <strong>${bassTop.t}</strong> for Bass diffusion. `;
+  if(distStatus.value==="Pre-infected"&&distInterval.value==="Dose 2 → Dose 3")txt+=`This is the project’s strongest cross-method Hybrid concentration. `;
+  if(distInterval.value==="After Dose 4")txt+=`Post-Dose-4 comparisons are descriptive only because the study data show sparse data.`;
+  document.getElementById("distributionInterpretation").innerHTML=`${txt}`;
+}
+distInterval.addEventListener("change",drawDistribution);distStatus.addEventListener("change",drawDistribution);drawDistribution();
+window.addEventListener("resize",()=>{drawStandardized();drawFrequency();drawDetection();drawDistribution()});
+</script>
+</body>
+</html>
