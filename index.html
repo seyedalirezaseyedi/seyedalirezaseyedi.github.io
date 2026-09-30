@@ -1136,9 +1136,19 @@ function showView(id,push=true){
   const el=document.getElementById(id)||document.getElementById('home');
   el.classList.add('active');
   window.scrollTo(0,0);
-  if(push) history.replaceState(null,'','#'+el.id);
+
+  const newHash = '#' + el.id;
+  if(push && location.hash !== newHash){
+    history.pushState({view:el.id},'',newHash);
+  }
 }
-window.addEventListener('hashchange',()=>showView(location.hash.slice(1)||'home',false));
+
+function syncViewFromHistory(){
+  showView(location.hash.slice(1)||'home',false);
+}
+
+window.addEventListener('popstate', syncViewFromHistory);
+window.addEventListener('hashchange', syncViewFromHistory);
 
 function filterPubs(cat,btn){
   document.querySelectorAll('.filter').forEach(x=>x.classList.remove('on'));
