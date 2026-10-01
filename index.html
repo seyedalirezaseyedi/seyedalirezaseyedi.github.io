@@ -416,7 +416,6 @@ a{color:inherit}
   background:var(--dark)!important;color:#fff!important;border-color:var(--dark)!important;
 }
 .dashboard-link:hover{background:var(--accent)!important;border-color:var(--accent)!important}
-.dashboard-icon{font-size:13px;line-height:1}
 @media(max-width:860px){
       .portfolio-grid-pro{grid-template-columns:1fr}
 }
@@ -441,6 +440,40 @@ a{color:inherit}
 }
 
 @media print{.top,.back{display:none!important}.view{display:none!important}.view.active{display:block!important}.content{padding:20px}}
+
+/* Skills evidence clusters */
+.skill-evidence-intro{
+  max-width:900px;color:var(--muted);font-size:14px;line-height:1.6;margin:-8px 0 24px
+}
+.skill-cluster-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.skill-cluster{
+  border:1px solid var(--line);border-radius:16px;background:#fff;padding:20px;
+  box-shadow:0 10px 26px rgba(16,54,58,.045)
+}
+.skill-cluster .cluster-kicker{
+  color:var(--accent);font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:850
+}
+.skill-cluster h3{font-size:20px;margin:6px 0 7px}
+.skill-cluster .cluster-summary{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:13px}
+.cluster-skills{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 15px}
+.cluster-skills span{
+  display:inline-block;padding:5px 8px;border-radius:999px;background:var(--soft);
+  border:1px solid #e2e7e8;color:#526066;font-size:10px;font-weight:750
+}
+.sample-box{border-top:1px solid var(--line);padding-top:14px;margin-top:4px}
+.sample-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:850}
+.sample-title{font-size:15px;font-weight:800;margin:4px 0 5px;color:var(--dark)}
+.sample-copy{font-size:12px;color:#59666c;line-height:1.55}
+.sample-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.sample-actions a,.sample-actions button{
+  display:inline-flex;align-items:center;text-decoration:none;border:1px solid var(--line);
+  border-radius:9px;background:#fff;color:var(--dark);padding:7px 10px;font-size:10px;font-weight:800;cursor:pointer
+}
+.sample-actions a.primary{background:var(--dark);border-color:var(--dark);color:#fff}
+.sample-actions a:hover,.sample-actions button:hover{border-color:var(--accent);color:var(--accent)}
+.sample-actions a.primary:hover{background:var(--accent);color:#fff}
+@media(max-width:850px){.skill-cluster-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -1052,7 +1085,7 @@ a{color:inherit}
     <h3>Water Governance Fit & Structural Decision Analytics</h3>
     <p>Quantitative governance-structure analysis for water systems, combining statistical-mechanics modelling, scenario testing, institutional fit, sector supply–demand analysis and decision interpretation.</p>
     <div class="evidence-note"><strong>Project focus.</strong> Water governance · institutional restructuring · scenario analytics · environmental decision support.</div>
-    <div class="portfolio-links"><a class="dashboard-link" href="water-governance-analytics.html"><span class="dashboard-icon">▦</span>Open Dashboard ↗</a></div>
+    <div class="portfolio-links"><a class="dashboard-link" href="./water-governance-analytics.html">Water Governance Dashboard ↗</a></div>
    </article>
 
    <article class="work-card dashboard-card">
@@ -1060,7 +1093,7 @@ a{color:inherit}
     <h3>Dynamic Forest Governance & Biodiversity Policy Analytics</h3>
     <p>Interactive bioeconomic decision analytics comparing decentralized and cooperative forest-management regimes through biodiversity, harvesting pressure, optimal control and policy sensitivity.</p>
     <div class="evidence-note"><strong>Project focus.</strong> Forest economics · biodiversity · dynamic games · optimal control · policy sensitivity.</div>
-    <div class="portfolio-links"><a class="dashboard-link" href="forest-governance-biodiversity-analytics.html"><span class="dashboard-icon">▦</span>Open Dashboard ↗</a></div>
+    <div class="portfolio-links"><a class="dashboard-link" href="./forest-governance-biodiversity-analytics.html">Forest Governance Dashboard ↗</a></div>
    </article>
 
    <article class="work-card dashboard-card">
@@ -1068,7 +1101,7 @@ a{color:inherit}
     <h3>Longitudinal Immunity & Vaccine Response Analytics</h3>
     <p>Interactive biomedical analytics for population segmentation, cross-cohort serology harmonization, longitudinal antibody-response tracking and immune-response classification across vaccination phases.</p>
     <div class="evidence-note"><strong>Project focus.</strong> Longitudinal serology · healthcare analytics · neural networks · subgroup analysis · response classification.</div>
-    <div class="portfolio-links"><a class="dashboard-link" href="longitudinal-immunity-analytics.html"><span class="dashboard-icon">▦</span>Open Dashboard ↗</a></div>
+    <div class="portfolio-links"><a class="dashboard-link" href="./longitudinal-immunity-analytics.html">Longitudinal Immunity Dashboard ↗</a></div>
    </article>
 
    <article class="work-card">
@@ -1102,16 +1135,91 @@ a{color:inherit}
 
 <!-- SKILLS -->
 <section class="view" id="skills"><div class="content">
- <div class="viewhead"><div><div class="kicker">Capabilities</div><h1>Skills</h1></div><button class="back" onclick="showView('home')">← Home</button></div>
- <div class="two">
-  <div>
-   <div class="skillgroup"><h3>Programming & Reproducibility</h3><div class="chips"><span class="chip">C++</span><span class="chip">Python</span><span class="chip">R</span><span class="chip">MATLAB</span><span class="chip">Mathematica</span><span class="chip">Stata</span><span class="chip">SQL</span><span class="chip">LaTeX</span><span class="chip">Git / GitHub</span></div></div>
-   <div class="skillgroup"><h3>Optimization & Mathematics</h3><div class="chips"><span class="chip">Optimal Control</span><span class="chip">Dynamic Programming</span><span class="chip">Stochastic Optimization</span><span class="chip">Multi-objective Optimization</span><span class="chip">Dynamic Games</span><span class="chip">Nonlinear Dynamics</span><span class="chip">Statistical Mechanics</span></div></div>
-  </div>
-  <div>
-   <div class="skillgroup"><h3>Statistics & AI</h3><div class="chips"><span class="chip">Machine Learning</span><span class="chip">Forecasting</span><span class="chip">Longitudinal Analysis</span><span class="chip">Spatio-temporal Modelling</span><span class="chip">Uncertainty Quantification</span><span class="chip">Sensitivity Analysis</span></div></div>
-   <div class="skillgroup"><h3>Environmental & Spatial</h3><div class="chips"><span class="chip">ArcGIS</span><span class="chip">QGIS</span><span class="chip">Hydrological Data</span><span class="chip">Meteorological Data</span><span class="chip">Satellite-derived Data</span><span class="chip">Scenario Analysis</span></div></div>
-  </div>
+ <div class="viewhead"><div><div class="kicker">Capabilities</div><h1>Skills & Evidence</h1></div><button class="back" onclick="showView('home')">← Home</button></div>
+
+ <p class="skill-evidence-intro">
+  Technical capabilities are grouped into four connected evidence areas. Each area combines related methods and tools around one representative applied workflow, with links to portfolio projects or published work where the capability is demonstrated.
+ </p>
+
+ <div class="skill-cluster-grid">
+
+  <article class="skill-cluster">
+   <div class="cluster-kicker">Computational Delivery</div>
+   <h3>Computational Workflow & Reproducibility</h3>
+   <p class="cluster-summary">Programming, data preparation, numerical implementation and reproducible analytical delivery across research and business-facing quantitative projects.</p>
+   <div class="cluster-skills">
+    <span>C++</span><span>Python</span><span>R</span><span>MATLAB</span><span>Mathematica</span>
+    <span>Stata</span><span>SQL</span><span>LaTeX</span><span>Git / GitHub</span>
+   </div>
+   <div class="sample-box">
+    <div class="sample-label">Representative professional sample</div>
+    <div class="sample-title">Reproducible Scenario-to-Dashboard Analytics Pipeline</div>
+    <div class="sample-copy">A structured workflow that validates inputs, runs quantitative scenarios, aggregates decision metrics and publishes reproducible outputs for review and deployment.</div>
+    <div class="sample-actions">
+     <a class="primary" href="./forest-governance-biodiversity-analytics.html">Forest Governance Dashboard ↗</a>
+     <a href="https://github.com/59alireza59/Business-Analytics-Portfolios" target="_blank" rel="noopener">Business analytics repository ↗</a>
+    </div>
+   </div>
+  </article>
+
+  <article class="skill-cluster">
+   <div class="cluster-kicker">Decision Science</div>
+   <h3>Optimization & Mathematical Decision Systems</h3>
+   <p class="cluster-summary">Dynamic and stochastic decision models for allocating resources, comparing strategies, managing competing objectives and evaluating system-level consequences over time.</p>
+   <div class="cluster-skills">
+    <span>Optimal Control</span><span>Dynamic Programming</span><span>Stochastic Optimization</span>
+    <span>Multi-objective Optimization</span><span>Dynamic Games</span><span>Nonlinear Dynamics</span>
+    <span>Statistical Mechanics</span>
+   </div>
+   <div class="sample-box">
+    <div class="sample-label">Representative professional sample</div>
+    <div class="sample-title">Dynamic Strategy & Resource-Allocation Engine</div>
+    <div class="sample-copy">A decision framework that compares decentralized and coordinated strategies, propagates state dynamics and tests how parameter changes alter long-run outcomes.</div>
+    <div class="sample-actions">
+     <a class="primary" href="./water-governance-analytics.html">Water Governance Dashboard ↗</a>
+     <a href="./forest-governance-biodiversity-analytics.html">Forest Governance Dashboard ↗</a>
+    </div>
+   </div>
+  </article>
+
+  <article class="skill-cluster">
+   <div class="cluster-kicker">Predictive Analytics</div>
+   <h3>Statistical & AI Analytics</h3>
+   <p class="cluster-summary">Statistical inference, predictive modelling and uncertainty analysis for longitudinal, heterogeneous and time-dependent data used in monitoring and decision support.</p>
+   <div class="cluster-skills">
+    <span>Machine Learning</span><span>Forecasting</span><span>Longitudinal Analysis</span>
+    <span>Spatio-temporal Modelling</span><span>Uncertainty Quantification</span><span>Sensitivity Analysis</span>
+   </div>
+   <div class="sample-box">
+    <div class="sample-label">Representative professional sample</div>
+    <div class="sample-title">Longitudinal Response Classification & Monitoring</div>
+    <div class="sample-copy">A pipeline for harmonizing repeated measurements, building subgroup features, classifying response patterns and comparing outputs across analytical methods.</div>
+    <div class="sample-actions">
+     <a class="primary" href="./longitudinal-immunity-analytics.html">Longitudinal Immunity Dashboard ↗</a>
+    </div>
+   </div>
+  </article>
+
+  <article class="skill-cluster">
+   <div class="cluster-kicker">Environmental Intelligence</div>
+   <h3>Environmental & Spatial Decision Analytics</h3>
+   <p class="cluster-summary">Integration of hydrological, meteorological, satellite-derived and spatial information for water-system assessment, environmental scenarios and governance analysis.</p>
+   <div class="cluster-skills">
+    <span>QGIS</span><span>Hydrological Data</span><span>Meteorological Data</span>
+    <span>Satellite-derived Data</span><span>Scenario Analysis</span>
+   </div>
+   <div class="sample-box">
+    <div class="sample-label">Evidence-linked professional sample</div>
+    <div class="sample-title">Water Governance & Basin Intelligence Workflow</div>
+    <div class="sample-copy">Spatial and environmental inputs are organized to support basin-level interpretation, governance-system comparison and scenario analysis. QGIS is presented here only in connection with the water-governance research line.</div>
+    <div class="sample-actions">
+     <a class="primary" href="./water-governance-analytics.html">Water Governance Dashboard ↗</a>
+     <a href="https://doi.org/10.1016/j.watres.2022.118272" target="_blank" rel="noopener">Water Research 2022 ↗</a>
+     <a href="https://doi.org/10.1016/j.crsust.2024.100248" target="_blank" rel="noopener">Regional assessment 2024 ↗</a>
+    </div>
+   </div>
+  </article>
+
  </div>
 </div></section>
 

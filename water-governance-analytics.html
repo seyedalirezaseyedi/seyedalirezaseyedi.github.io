@@ -356,10 +356,24 @@ button.primary{background:var(--navy);border-color:var(--navy)}
   .project-shell,.business-hero,.biz-section,.paper-figure{padding:16px}
   .project-facts,.exec-grid,.kpis,.interpretation-grid,.price-grid{grid-template-columns:1fr}
 }
+
+.home-nav{
+  display:flex;justify-content:flex-start;align-items:center;margin:0 0 14px;
+}
+.home-nav a{
+  display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+  border:1px solid rgba(0,0,0,.12);background:#fff;color:#344854;
+  border-radius:999px;padding:8px 12px;font-size:11px;font-weight:800;
+  box-shadow:0 5px 16px rgba(18,48,68,.05);transition:.16s ease;
+}
+.home-nav a:hover{transform:translateY(-1px);border-color:#116c76;color:#116c76}
+@media(max-width:620px){.home-nav{margin-bottom:10px}.home-nav a{font-size:10px;padding:7px 10px}}
+
 </style>
 </head>
 <body>
 <div class="wrap">
+<nav class="home-nav"><a href="./index.html" aria-label="Back to portfolio home">← Home / Portfolio</a></nav>
 
 <header class="hero-header">
   <div class="hero-topline">
