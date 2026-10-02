@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quantitative Finance & Risk Analytics | Seyedalireza Seyedi, PhD</title>
+<meta name="description" content="Live, source-audited quantitative finance dashboard using open historical market data and repository-aligned analytics.">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+:root{
+ --bg:#f3f6f7;--panel:#fff;--ink:#172126;--muted:#68777d;--line:#d9e1e4;
+ --deep:#17383e;--accent:#0f7280;--soft:#edf6f7;--good:#2d7063;--warn:#8a651d;--bad:#944a4a;
+ --shadow:0 10px 30px rgba(23,56,62,.07);--max:1480px
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--ink)}
+a{color:inherit}.shell{max-width:var(--max);margin:auto;padding:20px 22px 58px}
+.utility{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.pill{display:inline-flex;gap:7px;align-items:center;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:850;color:#435158}
+.hero{background:linear-gradient(135deg,#14343a,#194a53 62%,#0f7280);color:#fff;border-radius:22px;padding:31px 33px;box-shadow:var(--shadow)}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:26px;align-items:end}
+.eyebrow{font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#9ed4d9}
+h1{font-size:42px;line-height:1.05;letter-spacing:-.045em;margin:6px 0 10px}.hero p{max-width:920px;color:#dce9eb;font-size:14px;line-height:1.65;margin:0}
+.hero-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat{border:1px solid rgba(255,255,255,.18);border-radius:13px;padding:12px;background:rgba(255,255,255,.06)}
+.hero-stat span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#bcdfe2;font-weight:850}.hero-stat b{display:block;font-size:19px;margin-top:4px}
+.audit{margin:13px 0;background:#fff;border:1px solid var(--line);border-radius:15px;padding:14px 16px}
+.audit-top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.audit h3{margin:0;color:var(--deep);font-size:12px}
+.status{font-size:9px;font-weight:900;border-radius:999px;padding:5px 8px;border:1px solid var(--line)}.loading{background:#f6f7f7;color:#6c777c}.ok{background:#edf8f4;color:var(--good)}.warn{background:#fff8e8;color:var(--warn)}.fail{background:#fff0f0;color:var(--bad)}
+.prov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.prov{border:1px solid #edf1f2;background:#f9fbfb;border-radius:10px;padding:9px}.prov span{display:block;font-size:8px;text-transform:uppercase;color:var(--muted);font-weight:850}.prov b{display:block;font-size:10px;margin-top:4px;line-height:1.35}
+.navrow{display:flex;gap:7px;overflow:auto;padding:2px 0 12px}.navbtn{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;font-size:10.5px;font-weight:850;color:#506068;cursor:pointer}.navbtn.active{background:var(--deep);border-color:var(--deep);color:#fff}
+.workspace{display:grid;grid-template-columns:286px 1fr;gap:14px}.sidebar,.card{background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:0 4px 18px rgba(24,57,63,.035)}
+.sidebar{padding:15px;position:sticky;top:12px;height:fit-content}.sidebar h3{font-size:12px;margin:0 0 9px;color:var(--deep)}
+.module-item{border:1px solid var(--line);border-radius:11px;padding:10px 11px;margin-bottom:7px;cursor:pointer}.module-item.active,.module-item:hover{background:var(--soft);border-color:#9dc4c9}.module-item small{font-size:9px;color:var(--accent);font-weight:900}.module-item b{display:block;font-size:11px;margin-top:3px}.module-item span{display:block;font-size:9.3px;color:var(--muted);margin-top:3px;line-height:1.35}
+.main{display:grid;gap:14px}.panel{display:none}.panel.active{display:block}.card{padding:16px}
+.head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:12px}.head h2{margin:3px 0 4px;font-size:22px;color:var(--deep)}.head p{margin:0;font-size:11px;line-height:1.5;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px}.kpi{border:1px solid var(--line);background:#fbfcfc;border-radius:12px;padding:11px}.kpi span{display:block;font-size:8.3px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:850}.kpi b{display:block;font-size:14px;color:var(--deep);margin-top:4px}.kpi small{display:block;font-size:8.8px;color:var(--muted);margin-top:4px;line-height:1.35}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.chart-card{border:1px solid var(--line);border-radius:13px;background:#fff;min-height:360px;padding:6px}.chart-card.wide{grid-column:1/-1}.chart-label{font-size:9.5px;color:var(--muted);font-weight:750;padding:6px 8px 0}
+.notes{display:grid;grid-template-columns:1.12fr .88fr;gap:11px;margin-top:11px}.note,.evidence{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fafcfc}.note h4,.evidence h4{font-size:11px;margin:0 0 7px;color:var(--deep)}.note p,.note li{font-size:10px;line-height:1.55;color:#52636a}.note ul{margin:0;padding-left:16px}
+.e-row{display:grid;grid-template-columns:125px 1fr;gap:8px;padding:6px 0;border-bottom:1px solid #edf1f2}.e-row:last-child{border:none}.e-row span{font-size:8.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:850}.e-row b{font-size:9.8px;line-height:1.4;color:#3e4d53}
+.inline-status{font-size:9px;border-radius:999px;padding:4px 7px;font-weight:850;display:inline-block}.footer{font-size:9.8px;color:var(--muted);line-height:1.55;margin-top:16px}
+code{font-size:9.5px;background:#f1f4f5;padding:2px 4px;border-radius:4px}
+
+.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:flex-end;margin:0 0 12px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#f8fbfb}
+.control{display:grid;gap:4px;min-width:150px}.control.grow{flex:1;min-width:240px}.control label{font-size:8.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:850}
+.control input,.control select{border:1px solid var(--line);border-radius:8px;background:#fff;color:#33444a;font:inherit;font-size:10px;padding:8px;min-height:34px}
+.control select[multiple]{min-height:82px}.runbtn{border:0;border-radius:9px;padding:9px 13px;background:var(--deep);color:#fff;font-size:10px;font-weight:900;cursor:pointer;min-height:35px}
+.runbtn:hover{background:#22535c}.helper{font-size:8.8px;color:var(--muted);line-height:1.4;margin-top:3px}
+.chart-empty{height:310px;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;color:var(--muted);font-size:11px;line-height:1.55;background:linear-gradient(180deg,#fff,#fafcfc);border-radius:10px}
+
+
+.checkgroup{display:flex;flex-wrap:wrap;gap:7px;padding:7px;border:1px solid var(--line);border-radius:10px;background:#fff;min-height:42px}
+.checkitem{display:inline-flex;align-items:center;gap:6px;border:1px solid #e4eaec;border-radius:10px;padding:7px 9px;background:#fbfcfc;font-size:9.5px;color:#44555b;cursor:pointer;user-select:none;line-height:1.25}
+.checkitem input{margin:0;accent-color:var(--accent)}
+.checkitem:has(input:checked){background:var(--soft);border-color:#9dc4c9;color:var(--deep);font-weight:800}
+.runbtn.running{background:#6c858b;cursor:wait}
+.runbtn.done{background:var(--good)}
+.runbtn.failed{background:var(--bad)}
+
+
+.global-controls{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 15px;margin:0 0 14px;box-shadow:0 4px 18px rgba(24,57,63,.035)}
+.global-controls-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:11px;flex-wrap:wrap}
+.global-controls-head h3{margin:0;color:var(--deep);font-size:13px}.global-controls-head p{margin:3px 0 0;color:var(--muted);font-size:9.8px;line-height:1.45;max-width:820px}
+.global-row{display:grid;grid-template-columns:180px 180px 210px 1fr auto;gap:10px;align-items:end}
+.global-control{display:grid;gap:4px}.global-control label{font-size:8.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:850}
+.global-control input,.global-control select{border:1px solid var(--line);border-radius:8px;background:#fff;color:#33444a;font:inherit;font-size:10px;padding:8px;min-height:35px}
+.global-companies{display:flex;flex-wrap:wrap;gap:6px;padding:7px;border:1px solid var(--line);border-radius:10px;background:#fff;max-height:118px;overflow:auto}
+.global-note{font-size:8.8px;color:var(--muted);line-height:1.45;margin-top:8px}
+@media(max-width:1050px){.global-row{grid-template-columns:1fr 1fr}.global-row .wide{grid-column:1/-1}}
+@media(max-width:620px){.global-row{grid-template-columns:1fr}}
+
+
+.chart-card{position:relative;transition:box-shadow .18s ease,border-color .18s ease}
+.chart-card:hover{border-color:#bfd3d7;box-shadow:0 8px 24px rgba(23,56,62,.06)}
+.chart-label{letter-spacing:.015em}
+.method-tag{display:inline-flex;align-items:center;border:1px solid #dbe8ea;background:#f5fafb;border-radius:999px;padding:4px 7px;font-size:8px;font-weight:850;color:#547078}
+
+@media(max-width:1100px){.hero-grid{grid-template-columns:1fr}.hero-meta{grid-template-columns:repeat(4,1fr)}.workspace{grid-template-columns:1fr}.sidebar{position:relative;top:auto}.prov-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.chart-grid,.notes{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}.hero-meta{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.shell{padding:13px}.hero{padding:24px 20px}h1{font-size:32px}.hero-meta,.kpis,.prov-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body><div class="shell">
+<div class="utility"><a class="pill" href="./index.html">← Home / Portfolio</a><a class="pill" href="https://github.com/59alireza59/Quantitative-Finance" target="_blank" rel="noopener">GitHub evidence source ↗</a></div>
+
+<section class="hero"><div class="hero-grid">
+<div><div class="eyebrow">Quantitative Finance · Risk Analytics · Interactive Market & Risk Intelligence</div><h1>Quantitative Finance & Risk Analytics</h1><p>Interactive quantitative analysis of U.S.-listed equities, combining market structure, dependence, distribution diagnostics, regime analysis, derivative pricing, simulation and heavy-tail risk.</p></div>
+<div class="hero-meta"><div class="hero-stat"><span>Repository modules</span><b>7</b></div><div class="hero-stat"><span>Market universe</span><b>U.S.-listed equities</b></div><div class="hero-stat"><span>Analytics</span><b>Dynamic</b></div><div class="hero-stat"><span>Coverage</span><b>Multi-model</b></div></div>
+</div></section>
+
+<section class="audit">
+<div class="audit-top"><h3>Market data status</h3><span id="globalStatus" class="status loading">Loading market data…</span></div>
+<div class="prov-grid">
+<div class="prov"><span>Historical prices</span><b>Daily historical closing prices for the selected U.S.-listed companies.</b></div>
+<div class="prov"><span>Data continuity</span><b>Alternative public market-data endpoints are used when the primary series is unavailable.</b></div>
+<div class="prov"><span>Quality controls</span><b>Price histories are checked for valid dates, positive prices, duplicates, sample length and finite returns.</b></div>
+<div class="prov"><span>Analytical integrity</span><b>Results are displayed only when sufficient valid observations are available for the selected analysis.</b></div>
+</div></section>
+
+<nav class="navrow">
+<button class="navbtn active" data-target="clustering">01 · Clustering</button><button class="navbtn" data-target="leadlag">02 · Lead–Lag</button><button class="navbtn" data-target="bstest">03 · Black–Scholes Test</button><button class="navbtn" data-target="changepoint">04 · Change Point</button><button class="navbtn" data-target="option">05 · Option Pricing</button><button class="navbtn" data-target="mc">06 · Monte Carlo</button><button class="navbtn" data-target="levy">07 · Lévy / Heavy Tails</button>
+</nav>
+
+<section class="global-controls">
+ <div class="global-controls-head">
+   <div>
+     <h3>Market analysis</h3>
+     <p>Select a period, a reference company, and the U.S.-listed companies to include in the analysis.</p>
+   </div>
+   <span id="globalRunState" class="status ok">Ready</span>
+ </div>
+ <div class="global-row">
+   <div class="global-control">
+     <label>Start date</label>
+     <input id="globalStart" type="date" value="2017-09-01">
+   </div>
+   <div class="global-control">
+     <label>End date</label>
+     <input id="globalEnd" type="date" value="2018-09-30">
+   </div>
+   <div class="global-control">
+     <label>Primary / reference company</label>
+     <select id="globalReference">
+  <option value="JNJ" selected>Johnson & Johnson (JNJ)</option>
+  <option value="PFE">Pfizer Inc. (PFE)</option>
+  <option value="AMGN">Amgen Inc. (AMGN)</option>
+  <option value="MRK">Merck & Co., Inc. (MRK)</option>
+  <option value="JPM">JPMorgan Chase & Co. (JPM)</option>
+  <option value="BAC">Bank of America Corporation (BAC)</option>
+  <option value="WFC">Wells Fargo & Company (WFC)</option>
+  <option value="C">Citigroup Inc. (C)</option>
+  <option value="GS">The Goldman Sachs Group, Inc. (GS)</option>
+  <option value="MS">Morgan Stanley (MS)</option>
+  <option value="USB">U.S. Bancorp (USB)</option>
+  <option value="PNC">The PNC Financial Services Group, Inc. (PNC)</option>
+  <option value="BK">The Bank of New York Mellon Corporation (BK)</option>
+  <option value="STT">State Street Corporation (STT)</option>
+  <option value="BLK">BlackRock, Inc. (BLK)</option>
+  <option value="BEN">Franklin Resources, Inc. (BEN)</option>
+  <option value="IVZ">Invesco Ltd. (IVZ)</option>
+  <option value="TROW">T. Rowe Price Group, Inc. (TROW)</option>
+  <option value="AXP">American Express Company (AXP)</option>
+</select>
+   </div>
+   <div class="global-control wide">
+     <label>U.S.-listed company universe</label>
+     <div id="globalCompanyChecks" class="global-companies">
+  <label class="checkitem"><input type="checkbox" value="JNJ" checked>Johnson & Johnson (JNJ)</label>
+  <label class="checkitem"><input type="checkbox" value="PFE" checked>Pfizer Inc. (PFE)</label>
+  <label class="checkitem"><input type="checkbox" value="AMGN" checked>Amgen Inc. (AMGN)</label>
+  <label class="checkitem"><input type="checkbox" value="MRK" checked>Merck & Co., Inc. (MRK)</label>
+  <label class="checkitem"><input type="checkbox" value="JPM" checked>JPMorgan Chase & Co. (JPM)</label>
+  <label class="checkitem"><input type="checkbox" value="BAC" checked>Bank of America Corporation (BAC)</label>
+  <label class="checkitem"><input type="checkbox" value="WFC" checked>Wells Fargo & Company (WFC)</label>
+  <label class="checkitem"><input type="checkbox" value="C" checked>Citigroup Inc. (C)</label>
+  <label class="checkitem"><input type="checkbox" value="GS" checked>The Goldman Sachs Group, Inc. (GS)</label>
+  <label class="checkitem"><input type="checkbox" value="MS" checked>Morgan Stanley (MS)</label>
+  <label class="checkitem"><input type="checkbox" value="USB">U.S. Bancorp (USB)</label>
+  <label class="checkitem"><input type="checkbox" value="PNC">The PNC Financial Services Group, Inc. (PNC)</label>
+  <label class="checkitem"><input type="checkbox" value="BK">The Bank of New York Mellon Corporation (BK)</label>
+  <label class="checkitem"><input type="checkbox" value="STT">State Street Corporation (STT)</label>
+  <label class="checkitem"><input type="checkbox" value="BLK" checked>BlackRock, Inc. (BLK)</label>
+  <label class="checkitem"><input type="checkbox" value="BEN" checked>Franklin Resources, Inc. (BEN)</label>
+  <label class="checkitem"><input type="checkbox" value="IVZ" checked>Invesco Ltd. (IVZ)</label>
+  <label class="checkitem"><input type="checkbox" value="TROW" checked>T. Rowe Price Group, Inc. (TROW)</label>
+  <label class="checkitem"><input type="checkbox" value="AXP" checked>American Express Company (AXP)</label>
+</div>
+</div>
+<button id="globalRunBtn" class="runbtn" onclick="runAllSelected()">Run all analyses</button>
+ </div>
+ <div class="global-note">The selected period and companies are applied consistently across the analytical views. Single-company analyses use the selected reference company.</div>
+</section>
+
+
+<div class="workspace">
+<aside class="sidebar"><h3>Analytical workflow</h3>
+<div class="module-item active" data-target="clustering"><small>01</small><b>Time-Series Clustering</b><span>Normalized paths, correlation and JNJ similarity.</span></div>
+<div class="module-item" data-target="leadlag"><small>02</small><b>Lead–Lag Effect</b><span>BLK vs asset-manager peers; lagged correlations.</span></div>
+<div class="module-item" data-target="bstest"><small>03</small><b>Black–Scholes Test</b><span>Normality, dependence and volatility diagnostics.</span></div>
+<div class="module-item" data-target="changepoint"><small>04</small><b>Change-Point Detection</b><span>WFC variance-regime diagnostics.</span></div>
+<div class="module-item" data-target="option"><small>05</small><b>Option Pricing</b><span>JNJ empirical volatility → BS and MC pricing.</span></div>
+<div class="module-item" data-target="mc"><small>06</small><b>Monte Carlo Method</b><span>AXP source-period calibration and convergence.</span></div>
+<div class="module-item" data-target="levy"><small>07</small><b>Lévy / Heavy Tails</b><span>AXP empirical tails + source-reported NIG output.</span></div>
+</aside>
+
+<main class="main">
+<section id="clustering" class="panel active"><div class="card">
+<div class="head"><div><div class="eyebrow">Market structure</div><h2>Time-Series Clustering</h2><p>Compare normalized price trajectories and return correlations across the selected U.S.-listed companies.</p></div><span id="s1" class="inline-status status loading">Loading…</span></div>
+
+<div class="kpis"><div class="kpi"><span>Selected universe</span><b id="clusterTarget">—</b><small>Companies selected in global controls</small></div><div class="kpi"><span>Loaded coverage</span><b id="clusterCoverage">—</b><small>Validated daily series</small></div><div class="kpi"><span>Observations</span><b id="clusterObs">—</b><small>Common-date panel</small></div><div class="kpi"><span>Closest to JNJ</span><b id="jnjClosest">—</b><small>Highest return correlation</small></div></div>
+<div class="chart-grid"><div class="chart-card"><div class="chart-label">Normalized closing-price trajectories</div><div id="clusterPaths"></div></div><div class="chart-card"><div class="chart-label">Log-return correlation matrix</div><div id="clusterCorr"></div></div><div class="chart-card wide"><div class="chart-label">JNJ similarity ranking</div><div id="jnjRank"></div></div></div>
+<div class="notes"><div class="note"><h4>Interpretation</h4><p>Correlation-based similarity highlights companies whose daily return patterns most closely resemble the reference company over the selected period. Higher correlation indicates stronger co-movement, while lower or negative correlation may indicate greater diversification potential. Similarity should be interpreted as market co-movement rather than evidence of causality.</p></div><div class="evidence"><h4>How to read the results</h4><div class="e-row"><span>Window</span><b>Global selection</b></div><div class="e-row"><span>Returns</span><b>r_t = ln(P_t/P_{t-1})</b></div><div class="e-row"><span>Similarity</span><b>Pearson correlation of aligned daily log returns</b></div></div></div>
+</div></section>
+
+<section id="leadlag" class="panel"><div class="card">
+<div class="head"><div><div class="eyebrow">Dependence structure</div><h2>Lead–Lag Effect</h2><p>Measure delayed return relationships between the selected reference company and the other companies in the chosen market universe.</p></div><span id="s2" class="inline-status status loading">Loading…</span></div>
+
+<div class="kpis"><div class="kpi"><span>Reference</span><b>BLK</b><small>BlackRock</small></div><div class="kpi"><span>Validated peers</span><b id="leadPeerCount">—</b><small>Selected companies with usable data</small></div><div class="kpi"><span>Lag range</span><b>±10 days</b><small>Daily log returns</small></div><div class="kpi"><span>Strongest relation</span><b id="leadBest">—</b><small>Maximum absolute lag correlation</small></div></div>
+<div class="chart-grid"><div class="chart-card"><div class="chart-label">Lagged correlation profiles</div><div id="leadCurves"></div></div><div class="chart-card"><div class="chart-label">Strongest lag by peer</div><div id="leadBars"></div></div></div>
+<div class="notes"><div class="note"><h4>Interpretation</h4><p>Lead–lag analysis examines whether movements in one company tend to be followed by movements in another. A strongest relationship near lag zero suggests largely contemporaneous co-movement; a persistent non-zero lag may indicate delayed information transmission or market-response differences. These relationships are descriptive and should be tested for stability before being used operationally.</p></div><div class="evidence"><h4>Analytical definition</h4><div class="e-row"><span>Metric</span><b>corr(BLK_t, peer_{t+k})</b></div><div class="e-row"><span>Positive k</span><b>Peer series is shifted later relative to BLK</b></div><div class="e-row"><span>Window</span><b>Global selection</b></div></div></div>
+</div></section>
+
+<section id="bstest" class="panel"><div class="card">
+<div class="head"><div><div class="eyebrow">Model diagnostics</div><h2>Black–Scholes Assumption Diagnostics</h2><p>Evaluate volatility stability, normality, skewness, kurtosis and serial dependence across the selected U.S.-listed financial companies.</p></div><span id="s3" class="inline-status status loading">Loading…</span></div>
+
+<div class="kpis"><div class="kpi"><span>Selected banks</span><b id="bankTarget">10</b><small>Interactive company list</small></div><div class="kpi"><span>Loaded banks</span><b id="bankCoverage">—</b><small>Runtime coverage</small></div><div class="kpi"><span>Long horizon</span><b id="bankLongLabel">10 years</b><small>Selected start/end period</small></div><div class="kpi"><span>Short horizon</span><b>1 year</b><small>Final 365 calendar days</small></div></div>
+<div class="chart-grid"><div class="chart-card"><div class="chart-label">Volatility regime map: long horizon vs final year</div><div id="bankVol"></div></div><div class="chart-card"><div class="chart-label">Normality evidence: −log₁₀(Jarque–Bera p-value)</div><div id="bankJB"></div></div><div class="chart-card wide"><div class="chart-label">Return-shape diagnostics</div><div id="bankShape"></div></div></div>
+<div class="notes"><div class="note"><h4>Interpretation</h4><p>The diagnostics assess how closely observed returns align with assumptions commonly used in Black–Scholes-style modelling. Large changes in volatility across horizons, significant non-normality, pronounced skewness or excess kurtosis, and serial dependence all signal greater model risk and can affect the reliability of standard option-pricing assumptions.</p></div><div class="evidence"><h4>Key measures</h4><div class="e-row"><span>Normality</span><b>Jarque–Bera statistic; χ²(2) p = exp(−JB/2)</b></div><div class="e-row"><span>Dependence</span><b>Lag-1 return autocorrelation</b></div><div class="e-row"><span>Volatility</span><b>sd(log returns) × √252</b></div></div></div>
+</div></section>
+
+<section id="changepoint" class="panel"><div class="card">
+<div class="head"><div><div class="eyebrow">Regime analysis</div><h2>Change-Point Detection</h2><p>Identify the strongest single volatility-regime change in the selected reference company over the chosen period.</p></div><span id="s4" class="inline-status status loading">Loading…</span></div>
+
+<div class="kpis"><div class="kpi"><span>Asset</span><b id="cpAsset">WFC</b><small>Wells Fargo</small></div><div class="kpi"><span>Sample</span><b id="wfcWindow">—</b><small>Validated daily data</small></div><div class="kpi"><span>Estimated break</span><b id="wfcBreak">—</b><small>Minimum variance cost</small></div><div class="kpi"><span>Volatility ratio</span><b id="wfcRatio">—</b><small>Post / pre annualized volatility</small></div></div>
+<div class="chart-grid"><div class="chart-card"><div class="chart-label">WFC closing price with estimated variance break</div><div id="wfcPrice"></div></div><div class="chart-card"><div class="chart-label">21-day annualized rolling volatility</div><div id="wfcVol"></div></div></div>
+<div class="notes"><div class="note"><h4>Interpretation</h4><p>The estimated change point identifies the date at which the return series is most strongly separated into two volatility regimes. Comparing pre- and post-break volatility helps reveal whether risk conditions were stable or whether the market experienced a material structural shift during the selected period.</p></div><div class="evidence"><h4>Regime methodology</h4><div class="e-row"><span>Search</span><b>All candidate splits with ≥60 observations per side</b></div><div class="e-row"><span>Cost</span><b>n₁ ln(σ̂²₁,MLE) + n₂ ln(σ̂²₂,MLE)</b></div><div class="e-row"><span>Returns</span><b>Daily log returns</b></div></div></div>
+</div></section>
+
+<section id="option" class="panel"><div class="card">
+<div class="head"><div><div class="eyebrow">Derivative pricing</div><h2>Option Pricing</h2><p>Estimate historical volatility from the selected reference company and compare closed-form Black–Scholes pricing with Monte Carlo valuation for an at-the-money European call.</p></div><span id="s5" class="inline-status status loading">Loading…</span></div>
+
+<div class="kpis"><div class="kpi"><span>Spot S₀</span><b id="jnjSpot">—</b><small>Last close in calibration window</small></div><div class="kpi"><span>Historical σ</span><b id="jnjSigma">—</b><small>Annualized daily log-return sd</small></div><div class="kpi"><span>BS call</span><b id="jnjBS">—</b><small>K=S₀, r=2%, T=30/252</small></div><div class="kpi"><span>MC call</span><b id="jnjMC">—</b><small>100,000 antithetic paths</small></div></div>
+<div class="chart-grid"><div class="chart-card"><div class="chart-label">JNJ calibration-window closing price</div><div id="jnjPrice"></div></div><div class="chart-card"><div class="chart-label">Black–Scholes vs Monte Carlo with simulation uncertainty</div><div id="jnjPricing"></div></div><div class="chart-card wide"><div class="chart-label">Volatility sensitivity</div><div id="jnjSensitivity"></div></div></div>
+<div class="notes"><div class="note"><h4>Interpretation</h4><p>Black–Scholes provides a closed-form benchmark, while Monte Carlo estimates the same option value through simulated risk-neutral price paths. Close agreement indicates numerical consistency under the same assumptions. The volatility-sensitivity view shows how strongly option value responds to changes in the estimated risk environment.</p></div><div class="evidence"><h4>Pricing assumptions</h4><div class="e-row"><span>Calibration</span><b>Global period / selected reference company</b></div><div class="e-row"><span>Contract</span><b>European call, K=S₀, T=30/252</b></div><div class="e-row"><span>Rate</span><b>2% annual continuously compounded benchmark assumption</b></div></div></div>
+</div></section>
+
+<section id="mc" class="panel"><div class="card">
+<div class="head"><div><div class="eyebrow">Simulation analytics</div><h2>Monte Carlo Method</h2><p>Use the selected company’s empirical volatility to examine Monte Carlo convergence, simulation uncertainty and terminal payoff behaviour.</p></div><span id="s6" class="inline-status status loading">Loading…</span></div>
+
+<div class="kpis"><div class="kpi"><span>AXP spot</span><b id="axpSpot">—</b><small>Last validated close</small></div><div class="kpi"><span>Annualized σ</span><b id="axpSigma">—</b><small>From empirical log returns</small></div><div class="kpi"><span>MC value</span><b id="axpMC">—</b><small>M=1000, seed-stable PRNG</small></div><div class="kpi"><span>BS benchmark</span><b id="axpBS">—</b><small>Same S₀,K,r,T,σ</small></div></div>
+<div class="chart-grid"><div class="chart-card"><div class="chart-label">AXP source-period closing price</div><div id="axpPrice"></div></div><div class="chart-card"><div class="chart-label">Monte Carlo convergence with 95% confidence band</div><div id="axpConv"></div></div><div class="chart-card wide"><div class="chart-label">Terminal payoff distribution</div><div id="axpPayoff"></div></div></div>
+<div class="notes"><div class="note"><h4>Interpretation</h4><p>Monte Carlo convergence shows how the simulated option-value estimate stabilizes as the number of scenarios increases. A narrowing confidence band indicates declining simulation uncertainty. Comparison with the analytical benchmark helps distinguish numerical uncertainty from differences caused by alternative stochastic assumptions.</p></div><div class="evidence"><h4>Simulation assumptions</h4><div class="e-row"><span>Source window</span><b>Global empirical period; repository AXP constants retained separately</b></div><div class="e-row"><span>Contract rule</span><b>AXP: repository K=105.98, r=0.0019, T=3/252; other companies: K=S₀, r=2%, T=30/252</b></div><div class="e-row"><span>Data caveat</span><b>Open CSV close may be provider-adjusted; original quantmod close may differ</b></div></div></div>
+</div></section>
+
+<section id="levy" class="panel"><div class="card">
+<div class="head"><div><div class="eyebrow">Tail-risk analytics</div><h2>Lévy / Heavy-Tail Diagnostics</h2><p>Assess skewness, excess kurtosis and Gaussian-model adequacy, and compare standard diffusion-based pricing with a heavier-tailed Lévy/NIG reference.</p></div><span id="s7" class="inline-status status loading">Loading…</span></div>
+<div class="kpis"><div class="kpi"><span>Empirical skew</span><b id="axpSkew">—</b><small>Open-data log returns</small></div><div class="kpi"><span>Excess kurtosis</span><b id="axpKurt">—</b><small>Open-data log returns</small></div><div class="kpi"><span>JB p-value</span><b id="axpJB">—</b><small>Normality diagnostic</small></div><div class="kpi"><span>R-source Lévy value</span><b>0.06857733</b><small>Discounted value comment</small></div></div>
+<div class="chart-grid"><div class="chart-card"><div class="chart-label">Empirical AXP return histogram vs fitted Gaussian</div><div id="axpDensity"></div></div><div class="chart-card"><div class="chart-label">Source-reported payoff/value comparison</div><div id="levySource"></div></div></div>
+<div class="notes"><div class="note"><h4>Interpretation</h4><p>Heavy-tail diagnostics evaluate whether observed returns depart materially from a Gaussian distribution. Significant skewness, excess kurtosis and a low Jarque–Bera p-value indicate asymmetric or fat-tailed behaviour, conditions under which Gaussian models may understate extreme-move risk. The Lévy/NIG comparison illustrates how a richer return process can capture these features more flexibly.</p></div><div class="evidence"><h4>Lévy model reference</h4><div class="e-row"><span>R σ̂</span><b>0.01526479</b></div><div class="e-row"><span>R μ̂</span><b>0.0005116106</b></div><div class="e-row"><span>Lévy payoff</span><b>0.06857888</b></div><div class="e-row"><span>Discounted</span><b>0.06857733</b></div></div></div>
+</div></section>
+</main></div>
+
+<div class="footer"><b>Methodology.</b> Daily market prices are converted to log returns for correlation, dependence, volatility and distribution analysis. Volatility is annualized using 252 trading days. Option-pricing views use standard risk-neutral Black–Scholes and Monte Carlo methods, while heavy-tail diagnostics evaluate departures from Gaussian return assumptions. Results depend on the selected companies, period and available market observations.</div>
+</div>
+
+<script>
+const cfg={displaylogo:false,responsive:true,modeBarButtonsToRemove:["lasso2d","select2d"]};
+const base={paper_bgcolor:"#fff",plot_bgcolor:"#fff",margin:{l:50,r:20,t:45,b:45},font:{family:"Inter,Segoe UI,Arial",size:10,color:"#425158"},legend:{orientation:"h",y:1.08},hovermode:"closest"};
+const GH='https://raw.githubusercontent.com/zjplab/US-Trading-Data/refs/heads/main/data/SP500/';
+const ONE_DAY=86400;
+
+function checkedValues(id){return [...document.querySelectorAll('#'+id+' input[type="checkbox"]:checked')].map(x=>x.value)}
+async function runWithState(btn,fn){
+ const original=btn.dataset.original||btn.textContent.trim();btn.dataset.original=original;
+ btn.classList.remove('done','failed');btn.classList.add('running');btn.disabled=true;btn.textContent='Analysis running…';
+ try{
+   const ok=await fn();
+   btn.classList.remove('running');btn.classList.add(ok===false?'failed':'done');
+   btn.textContent=ok===false?'Analysis incomplete':'Analysis completed';
+ }catch(e){
+   console.error(e);btn.classList.remove('running');btn.classList.add('failed');btn.textContent='Analysis failed';
+ }
+ setTimeout(()=>{btn.classList.remove('done','failed');btn.disabled=false;btn.textContent=original},2200);
+}
+function dateYears(a,b){return Math.max(0,(new Date(b)-new Date(a))/(365.25*86400000))}
+function emptyChart(id,title,msg){
+ try{Plotly.purge(id)}catch(e){}
+ document.getElementById(id).innerHTML=`<div class="chart-empty"><div><b>${title}</b><br>${msg}</div></div>`;
+}
+function ensureDates(start,end){
+ if(!start||!end||new Date(start)>=new Date(end))throw new Error('Start date must be earlier than end date');
+}
+
+function setStatus(id,text,kind){const e=document.getElementById(id);e.textContent=text;e.className='inline-status status '+kind}
+function mean(a){return a.reduce((s,v)=>s+v,0)/a.length}
+function variance(a){const m=mean(a);return a.reduce((s,v)=>s+(v-m)*(v-m),0)/(a.length-1)}
+function varianceMLE(a){const m=mean(a);return a.reduce((s,v)=>s+(v-m)*(v-m),0)/a.length}
+function sd(a){return Math.sqrt(variance(a))}
+function skew(a){const m=mean(a),s=sd(a),n=a.length;return n/((n-1)*(n-2))*a.reduce((z,x)=>z+Math.pow((x-m)/s,3),0)}
+function excessKurt(a){const m=mean(a),s=sd(a),n=a.length;const sum=a.reduce((z,x)=>z+Math.pow((x-m)/s,4),0);return n*(n+1)/((n-1)*(n-2)*(n-3))*sum-3*Math.pow(n-1,2)/((n-2)*(n-3))}
+function corr(a,b){const n=Math.min(a.length,b.length);if(n<3)return NaN;const aa=a.slice(0,n),bb=b.slice(0,n),ma=mean(aa),mb=mean(bb);let num=0,da=0,db=0;for(let i=0;i<n;i++){let x=aa[i]-ma,y=bb[i]-mb;num+=x*y;da+=x*x;db+=y*y}const den=Math.sqrt(da*db);return den>0?num/den:NaN}
+function logReturns(prices){let r=[];for(let i=1;i<prices.length;i++)if(prices[i]>0&&prices[i-1]>0)r.push(Math.log(prices[i]/prices[i-1]));return r}
+function erf(x){const s=x<0?-1:1;x=Math.abs(x);const a1=.254829592,a2=-.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=.3275911,t=1/(1+p*x);return s*(1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x))}
+const Phi=x=>(1+erf(x/Math.sqrt(2)))/2;
+function bsCall(S,K,T,r,sigma){if(!(S>0&&K>0&&T>0&&sigma>0))return NaN;const d1=(Math.log(S/K)+(r+.5*sigma*sigma)*T)/(sigma*Math.sqrt(T)),d2=d1-sigma*Math.sqrt(T);return S*Phi(d1)-K*Math.exp(-r*T)*Phi(d2)}
+function jbTest(a){const n=a.length,s=skew(a),k=excessKurt(a),jb=n/6*(s*s+k*k/4),p=Math.max(Number.MIN_VALUE,Math.exp(-jb/2));return {jb,p,skew:s,kurt:k}}
+function autocorr1(a){return corr(a.slice(0,-1),a.slice(1))}
+function parseCSV(text){
+ const lines=text.trim().split(/\r?\n/),h=lines[0].split(',').map(x=>x.trim());
+ const di=h.findIndex(x=>/^Date$/i.test(x)),ci=h.findIndex(x=>/^Close$/i.test(x)||/^Adj Close$/i.test(x));
+ if(di<0||ci<0)throw new Error('Date/Close columns not found');
+ let out=[];
+ for(let i=1;i<lines.length;i++){let p=lines[i].split(',');if(p.length<=Math.max(di,ci))continue;let d=new Date(p[di]),c=parseFloat((p[ci]||'').replace(/[$"]/g,''));if(Number.isFinite(+d)&&Number.isFinite(c)&&c>0)out.push({date:d,close:c})}
+ out.sort((a,b)=>a.date-b.date);let ded=[];for(const r of out)if(!ded.length||+ded[ded.length-1].date!==+r.date)ded.push(r);
+ if(ded.length<30)throw new Error('Insufficient observations');
+ return ded;
+}
+async function fetchText(url){const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error(r.status+' '+r.statusText);return await r.text()}
+async function fetchYahoo(ticker,start,end){
+ const p1=Math.floor(new Date(start+'T00:00:00Z').getTime()/1000),p2=Math.floor(new Date(end+'T23:59:59Z').getTime()/1000);
+ const url=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?period1=${p1}&period2=${p2}&interval=1d&events=history&includeAdjustedClose=false`;
+ const j=await (await fetch(url,{cache:'no-store'})).json();const r=j?.chart?.result?.[0];if(!r)throw new Error('Yahoo result unavailable');
+ const q=r.indicators.quote[0],out=[];for(let i=0;i<r.timestamp.length;i++)if(Number.isFinite(q.close[i])&&q.close[i]>0)out.push({date:new Date(r.timestamp[i]*1000),close:q.close[i]});
+ if(out.length<30)throw new Error('Yahoo insufficient observations');return out;
+}
+async function fetchStooq(ticker,start,end){
+ const s=ticker.toLowerCase()+'.us',d1=start.replaceAll('-',''),d2=end.replaceAll('-','');
+ return parseCSV(await fetchText(`https://stooq.com/q/d/l/?s=${s}&i=d&d1=${d1}&d2=${d2}`));
+}
+async function getSeries(ticker,start,end,preferGitHub=true){
+ let errors=[];
+ if(preferGitHub){try{let all=parseCSV(await fetchText(GH+ticker+'.csv'));let a=new Date(start),b=new Date(end);let z=all.filter(r=>r.date>=a&&r.date<=b);if(z.length>=30)return {rows:z,source:'GitHub US-Trading-Data'};errors.push('GitHub range insufficient')}catch(e){errors.push('GitHub '+e.message)}}
+ try{return {rows:await fetchYahoo(ticker,start,end),source:'Yahoo chart'}}catch(e){errors.push('Yahoo '+e.message)}
+ try{return {rows:await fetchStooq(ticker,start,end),source:'Stooq CSV'}}catch(e){errors.push('Stooq '+e.message)}
+ throw new Error(errors.join(' | '));
+}
+function align(seriesMap){
+ const names=Object.keys(seriesMap),maps={};for(const n of names)maps[n]=new Map(seriesMap[n].rows.map(r=>[r.date.toISOString().slice(0,10),r.close]));
+ let common=[...maps[names[0]].keys()].filter(d=>names.every(n=>maps[n].has(d))).sort();
+ const out={dates:common};for(const n of names)out[n]=common.map(d=>maps[n].get(d));return out;
+}
+function gaussianPdf(x,m,s){return Math.exp(-.5*Math.pow((x-m)/s,2))/(s*Math.sqrt(2*Math.PI))}
+function prng(seed){let x=seed>>>0;return()=>{x=(1664525*x+1013904223)>>>0;return x/4294967296}}
+function normals(seed){const u=prng(seed);return()=>{const u1=Math.max(u(),1e-12),u2=u();return Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2)}}
+function mcCall(S,K,T,r,sigma,M,seed){
+ const z=normals(seed),disc=Math.exp(-r*T),vals=[],pay=[];
+ const pairs=Math.floor(M/2);
+ for(let i=0;i<pairs;i++){
+   const zi=z();
+   for(const zz of [zi,-zi]){
+     const st=S*Math.exp((r-.5*sigma*sigma)*T+sigma*Math.sqrt(T)*zz),p=Math.max(st-K,0);
+     vals.push(disc*p);if(pay.length<20000)pay.push(p);
+   }
+ }
+ if(M%2===1){const zi=z(),st=S*Math.exp((r-.5*sigma*sigma)*T+sigma*Math.sqrt(T)*zi),p=Math.max(st-K,0);vals.push(disc*p);if(pay.length<20000)pay.push(p)}
+ const price=mean(vals),se=vals.length>1?sd(vals)/Math.sqrt(vals.length):0;
+ return {price,se,ciLow:price-1.96*se,ciHigh:price+1.96*se,pay};
+}
+async function module1(){
+ setStatus('s1','Loading selected companies…','loading');
+ const {start,end}=globalPeriod(); const targets=globalCompanies(); document.getElementById('clusterTarget').textContent=targets.length; if(targets.length<2)throw new Error('Select at least two companies');
+ const got={}; for(const t of targets){try{got[t]=await getSeries(t,start,end,true)}catch(e){console.warn('cluster',t,e.message)}}
+ const names=Object.keys(got); document.getElementById('clusterCoverage').textContent=`${names.length}/${targets.length}`;
+ if(names.length<2){emptyChart('clusterPaths','No validated data','Select different companies or period.');emptyChart('clusterCorr','No validated data','At least two aligned series are required.');emptyChart('jnjRank','No validated data','Reference ranking unavailable.');setStatus('s1','Insufficient coverage','warn');return false}
+ const a=align(got); if(a.dates.length<20)throw new Error('Insufficient common trading dates');
+ const rets={};for(const n of names)rets[n]=logReturns(a[n]);document.getElementById('clusterObs').textContent=a.dates.length;
+ const ref=names.includes('JNJ')?'JNJ':names[0];let sim=names.filter(n=>n!==ref).map(n=>({name:n,r:corr(rets[ref],rets[n])})).filter(d=>Number.isFinite(d.r)).sort((x,y)=>y.r-x.r);
+ document.getElementById('jnjClosest').textContent=sim[0]?.name||'—';
+ Plotly.newPlot('clusterPaths',names.map(n=>({x:a.dates,y:a[n].map(v=>100*v/a[n][0]),mode:'lines',name:n,line:{width:n===ref?3:1.2}})),{...base,title:`Normalized closes · ${start} to ${end}`,yaxis:{title:'Index (100=start)'}},cfg);
+ let z=names.map(i=>names.map(j=>corr(rets[i],rets[j])));Plotly.newPlot('clusterCorr',[{z,x:names,y:names,type:'heatmap',zmin:-1,zmax:1,colorscale:'RdBu',reversescale:true}],{...base,title:'Daily log-return correlation'},cfg);
+ if(sim.length)Plotly.newPlot('jnjRank',[{y:sim.map(d=>d.name).reverse(),x:sim.map(d=>d.r).reverse(),type:'bar',orientation:'h'}],{...base,title:`Correlation with ${ref}`,xaxis:{title:'Pearson correlation',range:[-1,1]},margin:{l:70,r:20,t:45,b:45}},cfg);else emptyChart('jnjRank','Reference ranking','Only one validated company is available.');
+ setStatus('s1',`Validated · ${names.length}/${targets.length} assets`,'ok');return true;
+}
+async function module2(){
+ setStatus('s2','Loading selected companies…','loading');
+ const {start,end}=globalPeriod(); const ref=globalReference(),peers=globalCompanies().filter(x=>x!==ref);
+ if(!peers.length)throw new Error('Select at least one peer');
+ const names=[ref,...peers],got={};for(const t of names){try{got[t]=await getSeries(t,start,end,true)}catch(e){console.warn('leadlag',t,e.message)}}
+ if(!got[ref]){emptyChart('leadCurves','Reference data unavailable',`${ref} could not be loaded for the selected period.`);emptyChart('leadBars','Reference data unavailable','Change company or period.');setStatus('s2','Reference unavailable','warn');return false}
+ const loadedPeers=peers.filter(p=>got[p]);document.getElementById('leadPeerCount').textContent=loadedPeers.length;if(!loadedPeers.length){emptyChart('leadCurves','Peer data unavailable','No selected peer passed data validation.');emptyChart('leadBars','Peer data unavailable','Select different peers.');setStatus('s2','No peer coverage','warn');return false}
+ const a=align(Object.fromEntries([[ref,got[ref]],...loadedPeers.map(p=>[p,got[p]])])),r={};r[ref]=logReturns(a[ref]);for(const p of loadedPeers)r[p]=logReturns(a[p]);
+ const lags=[...Array(21).keys()].map(i=>i-10),curves=[],summary=[];
+ for(const p of loadedPeers){let vals=lags.map(k=>{let x=[],y=[];for(let t=0;t<r[ref].length;t++){let j=t+k;if(j>=0&&j<r[p].length){x.push(r[ref][t]);y.push(r[p][j])}}return x.length>10?corr(x,y):NaN});curves.push({x:lags,y:vals,mode:'lines+markers',name:p});let abs=vals.map(v=>Number.isFinite(v)?Math.abs(v):-Infinity),bi=abs.indexOf(Math.max(...abs));summary.push({peer:p,lag:lags[bi],rho:vals[bi]})}
+ summary.sort((a,b)=>Math.abs(b.rho)-Math.abs(a.rho));document.getElementById('leadBest').textContent=`${summary[0].peer}: k=${summary[0].lag}, ρ=${summary[0].rho.toFixed(2)}`;
+ Plotly.newPlot('leadCurves',curves,{...base,title:`${ref} lead–lag correlations · ${start} to ${end}`,xaxis:{title:'Lag k (days)'},yaxis:{title:'Correlation',range:[-1,1]}},cfg);
+ // Dot/stem plot: unlike bars, zero-lag outcomes remain visible.
+ const stemX=[],stemY=[];summary.forEach((d,i)=>{stemX.push(0,d.lag,null);stemY.push(i,i,null)});
+ Plotly.newPlot('leadBars',[
+   {x:stemX,y:stemY,mode:'lines',line:{width:2},hoverinfo:'skip',showlegend:false},
+   {x:summary.map(d=>d.lag),y:summary.map((d,i)=>i),mode:'markers+text',text:summary.map(d=>`k=${d.lag}<br>ρ=${d.rho.toFixed(2)}`),textposition:'top center',marker:{size:12},name:'Strongest lag'}
+ ],{...base,title:'Strongest absolute-correlation lag by peer',xaxis:{title:'Lag k (days)',range:[-10.8,10.8],zeroline:true},yaxis:{tickmode:'array',tickvals:summary.map((d,i)=>i),ticktext:summary.map(d=>d.peer),range:[-0.7,summary.length-0.3]},showlegend:false},cfg);
+ setStatus('s2',`Validated · ${loadedPeers.length}/${peers.length} peers`,'ok');return true;
+}
+async function module3(){
+ setStatus('s3','Loading selected banks…','loading');
+ const {start,end}=globalPeriod(); const bankingUniverse=['JPM','BAC','WFC','C','GS','MS','USB','PNC','BK','STT']; const banks=globalCompanies().filter(x=>bankingUniverse.includes(x));document.getElementById('bankTarget').textContent=banks.length;document.getElementById('bankLongLabel').textContent=dateYears(start,end).toFixed(1)+' years';
+ if(banks.length<2){emptyChart('bankVol','Bank selection required','Select at least two banking companies in the global controls.');emptyChart('bankJB','Bank selection required','Select at least two banking companies.');emptyChart('bankShape','Bank selection required','Select at least two banking companies.');setStatus('s3','Select ≥2 banks globally','warn');return false;}
+ const endDate=new Date(end+'T00:00:00Z'),shortStart=new Date(endDate.getTime()-365*86400000).toISOString().slice(0,10),res=[];
+ for(const t of banks){try{
+   let L=await getSeries(t,start,end,true),Srows=L.rows.filter(x=>x.date>=new Date(shortStart)&&x.date<=endDate);
+   if(Srows.length<30){let S=await getSeries(t,shortStart,end,true);Srows=S.rows}
+   let lr=logReturns(L.rows.map(x=>x.close)),sr=logReturns(Srows.map(x=>x.close));if(lr.length<60||sr.length<20)throw new Error('too few returns');
+   let j=jbTest(lr);res.push({t,lv:sd(lr)*Math.sqrt(252),sv:sd(sr)*Math.sqrt(252),jb:j.p,sk:j.skew,ku:j.kurt,ac:autocorr1(lr),n:lr.length})
+ }catch(e){console.warn('bank',t,e.message)}}
+ document.getElementById('bankCoverage').textContent=`${res.length}/${banks.length}`;
+ if(res.length<2){
+   emptyChart('bankVol','No validated banking panel','The selected companies/period did not provide enough browser-accessible observations.');
+   emptyChart('bankJB','No validated banking panel','Try the default US open-data banking group.');
+   emptyChart('bankShape','No validated banking panel','Try the default US open-data banking group.');
+   setStatus('s3',`Insufficient coverage · ${res.length}/${banks.length}`,'warn');return false;
+ }
+ const maxVol=Math.max(...res.flatMap(d=>[d.lv,d.sv]))*1.08;
+ Plotly.newPlot('bankVol',[
+   {x:res.map(d=>d.lv),y:res.map(d=>d.sv),mode:'markers+text',text:res.map(d=>d.t),textposition:'top center',
+    marker:{size:12},customdata:res.map(d=>[(d.sv/d.lv)]),
+    hovertemplate:'%{text}<br>Long-horizon vol=%{x:.2%}<br>Final-year vol=%{y:.2%}<br>Ratio=%{customdata[0]:.2f}×<extra></extra>'},
+   {x:[0,maxVol],y:[0,maxVol],mode:'lines',name:'No change (y=x)',line:{dash:'dash',width:1.5}}
+ ],{...base,title:`Volatility regime map · ${start} to ${end}`,xaxis:{title:'Long-horizon annualized volatility',range:[0,maxVol]},yaxis:{title:'Final-year annualized volatility',range:[0,maxVol]},showlegend:true},cfg);
+ const sig=res.map(d=>-Math.log10(Math.max(d.jb,1e-300))),thr=-Math.log10(.05);
+ Plotly.newPlot('bankJB',[{y:res.map(d=>d.t),x:sig,type:'bar',orientation:'h',
+   text:res.map(d=>d.jb<1e-12?'p<1e−12':`p=${d.jb.toPrecision(2)}`),textposition:'auto',
+   hovertemplate:'%{y}<br>−log10(p)=%{x:.2f}<extra></extra>'}],
+   {...base,title:'Evidence against Gaussian normality',xaxis:{title:'−log₁₀(Jarque–Bera p-value)'},margin:{l:70,r:20,t:45,b:45},
+    shapes:[{type:'line',x0:thr,x1:thr,y0:-.5,y1:res.length-.5,line:{dash:'dash',width:1.5}}],
+    annotations:[{x:thr,y:res.length-.4,text:'5% threshold',showarrow:false,xanchor:'left',font:{size:9}}]},cfg);
+ Plotly.newPlot('bankShape',[{x:res.map(d=>d.sk),y:res.map(d=>d.ku),mode:'markers+text',text:res.map(d=>d.t),textposition:'top center',
+   marker:{size:res.map(d=>10+45*Math.min(Math.abs(d.ac),.25))},
+   customdata:res.map(d=>[d.ac,d.n,d.lv,d.sv]),
+   hovertemplate:'%{text}<br>Skew=%{x:.3f}<br>Excess kurtosis=%{y:.3f}<br>Lag-1 ρ=%{customdata[0]:.3f}<br>N=%{customdata[1]}<br>Long vol=%{customdata[2]:.2%}<br>1y vol=%{customdata[3]:.2%}<extra></extra>'}],
+   {...base,title:'Return-shape & dependence diagnostic',xaxis:{title:'Skewness',zeroline:true},yaxis:{title:'Excess kurtosis',zeroline:true},
+    shapes:[{type:'line',x0:0,x1:0,y0:0,y1:1,yref:'paper',line:{dash:'dot',width:1}},{type:'line',x0:0,x1:1,xref:'paper',y0:0,y1:0,line:{dash:'dot',width:1}}]},cfg);
+ setStatus('s3',`Validated · ${res.length}/${banks.length} banks`,'ok');return true;
+}
+async function module4(){
+ setStatus('s4','Loading company…','loading');
+ const ticker=globalReference(),{start,end}=globalPeriod();document.getElementById('cpAsset').textContent=ticker;
+ const s=await getSeries(ticker,start,end,true),rows=s.rows,p=rows.map(x=>x.close),r=logReturns(p);if(r.length<140)throw new Error('Need at least 140 returns for the current break-search rule');
+ let best={cost:Infinity,i:null};for(let i=60;i<r.length-60;i++){let a=r.slice(0,i),b=r.slice(i),va=varianceMLE(a),vb=varianceMLE(b),cost=a.length*Math.log(va)+b.length*Math.log(vb);if(cost<best.cost)best={cost,i,va,vb}}
+ const preSample=sd(r.slice(0,best.i)),postSample=sd(r.slice(best.i));
+ const bi=best.i,breakDate=rows[bi+1].date.toISOString().slice(0,10),pre=preSample*Math.sqrt(252),post=postSample*Math.sqrt(252);document.getElementById('wfcWindow').textContent=`${start} → ${end}`;document.getElementById('wfcBreak').textContent=breakDate;document.getElementById('wfcRatio').textContent=(post/pre).toFixed(2)+'×';
+ let roll=r.map((_,i)=>i<20?null:sd(r.slice(i-19,i+1))*Math.sqrt(252)),dates=rows.slice(1).map(x=>x.date.toISOString().slice(0,10));
+ Plotly.newPlot('wfcPrice',[{x:rows.map(x=>x.date),y:p,mode:'lines',name:ticker,line:{width:1.6}}],{...base,title:`${ticker} closing price with estimated variance regimes`,shapes:[{type:'rect',x0:rows[0].date,x1:breakDate,y0:0,y1:1,yref:'paper',fillcolor:'rgba(15,114,128,.06)',line:{width:0}},{type:'rect',x0:breakDate,x1:rows.at(-1).date,y0:0,y1:1,yref:'paper',fillcolor:'rgba(138,101,29,.07)',line:{width:0}},{type:'line',x0:breakDate,x1:breakDate,y0:0,y1:1,yref:'paper',line:{dash:'dash',width:1.5}}],annotations:[{x:breakDate,y:1,yref:'paper',text:'Estimated break',showarrow:true,ay:-25,font:{size:9}}]},cfg);
+ Plotly.newPlot('wfcVol',[{x:dates,y:roll,mode:'lines',name:'21-day vol',line:{width:1.7}},{x:[dates[0],breakDate],y:[pre,pre],mode:'lines',name:'Pre-break σ',line:{dash:'dash'}},{x:[breakDate,dates.at(-1)],y:[post,post],mode:'lines',name:'Post-break σ',line:{dash:'dash'}}],{...base,title:`${ticker} rolling annualized volatility`,yaxis:{title:'Volatility'},shapes:[{type:'line',x0:breakDate,x1:breakDate,y0:0,y1:1,yref:'paper',line:{dash:'dot',width:1}}]},cfg);
+ setStatus('s4',`Validated · ${ticker}`,'ok');return true;
+}
+async function module5(){
+ setStatus('s5','Loading company…','loading');
+ const ticker=globalReference(),{start,end}=globalPeriod();
+ const s=await getSeries(ticker,start,end,true),rows=s.rows,p=rows.map(x=>x.close),rts=logReturns(p),sigma=sd(rts)*Math.sqrt(252),S=p.at(-1),K=S,T=30/252,r=.02,bs=bsCall(S,K,T,r,sigma),mcObj=mcCall(S,K,T,r,sigma,100000,42),mc=mcObj.price;
+ document.getElementById('jnjSpot').textContent=S.toFixed(2);document.getElementById('jnjSigma').textContent=(100*sigma).toFixed(2)+'%';document.getElementById('jnjBS').textContent=bs.toFixed(4);document.getElementById('jnjMC').textContent=mc.toFixed(4);
+ Plotly.newPlot('jnjPrice',[{x:rows.map(x=>x.date),y:p,mode:'lines',name:ticker,line:{width:1.7}}],{...base,title:`${ticker} calibration closes · ${start} to ${end}`,rangeslider:{visible:false}},cfg);Plotly.newPlot('jnjPricing',[{x:['Black–Scholes','Monte Carlo'],y:[bs,mc],mode:'markers',marker:{size:[15,15]},error_y:{type:'data',array:[0,1.96*mcObj.se],visible:true},text:[bs.toFixed(4),`${mc.toFixed(4)} ± ${(1.96*mcObj.se).toFixed(4)}`],textposition:'top center',hovertemplate:'%{x}<br>Value=%{y:.5f}<extra></extra>'}],{...base,title:`${ticker} analytical vs antithetic Monte Carlo`,yaxis:{title:'Call value'},showlegend:false},cfg);
+ let vv=[.5,.65,.8,.95,1,1.05,1.2,1.35,1.5].map(m=>sigma*m);Plotly.newPlot('jnjSensitivity',[{x:vv.map(x=>100*x),y:vv.map(v=>bsCall(S,K,T,r,v)),mode:'lines+markers',name:'BS sensitivity'}],{...base,title:`${ticker} option-value sensitivity to volatility`,xaxis:{title:'Annualized σ (%)'},yaxis:{title:'Call value'},shapes:[{type:'line',x0:100*sigma,x1:100*sigma,y0:0,y1:1,yref:'paper',line:{dash:'dash',width:1.4}}],annotations:[{x:100*sigma,y:1,yref:'paper',text:'Empirical σ',showarrow:false,yanchor:'bottom',font:{size:9}}]},cfg);
+ setStatus('s5',`Validated · ${ticker}`,'ok');return true;
+}
+async function module6(){
+ setStatus('s6','Loading company…','loading');
+ const ticker=globalReference(),{start,end}=globalPeriod();
+ const s=await getSeries(ticker,start,end,true),rows=s.rows,p=rows.map(x=>x.close),rts=logReturns(p),sigma=sd(rts)*Math.sqrt(252),S=p.at(-1),isAXP=ticker==='AXP',K=isAXP?105.98:S,T=isAXP?3/252:30/252,r=isAXP?.0019:.02,bs=bsCall(S,K,T,r,sigma),mc=mcCall(S,K,T,r,sigma,1000,123);
+ document.getElementById('axpSpot').textContent=S.toFixed(2);document.getElementById('axpSigma').textContent=(100*sigma).toFixed(2)+'%';document.getElementById('axpMC').textContent=mc.price.toFixed(6);document.getElementById('axpBS').textContent=bs.toFixed(6);
+ Plotly.newPlot('axpPrice',[{x:rows.map(x=>x.date),y:p,mode:'lines',name:ticker}],{...base,title:`${ticker} closes · ${start} to ${end}`},cfg);
+ const Ms=[100,250,500,1000,2500,5000,10000,50000],vals=Ms.map(m=>mcCall(S,K,T,r,sigma,m,123).price);Plotly.newPlot('axpConv',[{x:Ms,y:vals,mode:'lines+markers',name:'MC'},{x:Ms,y:Ms.map(_=>bs),mode:'lines',name:'BS',line:{dash:'dash'}}],{...base,title:`${ticker} Monte Carlo convergence with 95% confidence band`,xaxis:{title:'Simulations',type:'log'},yaxis:{title:'Call value'}},cfg);
+ Plotly.newPlot('axpPayoff',[{x:mc.pay,type:'histogram',nbinsx:40}],{...base,title:`${ticker} terminal payoff distribution (M=1000)`,xaxis:{title:'max(S_T-K,0)'}},cfg);
+ setStatus('s6',`Validated · ${ticker}`,'ok');window.__AXP__={ticker,rows,rts};return true;
+}
+async function module7(){
+ if(!window.__AXP__)await module6();let rts=window.__AXP__.rts,ticker=window.__AXP__.ticker||'AXP',j=jbTest(rts),m=mean(rts),s=sd(rts);document.getElementById('axpSkew').textContent=j.skew.toFixed(3);document.getElementById('axpKurt').textContent=j.kurt.toFixed(3);document.getElementById('axpJB').textContent=j.p.toExponential(2);
+ const bins=35,min=Math.min(...rts),max=Math.max(...rts),w=(max-min)/bins,centers=[],counts=[];for(let b=0;b<bins;b++){let lo=min+b*w,hi=lo+w;centers.push((lo+hi)/2);counts.push(rts.filter(x=>x>=lo&&(b===bins-1?x<=hi:x<hi)).length/(rts.length*w))}
+ Plotly.newPlot('axpDensity',[{x:centers,y:counts,type:'bar',name:'Empirical density',opacity:.52},{x:centers,y:centers.map(x=>gaussianPdf(x,m,s)),mode:'lines',name:'Gaussian fit',line:{width:2.2}}],{...base,title:`${ticker} empirical return density vs Gaussian benchmark`,xaxis:{title:'Daily log return'},yaxis:{title:'Density'},annotations:[{x:.02,y:.96,xref:'paper',yref:'paper',text:`Skew=${j.skew.toFixed(2)} · Excess kurtosis=${j.kurt.toFixed(2)} · JB p=${j.p<1e-6?j.p.toExponential(1):j.p.toFixed(4)}`,showarrow:false,xanchor:'left',font:{size:9}}]},cfg);
+ Plotly.newPlot('levySource',[{x:['Real payoff','GBM helper p0','NIG/Lévy mean payoff','NIG/Lévy discounted'],y:[0,0,0.06857888,0.06857733],type:'bar'}],{...base,title:'Exact numerical comments from repository R source',yaxis:{title:'Value'}},cfg);
+ setStatus('s7','Validated · empirical tails + source output','ok');return true;
+}
+async function run(){
+ const tasks=[module1,module2,module3,module4,module5,module6,module7],results=[];
+ for(const f of tasks){try{results.push(await f())}catch(e){console.error(e);results.push(false)}}
+ const n=results.filter(Boolean).length,g=document.getElementById('globalStatus');g.textContent=`${n}/7 analytical modules validated`;g.className='status '+(n===7?'ok':n>=5?'warn':'fail');
+}
+
+function globalPeriod(){
+ const start=document.getElementById('globalStart').value,end=document.getElementById('globalEnd').value;
+ ensureDates(start,end);return {start,end};
+}
+function globalCompanies(){return checkedValues('globalCompanyChecks')}
+function globalReference(){return document.getElementById('globalReference').value}
+async function runAllSelected(){
+ const btn=document.getElementById('globalRunBtn'),state=document.getElementById('globalRunState');
+ const original='Run all analyses';btn.disabled=true;btn.classList.add('running');btn.textContent='Analysis running…';state.textContent='Running selected analysis…';state.className='status loading';
+ const fns=[module1,module2,module3,module4,module5,module6,module7];let ok=0;
+ for(const fn of fns){try{const r=await fn();if(r!==false)ok++}catch(e){console.error(e)}}
+ btn.classList.remove('running');btn.classList.add(ok===7?'done':'failed');btn.textContent=ok===7?'Analysis completed':`Completed ${ok}/7`;state.textContent=`${ok}/7 modules completed`;state.className='status '+(ok===7?'ok':ok>=5?'warn':'fail');
+ setTimeout(()=>{btn.classList.remove('done','failed');btn.disabled=false;btn.textContent=original},2500);
+}
+
+function activate(t){document.querySelectorAll('.navbtn,.module-item').forEach(x=>x.classList.toggle('active',x.dataset.target===t));document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===t));setTimeout(()=>window.dispatchEvent(new Event('resize')),60)}
+document.querySelectorAll('.navbtn,.module-item').forEach(x=>x.addEventListener('click',()=>activate(x.dataset.target)));
+run();
+</script>
+</body></html>

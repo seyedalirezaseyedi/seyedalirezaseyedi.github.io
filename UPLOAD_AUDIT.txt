@@ -1,0 +1,65 @@
+Website upload audit
+====================
+
+HTML pages checked: 7
+Deployment issues remaining: 0
+
+- business-analytics-decision-support.html
+  Title: Business Analytics & Decision Support | Seyedalireza Seyedi, PhD
+  Size: 3123.4 KB
+  Duplicate IDs: none
+  Missing local targets: none
+- forest-governance-biodiversity-analytics.html
+  Title: Forest Governance & Biodiversity Dashboard | Seyedalireza Seyedi, PhD
+  Size: 1399.9 KB
+  Duplicate IDs: none
+  Missing local targets: none
+- google3acbb18993e07631.html
+  Title: 
+  Size: 0.1 KB
+  Duplicate IDs: none
+  Missing local targets: none
+- index.html
+  Title: Seyedalireza Seyedi, PhD | Quantitative Modelling, Data Science & Optimization
+  Size: 150.1 KB
+  Duplicate IDs: none
+  Missing local targets: none
+- longitudinal-immunity-analytics.html
+  Title: Longitudinal Immunity Analytics Dashboard | Seyedalireza Seyedi, PhD
+  Size: 93.5 KB
+  Duplicate IDs: none
+  Missing local targets: none
+- quantitative-finance-risk-analytics.html
+  Title: Quantitative Finance & Risk Analytics | Seyedalireza Seyedi, PhD
+  Size: 56.6 KB
+  Duplicate IDs: none
+  Missing local targets: none
+- water-governance-analytics.html
+  Title: Water Governance Dashboard | Seyedalireza Seyedi, PhD
+  Size: 239.6 KB
+  Duplicate IDs: none
+  Missing local targets: none
+
+Issues:
+- none
+
+External-link spot check
+------------------------
+Verified reachable in the review:
+- Business Analytics GitHub repository
+- Quantitative Finance GitHub repository
+- Kaggle Superstore dataset
+- Technical blog
+- PubMed ORCHESTRA article
+- Wiley forest-management article
+- Both Nova Science Publishers book pages
+
+Inconclusive in the review tool (not classified as broken):
+- Several doi.org resolver URLs
+- Two ScienceDirect article URLs
+The URLs are syntactically valid; the review tool returned resolver/internal errors for those destinations.
+
+Deployment note
+---------------
+The Quantitative Finance dashboard loads market data from public remote endpoints at runtime.
+Its page structure and JavaScript syntax are valid, but third-party endpoint/CORS availability is external to the static website package.
