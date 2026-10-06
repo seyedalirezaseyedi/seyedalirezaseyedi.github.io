@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Forest Optimization &amp; Biodiversity Case Study | Seyedalireza Seyedi, PhD</title>
+<meta content="Case study on dynamic forest-management optimization comparing cooperative and non-cooperative governance across biomass, biodiversity, harvesting pressure, welfare and policy sensitivity." name="description"/>
+<style>
+:root{
+  --ink:#202529;--muted:#687177;--line:#d9dddf;--soft:#f6f7f7;
+  --accent:#2f765d;--accent2:#3f8a70;--dark:#173b32;--navy:#12304a;
+  --shadow:0 14px 36px rgba(21,56,46,.07);--max:1180px
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#f6f8f7;color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif}
+a{color:inherit}.shell{max-width:var(--max);margin:auto;padding:22px 24px 72px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:800;color:#455158}
+.pill:hover{border-color:var(--accent);color:var(--accent)}
+.hero{background:linear-gradient(135deg,#173b32 0%,#24594b 58%,#2f765d 100%);color:#fff;border-radius:24px;padding:34px 36px;box-shadow:0 20px 46px rgba(21,56,46,.16)}
+.hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:28px;align-items:end}
+.eyebrow,.label{font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+.eyebrow{color:#b8ddd0}.label{color:var(--accent)}
+h1{font-size:44px;line-height:1.03;letter-spacing:-.045em;margin:7px 0 12px}
+.hero p{margin:0;max-width:820px;color:#e0ece7;font-size:15px;line-height:1.65}
+.hero-side{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.stat{border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.06);border-radius:13px;padding:13px}
+.stat span{display:block;font-size:8.5px;text-transform:uppercase;letter-spacing:.07em;color:#c7e3d8;font-weight:850}
+.stat b{display:block;font-size:18px;margin-top:4px}
+.summary,.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.summary{margin:15px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}
+.box{padding:18px}.box h3{margin:4px 0 8px;font-size:15px;color:var(--dark)}
+.box p,.section p{margin:0;color:#556269;font-size:12px;line-height:1.62}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:15px 0}
+.fact{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px}
+.fact span{display:block;font-size:8.3px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:850}
+.fact b{display:block;font-size:17px;color:var(--dark);margin-top:4px}.fact small{display:block;color:var(--muted);font-size:9px;margin-top:4px;line-height:1.4}
+.story{display:grid;grid-template-columns:300px 1fr;gap:16px;align-items:start}
+.sidebar{padding:17px;position:sticky;top:14px}.sidebar h3{font-size:12px;color:var(--dark);margin:0 0 10px}
+.jump{display:block;text-decoration:none;padding:9px 10px;border-radius:9px;font-size:10.5px;font-weight:800;color:#58666c}.jump:hover{background:#f1f6f3;color:var(--accent)}
+.meta{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}.meta span{display:block;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:850}.meta b{display:block;font-size:10px;line-height:1.45;margin-top:4px}
+.content{display:grid;gap:13px}.section{padding:21px 22px}.section h2{font-size:22px;margin:4px 0 9px;letter-spacing:-.025em;color:var(--dark)}
+.block{border:1px solid #e2e7e4;border-radius:12px;background:#fafbfa;padding:13px}.block strong{display:block;font-size:10px;color:#415158;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}.block p{font-size:11px}
+.methods{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.methods span{padding:6px 9px;border-radius:999px;background:#eff6f2;border:1px solid #d6e5dc;color:#365c4d;font-size:10px;font-weight:800}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}.step{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fbfcfb}.step .num{font-family:Georgia,serif;font-size:22px;color:#a9b3ae}.step b{display:block;font-size:11px;color:var(--dark);margin:4px 0}.step span{display:block;font-size:9.7px;color:var(--muted);line-height:1.5}
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.result{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fbfcfb}.result b{display:block;font-size:11px;color:var(--dark);margin-bottom:4px}.result span{font-size:9.7px;color:var(--muted);line-height:1.5;display:block}
+.callout{margin-top:12px;border-left:3px solid var(--accent);background:#f2f7f4;border-radius:10px;padding:12px 14px;color:#455851;font-size:11px;line-height:1.55}
+.verified-label{display:inline-flex;padding:5px 8px;border-radius:999px;background:#edf5f0;border:1px solid #cfe0d6;color:#285847;font-size:9px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:7px}
+.service-links,.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.service-link,.btn{display:inline-flex;text-decoration:none;padding:8px 11px;border:1px solid var(--line);border-radius:9px;background:#fff;color:#315a4b;font-size:10.5px;font-weight:850}
+.service-link:hover,.btn:hover{border-color:var(--accent);color:var(--accent)}.btn.primary{background:var(--dark);color:#fff;border-color:var(--dark)}.btn.primary:hover{background:var(--accent);color:#fff}
+.case-nav{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-top:14px;padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:#fff}
+.case-nav a{text-decoration:none;font-size:10px;font-weight:850;color:#315a4b}.case-nav .next{text-align:right}.case-nav .backcases{text-align:center}
+.footer{margin-top:16px;font-size:9.5px;color:var(--muted);line-height:1.55}
+@media(max-width:960px){.hero-grid,.story{grid-template-columns:1fr}.sidebar{position:relative;top:auto}.flow{grid-template-columns:1fr 1fr}.hero-side{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:700px){.shell{padding:14px 12px 48px}.hero{padding:25px 20px}h1{font-size:33px}.summary,.grid2,.results{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}.hero-side{grid-template-columns:1fr 1fr}.case-nav{grid-template-columns:1fr;text-align:left}.case-nav .next,.case-nav .backcases{text-align:left}}
+@media(max-width:460px){.facts,.flow{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main class="shell">
+<div class="topbar"><a class="pill" href="index.html">Gateway</a><a class="pill" href="business-index.html">Business Home</a><a class="pill" href="business-index.html#case-studies">All Case Studies</a></div>
+<section class="hero"><div class="hero-grid">
+<div>
+<div class="eyebrow">Case Study 02 · Optimization &amp; Environmental Decision Science</div>
+<h1>Optimizing Forest Management Under Competing Economic and Environmental Objectives</h1>
+<p>Building a dynamic decision model to compare decentralized and cooperative forest-management strategies across biomass, biodiversity, harvesting pressure, ecological value and welfare over time.</p>
+</div>
+<div class="hero-side">
+<div class="stat"><span>Horizon</span><b>20 time units</b></div>
+<div class="stat"><span>Harvesters</span><b>15 agents</b></div>
+<div class="stat"><span>Governance regimes</span><b>3 compared</b></div>
+<div class="stat"><span>Method</span><b>Pontryagin BVP</b></div>
+</div></div></section>
+<section class="summary">
+<div class="card box">
+<div class="label">Executive summary</div>
+<h3>Dynamic strategy comparison for extraction, biodiversity and long-run welfare</h3>
+<p>Developed and numerically analyzed a finite-horizon bioeconomic decision framework that compares decentralized harvesting with cooperative management under alternative ecological endpoint designs, making the trade-offs between extraction incentives, biodiversity, biomass and cumulative pressure explicit.</p>
+</div>
+<div class="card box">
+<div class="label">Domain</div>
+<h3>Optimization · Environmental economics · Dynamic decision science</h3>
+<p>The work combines optimal control, dynamic games, natural-resource economics, numerical boundary-value analysis, scenario comparison and sensitivity testing.</p>
+</div>
+</section>
+<section class="facts">
+<div class="fact"><span>State variables</span><b>3 evolving states</b><small>Biomass · Biodiversity · Cumulative harvest pressure</small></div>
+<div class="fact"><span>Governance benchmark</span><b>Open-loop Nash</b><small>Noncooperative decentralized harvesting</small></div>
+<div class="fact"><span>Cooperative designs</span><b>2 regimes</b><small>Fixed ecological targets · Free terminal states</small></div>
+<div class="fact"><span>Published output</span><b>NRM · 2026</b><small>Natural Resource Modeling · e70037</small></div>
+</section>
+<div class="story">
+<aside class="card sidebar">
+<h3>Case study</h3>
+<a class="jump" href="#context">01 · Decision Context</a>
+<a class="jump" href="#challenge">02 · Challenge</a>
+<a class="jump" href="#model">03 · Model</a>
+<a class="jump" href="#role">04 · My Role</a>
+<a class="jump" href="#methods">05 · Methods</a>
+<a class="jump" href="#workflow">06 · Analytical Workflow</a>
+<a class="jump" href="#scenarios">07 · Governance Scenarios</a>
+<a class="jump" href="#results">08 · Results</a>
+<a class="jump" href="#relevance">09 · Decision Relevance</a>
+<a class="jump" href="#demonstrates">10 · What This Demonstrates</a>
+<a class="jump" href="#services">11 · Related Services</a>
+<a class="jump" href="#evidence">12 · Evidence</a>
+<div class="meta"><span>Research appointment</span><b>Research Fellow — Environmental &amp; Resource Economics · University of Bologna · 2024–2025</b></div>
+<div class="meta"><span>Collaborators</span><b>Elettra Agliardi · Anastasios Xepapadeas</b></div>
+</aside>
+<div class="content">
+<section class="card section" id="context">
+<div class="label">01 · Decision Context</div>
+<h2>Managing a renewable resource when extraction and ecological value evolve together</h2>
+<p>Forest-management decisions affect more than current harvest volume. Biomass, biodiversity and cumulative harvesting pressure evolve jointly over time, so short-run extraction choices can alter future ecological productivity, ecological value and the feasible management path.</p>
+<div class="grid2">
+<div class="block"><strong>Economic dimension</strong><p>Harvesting creates current economic value, while standing biomass has a dynamic shadow value that changes under alternative governance structures.</p></div>
+<div class="block"><strong>Ecological dimension</strong><p>Biodiversity contributes directly to biomass productivity, while cumulative harvesting pressure creates an ecological-memory channel linking past extraction to future biodiversity dynamics.</p></div>
+</div>
+</section>
+<section class="card section" id="challenge">
+<div class="label">02 · Challenge</div>
+<h2>How can competing economic and environmental objectives be compared dynamically?</h2>
+<p>The analytical challenge was to compare how decentralized and coordinated decision structures change harvesting paths, ecological stocks and welfare when management choices have persistent effects over a finite horizon.</p>
+<div class="callout"><strong>Core analytical challenge:</strong> How do alternative governance regimes change the dynamic balance among biomass, biodiversity, harvesting pressure, ecological value and economic welfare?</div>
+</section>
+<section class="card section" id="model">
+<div class="label">03 · Model</div>
+<h2>A finite-horizon bioeconomic system with ecological feedback and memory</h2>
+<div class="results">
+<div class="result"><b>Biomass</b><span>A renewable economic and ecological stock whose growth is influenced by biodiversity and harvesting.</span></div>
+<div class="result"><b>Biodiversity</b><span>An endogenous ecological state that contributes to biomass productivity and is affected by cumulative harvesting pressure.</span></div>
+<div class="result"><b>Cumulative pressure</b><span>An ecological-memory state transmitting the effects of past extraction into future biodiversity dynamics.</span></div>
+</div>
+<div class="callout">Disturbance exposure is represented in the dashboard implementation as a deterministic expected biodiversity-loss drift rather than realized stochastic shocks.</div>
+</section>
+<section class="card section" id="role">
+<div class="label">04 · My Role</div>
+<h2>Dynamic modelling, numerical analysis, scenario comparison and sensitivity analysis</h2>
+<p>Within the University of Bologna environmental and resource economics research appointment, my documented role included developing finite-horizon optimal-control and dynamic-game models for forests, biodiversity, harvesting and environmental policy, and coordinating the modelling workflow, numerical analysis, scenario comparison and sensitivity analysis.</p>
+<div class="grid2">
+<div class="block"><strong>Model development</strong><p>Formulated dynamic relationships among resource stocks, ecological values, harvesting pressure and alternative governance structures.</p></div>
+<div class="block"><strong>Numerical analysis</strong><p>Worked with finite-horizon boundary-value formulations and numerical solution of state-control trajectories.</p></div>
+<div class="block"><strong>Scenario comparison</strong><p>Compared decentralized and cooperative management structures under different terminal-state designs.</p></div>
+<div class="block"><strong>Sensitivity analysis</strong><p>Examined how parameter shifts alter biomass, biodiversity, cumulative pressure and management responses.</p></div>
+</div>
+</section>
+<section class="card section" id="methods">
+<div class="label">05 · Methods</div>
+<h2>Methods for dynamic resource allocation and governance comparison</h2>
+<p>The methods below are limited to techniques explicitly supported by the publication, dashboard and documented research appointment.</p>
+<div class="methods">
+<span>Finite-horizon optimal control</span>
+<span>Pontryagin conditions</span>
+<span>Boundary-value problem solving</span>
+<span>Dynamic games</span>
+<span>Open-loop Nash equilibrium</span>
+<span>Cooperative optimization</span>
+<span>Bioeconomic modelling</span>
+<span>Welfare analysis</span>
+<span>Scenario comparison</span>
+<span>One-at-a-time sensitivity analysis</span>
+<span>Local sensitivity diagnostics</span>
+</div>
+</section>
+<section class="card section" id="workflow">
+<div class="label">06 · Analytical Workflow</div>
+<h2>From dynamic system specification to comparative management diagnostics</h2>
+<div class="flow">
+<div class="step"><div class="num">01</div><b>Model</b><span>Represent biomass, biodiversity and cumulative harvesting pressure as jointly evolving states.</span></div>
+<div class="step"><div class="num">02</div><b>Optimize</b><span>Solve decentralized and cooperative finite-horizon control problems under their respective endpoint structures.</span></div>
+<div class="step"><div class="num">03</div><b>Compare</b><span>Evaluate state trajectories, harvest strategies, model objectives and shadow-value differences across governance regimes.</span></div>
+<div class="step"><div class="num">04</div><b>Stress-test</b><span>Re-solve parameter scenarios and examine local sensitivities to identify structurally important ecological and economic drivers.</span></div>
+</div>
+</section>
+<section class="card section" id="scenarios">
+<div class="label">07 · Governance Scenarios</div>
+<h2>Three management structures with different strategic and ecological endpoint assumptions</h2>
+<div class="results">
+<div class="result"><b>Noncooperative OLNE</b><span>Open-loop Nash benchmark with decentralized harvesting and free terminal states.</span></div>
+<div class="result"><b>Cooperative · Fixed targets</b><span>Coordinated management with prescribed ecological terminal conditions.</span></div>
+<div class="result"><b>Cooperative · Free terminal</b><span>Coordinated management with adaptive free terminal states.</span></div>
+</div>
+</section>
+<section class="card section" id="results">
+<div class="label">08 · Results</div>
+<h2>Evidence-backed differences in ecological trajectories, incentives and adjustment paths</h2>
+<div class="results">
+<div class="result"><b>Governance changes the dynamic path</b><span>The published model and dashboard show distinct biomass, biodiversity, cumulative-pressure and harvest trajectories under decentralized and cooperative regimes.</span></div>
+<div class="result"><b>Endpoint design matters</b><span>Fixed ecological targets meet prescribed terminal states but can require stronger late-horizon adjustments.</span></div>
+<div class="result"><b>Adaptive cooperation changes recovery</b><span>In the published baseline, free-terminal cooperative regulation produces smoother adjustment and the strongest biodiversity recovery among the compared regimes.</span></div>
+<div class="result"><b>Shadow values reveal incentive differences</b><span>A positive biomass shadow-value wedge identifies a model-implied gap between cooperative and decentralized marginal valuation of standing biomass.</span></div>
+<div class="result"><b>Sensitivity exposes structural drivers</b><span>Re-solved parameter scenarios show how changes in ecological damage, biodiversity regeneration, discounting, pressure decay, biomass price and disturbance-loss drift propagate through the system.</span></div>
+<div class="result"><b>Objectives require careful interpretation</b><span>Noncooperative and cooperative objective values use different definitions and should not be read as directly comparable market revenues.</span></div>
+</div>
+<div class="callout"><strong>Evidence boundary:</strong> These are model-based comparative results. They do not demonstrate real-world policy adoption, realized conservation gains, or commercial financial returns.</div>
+</section>
+<section class="card section" id="relevance">
+<div class="label">09 · Decision Relevance</div>
+<h2>Why This Matters for Environmental Decision Science</h2>
+<p>The value of the framework is its ability to make dynamic trade-offs visible before a management rule is chosen. It shows how extraction incentives, ecological feedback, endpoint design and parameter uncertainty can be compared within a consistent quantitative system.</p>
+<div class="grid2">
+<div class="block"><strong>Resource-allocation strategy</strong><p>Compare how decentralized and coordinated extraction rules propagate through renewable-resource dynamics.</p></div>
+<div class="block"><strong>Governance design</strong><p>Evaluate the consequences of fixed ecological targets versus more adaptive terminal conditions.</p></div>
+<div class="block"><strong>Incentive diagnostics</strong><p>Use shadow-value differences to identify where decentralized incentives diverge from cooperative valuation.</p></div>
+<div class="block"><strong>Robustness analysis</strong><p>Test how ecological and economic parameter changes alter trajectories and endpoint outcomes before applying the framework to a calibrated real-world setting.</p></div>
+</div>
+<div class="callout">A real forest-management application would require external calibration of timber prices, harvest costs, biodiversity indices, disturbance exposure, ecological parameters, monitoring quality and enforcement constraints for the target forest.</div>
+</section>
+<section class="card section" id="demonstrates">
+<div class="label">10 · What This Demonstrates</div>
+<h2>Transferable Quantitative Capabilities</h2>
+<div class="grid2">
+<div class="block"><strong>Dynamic Optimization</strong><p>Ability to formulate and solve finite-horizon control problems involving interdependent economic and ecological states.</p></div>
+<div class="block"><strong>Strategic Scenario Comparison</strong><p>Ability to compare decentralized and coordinated decision structures under alternative constraints and endpoint rules.</p></div>
+<div class="block"><strong>Sensitivity &amp; Robustness Analysis</strong><p>Ability to re-solve model scenarios and identify which parameters most strongly affect resource-system outcomes.</p></div>
+<div class="block"><strong>Research-to-Decision Translation</strong><p>Ability to convert a mathematical model into interpretable trajectories, policy diagnostics and interactive decision-support outputs.</p></div>
+</div>
+</section>
+<section class="card section" id="services">
+<div class="label">11 · Related Services</div>
+<h2>Relevant Consulting &amp; Analytical Services</h2>
+<p>This case study is most closely connected to the following business service lines.</p>
+<div class="service-links">
+<a class="service-link" href="business-index.html#services">Optimization &amp; Decision Science</a>
+<a class="service-link" href="business-index.html#services">Econometrics &amp; Policy Analytics</a>
+<a class="service-link" href="business-index.html#services">Statistical &amp; Data Analysis</a>
+</div>
+</section>
+<section class="card section" id="evidence">
+<div class="verified-label">Verified Evidence</div>
+<div class="label">12 · Evidence</div>
+<h2>Peer-reviewed publication, research appointment and validated analytical dashboard</h2>
+<p><strong>Related publication:</strong> Seyedi, S. A., Agliardi, E., &amp; Xepapadeas, A. — <em>Cooperative and Non-Cooperative Solutions in a Dynamic Model of Forest Management</em>, <em>Natural Resource Modeling</em>, 39(3), e70037 (2026).</p>
+<p><strong>Research appointment:</strong> Research Fellow — Environmental &amp; Resource Economics, University of Bologna, October 2024–December 2025, within the research line on optimal management of environmental and resource stocks in space and time.</p>
+<p><strong>Computational evidence:</strong> The dashboard reconstructs the Appendix C formulation using an independent boundary-value solver and provides re-solved one-at-a-time sensitivity scenarios around the published calibration.</p>
+<div class="links">
+<a class="btn primary" href="forest-governance-biodiversity-analytics.html" rel="noopener" target="_blank">Open Forest Governance Dashboard ↗</a>
+
+<a class="btn" href="https://doi.org/10.1111/nrm.70037" rel="noopener" target="_blank">NRM 2026 ↗</a>
+</div>
+</section>
+</div></div>
+<div class="case-nav"><a href="case-study-01-health-analytics.html">← Previous · Health Analytics</a><a class="backcases" href="business-index.html#case-studies">All Case Studies</a><a class="next" href="case-study-03-water-governance.html">Next · Water Governance →</a></div>
+<div class="footer"><strong>Evidence boundary.</strong> This case study uses business-facing language, but all substantive project claims are limited to documented evidence from the current portfolio, the forest-governance analytical dashboard, the research appointment and the peer-reviewed publication record. It does not claim real-world policy implementation, realized conservation outcomes or commercial ROI.</div>
+</main></body>
+</html>

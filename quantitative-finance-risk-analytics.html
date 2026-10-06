@@ -1,10 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Quantitative Finance & Risk Analytics | Seyedalireza Seyedi, PhD</title>
-<meta name="description" content="Live, source-audited quantitative finance dashboard using open historical market data and repository-aligned analytics.">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Quantitative Finance &amp; Risk Analytics | Seyedalireza Seyedi, PhD</title>
+<meta content="Live, source-audited quantitative finance dashboard using open historical market data and repository-aligned analytics." name="description"/>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
 :root{
@@ -79,97 +80,91 @@ code{font-size:9.5px;background:#f1f4f5;padding:2px 4px;border-radius:4px}
 </style>
 </head>
 <body><div class="shell">
-<div class="utility"><a class="pill" href="./index.html">← Home / Portfolio</a><a class="pill" href="https://github.com/59alireza59/Quantitative-Finance" target="_blank" rel="noopener">GitHub evidence source ↗</a></div>
-
+<div class="utility"><a class="pill" href="https://github.com/59alireza59/Quantitative-Finance" rel="noopener" target="_blank">GitHub evidence source ↗</a><a class="pill" href="index.html">Gateway</a><a class="pill" href="academic-index.html#portfolio">Academic Portfolio</a><a class="pill" href="business-index.html#case-studies">Business Case Studies</a></div>
 <section class="hero"><div class="hero-grid">
-<div><div class="eyebrow">Quantitative Finance · Risk Analytics · Interactive Market & Risk Intelligence</div><h1>Quantitative Finance & Risk Analytics</h1><p>Interactive quantitative analysis of U.S.-listed equities, combining market structure, dependence, distribution diagnostics, regime analysis, derivative pricing, simulation and heavy-tail risk.</p></div>
+<div><div class="eyebrow">Quantitative Finance · Risk Analytics · Interactive Market &amp; Risk Intelligence</div><h1>Quantitative Finance &amp; Risk Analytics</h1><p>Interactive quantitative analysis of U.S.-listed equities, combining market structure, dependence, distribution diagnostics, regime analysis, derivative pricing, simulation and heavy-tail risk.</p></div>
 <div class="hero-meta"><div class="hero-stat"><span>Repository modules</span><b>7</b></div><div class="hero-stat"><span>Market universe</span><b>U.S.-listed equities</b></div><div class="hero-stat"><span>Analytics</span><b>Dynamic</b></div><div class="hero-stat"><span>Coverage</span><b>Multi-model</b></div></div>
 </div></section>
-
 <section class="audit">
-<div class="audit-top"><h3>Market data status</h3><span id="globalStatus" class="status loading">Loading market data…</span></div>
+<div class="audit-top"><h3>Market data status</h3><span class="status loading" id="globalStatus">Loading market data…</span></div>
 <div class="prov-grid">
 <div class="prov"><span>Historical prices</span><b>Daily historical closing prices for the selected U.S.-listed companies.</b></div>
 <div class="prov"><span>Data continuity</span><b>Alternative public market-data endpoints are used when the primary series is unavailable.</b></div>
 <div class="prov"><span>Quality controls</span><b>Price histories are checked for valid dates, positive prices, duplicates, sample length and finite returns.</b></div>
 <div class="prov"><span>Analytical integrity</span><b>Results are displayed only when sufficient valid observations are available for the selected analysis.</b></div>
 </div></section>
-
 <nav class="navrow">
 <button class="navbtn active" data-target="clustering">01 · Clustering</button><button class="navbtn" data-target="leadlag">02 · Lead–Lag</button><button class="navbtn" data-target="bstest">03 · Black–Scholes Test</button><button class="navbtn" data-target="changepoint">04 · Change Point</button><button class="navbtn" data-target="option">05 · Option Pricing</button><button class="navbtn" data-target="mc">06 · Monte Carlo</button><button class="navbtn" data-target="levy">07 · Lévy / Heavy Tails</button>
 </nav>
-
 <section class="global-controls">
- <div class="global-controls-head">
-   <div>
-     <h3>Market analysis</h3>
-     <p>Select a period, a reference company, and the U.S.-listed companies to include in the analysis.</p>
-   </div>
-   <span id="globalRunState" class="status ok">Ready</span>
- </div>
- <div class="global-row">
-   <div class="global-control">
-     <label>Start date</label>
-     <input id="globalStart" type="date" value="2017-09-01">
-   </div>
-   <div class="global-control">
-     <label>End date</label>
-     <input id="globalEnd" type="date" value="2018-09-30">
-   </div>
-   <div class="global-control">
-     <label>Primary / reference company</label>
-     <select id="globalReference">
-  <option value="JNJ" selected>Johnson & Johnson (JNJ)</option>
-  <option value="PFE">Pfizer Inc. (PFE)</option>
-  <option value="AMGN">Amgen Inc. (AMGN)</option>
-  <option value="MRK">Merck & Co., Inc. (MRK)</option>
-  <option value="JPM">JPMorgan Chase & Co. (JPM)</option>
-  <option value="BAC">Bank of America Corporation (BAC)</option>
-  <option value="WFC">Wells Fargo & Company (WFC)</option>
-  <option value="C">Citigroup Inc. (C)</option>
-  <option value="GS">The Goldman Sachs Group, Inc. (GS)</option>
-  <option value="MS">Morgan Stanley (MS)</option>
-  <option value="USB">U.S. Bancorp (USB)</option>
-  <option value="PNC">The PNC Financial Services Group, Inc. (PNC)</option>
-  <option value="BK">The Bank of New York Mellon Corporation (BK)</option>
-  <option value="STT">State Street Corporation (STT)</option>
-  <option value="BLK">BlackRock, Inc. (BLK)</option>
-  <option value="BEN">Franklin Resources, Inc. (BEN)</option>
-  <option value="IVZ">Invesco Ltd. (IVZ)</option>
-  <option value="TROW">T. Rowe Price Group, Inc. (TROW)</option>
-  <option value="AXP">American Express Company (AXP)</option>
+<div class="global-controls-head">
+<div>
+<h3>Market analysis</h3>
+<p>Select a period, a reference company, and the U.S.-listed companies to include in the analysis.</p>
+</div>
+<span class="status ok" id="globalRunState">Ready</span>
+</div>
+<div class="global-row">
+<div class="global-control">
+<label>Start date</label>
+<input id="globalStart" type="date" value="2017-09-01"/>
+</div>
+<div class="global-control">
+<label>End date</label>
+<input id="globalEnd" type="date" value="2018-09-30"/>
+</div>
+<div class="global-control">
+<label>Primary / reference company</label>
+<select id="globalReference">
+<option selected="" value="JNJ">Johnson &amp; Johnson (JNJ)</option>
+<option value="PFE">Pfizer Inc. (PFE)</option>
+<option value="AMGN">Amgen Inc. (AMGN)</option>
+<option value="MRK">Merck &amp; Co., Inc. (MRK)</option>
+<option value="JPM">JPMorgan Chase &amp; Co. (JPM)</option>
+<option value="BAC">Bank of America Corporation (BAC)</option>
+<option value="WFC">Wells Fargo &amp; Company (WFC)</option>
+<option value="C">Citigroup Inc. (C)</option>
+<option value="GS">The Goldman Sachs Group, Inc. (GS)</option>
+<option value="MS">Morgan Stanley (MS)</option>
+<option value="USB">U.S. Bancorp (USB)</option>
+<option value="PNC">The PNC Financial Services Group, Inc. (PNC)</option>
+<option value="BK">The Bank of New York Mellon Corporation (BK)</option>
+<option value="STT">State Street Corporation (STT)</option>
+<option value="BLK">BlackRock, Inc. (BLK)</option>
+<option value="BEN">Franklin Resources, Inc. (BEN)</option>
+<option value="IVZ">Invesco Ltd. (IVZ)</option>
+<option value="TROW">T. Rowe Price Group, Inc. (TROW)</option>
+<option value="AXP">American Express Company (AXP)</option>
 </select>
-   </div>
-   <div class="global-control wide">
-     <label>U.S.-listed company universe</label>
-     <div id="globalCompanyChecks" class="global-companies">
-  <label class="checkitem"><input type="checkbox" value="JNJ" checked>Johnson & Johnson (JNJ)</label>
-  <label class="checkitem"><input type="checkbox" value="PFE" checked>Pfizer Inc. (PFE)</label>
-  <label class="checkitem"><input type="checkbox" value="AMGN" checked>Amgen Inc. (AMGN)</label>
-  <label class="checkitem"><input type="checkbox" value="MRK" checked>Merck & Co., Inc. (MRK)</label>
-  <label class="checkitem"><input type="checkbox" value="JPM" checked>JPMorgan Chase & Co. (JPM)</label>
-  <label class="checkitem"><input type="checkbox" value="BAC" checked>Bank of America Corporation (BAC)</label>
-  <label class="checkitem"><input type="checkbox" value="WFC" checked>Wells Fargo & Company (WFC)</label>
-  <label class="checkitem"><input type="checkbox" value="C" checked>Citigroup Inc. (C)</label>
-  <label class="checkitem"><input type="checkbox" value="GS" checked>The Goldman Sachs Group, Inc. (GS)</label>
-  <label class="checkitem"><input type="checkbox" value="MS" checked>Morgan Stanley (MS)</label>
-  <label class="checkitem"><input type="checkbox" value="USB">U.S. Bancorp (USB)</label>
-  <label class="checkitem"><input type="checkbox" value="PNC">The PNC Financial Services Group, Inc. (PNC)</label>
-  <label class="checkitem"><input type="checkbox" value="BK">The Bank of New York Mellon Corporation (BK)</label>
-  <label class="checkitem"><input type="checkbox" value="STT">State Street Corporation (STT)</label>
-  <label class="checkitem"><input type="checkbox" value="BLK" checked>BlackRock, Inc. (BLK)</label>
-  <label class="checkitem"><input type="checkbox" value="BEN" checked>Franklin Resources, Inc. (BEN)</label>
-  <label class="checkitem"><input type="checkbox" value="IVZ" checked>Invesco Ltd. (IVZ)</label>
-  <label class="checkitem"><input type="checkbox" value="TROW" checked>T. Rowe Price Group, Inc. (TROW)</label>
-  <label class="checkitem"><input type="checkbox" value="AXP" checked>American Express Company (AXP)</label>
+</div>
+<div class="global-control wide">
+<label>U.S.-listed company universe</label>
+<div class="global-companies" id="globalCompanyChecks">
+<label class="checkitem"><input checked="" type="checkbox" value="JNJ"/>Johnson &amp; Johnson (JNJ)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="PFE"/>Pfizer Inc. (PFE)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="AMGN"/>Amgen Inc. (AMGN)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="MRK"/>Merck &amp; Co., Inc. (MRK)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="JPM"/>JPMorgan Chase &amp; Co. (JPM)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="BAC"/>Bank of America Corporation (BAC)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="WFC"/>Wells Fargo &amp; Company (WFC)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="C"/>Citigroup Inc. (C)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="GS"/>The Goldman Sachs Group, Inc. (GS)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="MS"/>Morgan Stanley (MS)</label>
+<label class="checkitem"><input type="checkbox" value="USB"/>U.S. Bancorp (USB)</label>
+<label class="checkitem"><input type="checkbox" value="PNC"/>The PNC Financial Services Group, Inc. (PNC)</label>
+<label class="checkitem"><input type="checkbox" value="BK"/>The Bank of New York Mellon Corporation (BK)</label>
+<label class="checkitem"><input type="checkbox" value="STT"/>State Street Corporation (STT)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="BLK"/>BlackRock, Inc. (BLK)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="BEN"/>Franklin Resources, Inc. (BEN)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="IVZ"/>Invesco Ltd. (IVZ)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="TROW"/>T. Rowe Price Group, Inc. (TROW)</label>
+<label class="checkitem"><input checked="" type="checkbox" value="AXP"/>American Express Company (AXP)</label>
 </div>
 </div>
-<button id="globalRunBtn" class="runbtn" onclick="runAllSelected()">Run all analyses</button>
- </div>
- <div class="global-note">The selected period and companies are applied consistently across the analytical views. Single-company analyses use the selected reference company.</div>
+<button class="runbtn" id="globalRunBtn" onclick="runAllSelected()">Run all analyses</button>
+</div>
+<div class="global-note">The selected period and companies are applied consistently across the analytical views. Single-company analyses use the selected reference company.</div>
 </section>
-
-
 <div class="workspace">
 <aside class="sidebar"><h3>Analytical workflow</h3>
 <div class="module-item active" data-target="clustering"><small>01</small><b>Time-Series Clustering</b><span>Normalized paths, correlation and JNJ similarity.</span></div>
@@ -180,67 +175,52 @@ code{font-size:9.5px;background:#f1f4f5;padding:2px 4px;border-radius:4px}
 <div class="module-item" data-target="mc"><small>06</small><b>Monte Carlo Method</b><span>AXP source-period calibration and convergence.</span></div>
 <div class="module-item" data-target="levy"><small>07</small><b>Lévy / Heavy Tails</b><span>AXP empirical tails + source-reported NIG output.</span></div>
 </aside>
-
 <main class="main">
-<section id="clustering" class="panel active"><div class="card">
-<div class="head"><div><div class="eyebrow">Market structure</div><h2>Time-Series Clustering</h2><p>Compare normalized price trajectories and return correlations across the selected U.S.-listed companies.</p></div><span id="s1" class="inline-status status loading">Loading…</span></div>
-
+<section class="panel active" id="clustering"><div class="card">
+<div class="head"><div><div class="eyebrow">Market structure</div><h2>Time-Series Clustering</h2><p>Compare normalized price trajectories and return correlations across the selected U.S.-listed companies.</p></div><span class="inline-status status loading" id="s1">Loading…</span></div>
 <div class="kpis"><div class="kpi"><span>Selected universe</span><b id="clusterTarget">—</b><small>Companies selected in global controls</small></div><div class="kpi"><span>Loaded coverage</span><b id="clusterCoverage">—</b><small>Validated daily series</small></div><div class="kpi"><span>Observations</span><b id="clusterObs">—</b><small>Common-date panel</small></div><div class="kpi"><span>Closest to JNJ</span><b id="jnjClosest">—</b><small>Highest return correlation</small></div></div>
 <div class="chart-grid"><div class="chart-card"><div class="chart-label">Normalized closing-price trajectories</div><div id="clusterPaths"></div></div><div class="chart-card"><div class="chart-label">Log-return correlation matrix</div><div id="clusterCorr"></div></div><div class="chart-card wide"><div class="chart-label">JNJ similarity ranking</div><div id="jnjRank"></div></div></div>
 <div class="notes"><div class="note"><h4>Interpretation</h4><p>Correlation-based similarity highlights companies whose daily return patterns most closely resemble the reference company over the selected period. Higher correlation indicates stronger co-movement, while lower or negative correlation may indicate greater diversification potential. Similarity should be interpreted as market co-movement rather than evidence of causality.</p></div><div class="evidence"><h4>How to read the results</h4><div class="e-row"><span>Window</span><b>Global selection</b></div><div class="e-row"><span>Returns</span><b>r_t = ln(P_t/P_{t-1})</b></div><div class="e-row"><span>Similarity</span><b>Pearson correlation of aligned daily log returns</b></div></div></div>
 </div></section>
-
-<section id="leadlag" class="panel"><div class="card">
-<div class="head"><div><div class="eyebrow">Dependence structure</div><h2>Lead–Lag Effect</h2><p>Measure delayed return relationships between the selected reference company and the other companies in the chosen market universe.</p></div><span id="s2" class="inline-status status loading">Loading…</span></div>
-
+<section class="panel" id="leadlag"><div class="card">
+<div class="head"><div><div class="eyebrow">Dependence structure</div><h2>Lead–Lag Effect</h2><p>Measure delayed return relationships between the selected reference company and the other companies in the chosen market universe.</p></div><span class="inline-status status loading" id="s2">Loading…</span></div>
 <div class="kpis"><div class="kpi"><span>Reference</span><b>BLK</b><small>BlackRock</small></div><div class="kpi"><span>Validated peers</span><b id="leadPeerCount">—</b><small>Selected companies with usable data</small></div><div class="kpi"><span>Lag range</span><b>±10 days</b><small>Daily log returns</small></div><div class="kpi"><span>Strongest relation</span><b id="leadBest">—</b><small>Maximum absolute lag correlation</small></div></div>
 <div class="chart-grid"><div class="chart-card"><div class="chart-label">Lagged correlation profiles</div><div id="leadCurves"></div></div><div class="chart-card"><div class="chart-label">Strongest lag by peer</div><div id="leadBars"></div></div></div>
 <div class="notes"><div class="note"><h4>Interpretation</h4><p>Lead–lag analysis examines whether movements in one company tend to be followed by movements in another. A strongest relationship near lag zero suggests largely contemporaneous co-movement; a persistent non-zero lag may indicate delayed information transmission or market-response differences. These relationships are descriptive and should be tested for stability before being used operationally.</p></div><div class="evidence"><h4>Analytical definition</h4><div class="e-row"><span>Metric</span><b>corr(BLK_t, peer_{t+k})</b></div><div class="e-row"><span>Positive k</span><b>Peer series is shifted later relative to BLK</b></div><div class="e-row"><span>Window</span><b>Global selection</b></div></div></div>
 </div></section>
-
-<section id="bstest" class="panel"><div class="card">
-<div class="head"><div><div class="eyebrow">Model diagnostics</div><h2>Black–Scholes Assumption Diagnostics</h2><p>Evaluate volatility stability, normality, skewness, kurtosis and serial dependence across the selected U.S.-listed financial companies.</p></div><span id="s3" class="inline-status status loading">Loading…</span></div>
-
+<section class="panel" id="bstest"><div class="card">
+<div class="head"><div><div class="eyebrow">Model diagnostics</div><h2>Black–Scholes Assumption Diagnostics</h2><p>Evaluate volatility stability, normality, skewness, kurtosis and serial dependence across the selected U.S.-listed financial companies.</p></div><span class="inline-status status loading" id="s3">Loading…</span></div>
 <div class="kpis"><div class="kpi"><span>Selected banks</span><b id="bankTarget">10</b><small>Interactive company list</small></div><div class="kpi"><span>Loaded banks</span><b id="bankCoverage">—</b><small>Runtime coverage</small></div><div class="kpi"><span>Long horizon</span><b id="bankLongLabel">10 years</b><small>Selected start/end period</small></div><div class="kpi"><span>Short horizon</span><b>1 year</b><small>Final 365 calendar days</small></div></div>
 <div class="chart-grid"><div class="chart-card"><div class="chart-label">Volatility regime map: long horizon vs final year</div><div id="bankVol"></div></div><div class="chart-card"><div class="chart-label">Normality evidence: −log₁₀(Jarque–Bera p-value)</div><div id="bankJB"></div></div><div class="chart-card wide"><div class="chart-label">Return-shape diagnostics</div><div id="bankShape"></div></div></div>
 <div class="notes"><div class="note"><h4>Interpretation</h4><p>The diagnostics assess how closely observed returns align with assumptions commonly used in Black–Scholes-style modelling. Large changes in volatility across horizons, significant non-normality, pronounced skewness or excess kurtosis, and serial dependence all signal greater model risk and can affect the reliability of standard option-pricing assumptions.</p></div><div class="evidence"><h4>Key measures</h4><div class="e-row"><span>Normality</span><b>Jarque–Bera statistic; χ²(2) p = exp(−JB/2)</b></div><div class="e-row"><span>Dependence</span><b>Lag-1 return autocorrelation</b></div><div class="e-row"><span>Volatility</span><b>sd(log returns) × √252</b></div></div></div>
 </div></section>
-
-<section id="changepoint" class="panel"><div class="card">
-<div class="head"><div><div class="eyebrow">Regime analysis</div><h2>Change-Point Detection</h2><p>Identify the strongest single volatility-regime change in the selected reference company over the chosen period.</p></div><span id="s4" class="inline-status status loading">Loading…</span></div>
-
+<section class="panel" id="changepoint"><div class="card">
+<div class="head"><div><div class="eyebrow">Regime analysis</div><h2>Change-Point Detection</h2><p>Identify the strongest single volatility-regime change in the selected reference company over the chosen period.</p></div><span class="inline-status status loading" id="s4">Loading…</span></div>
 <div class="kpis"><div class="kpi"><span>Asset</span><b id="cpAsset">WFC</b><small>Wells Fargo</small></div><div class="kpi"><span>Sample</span><b id="wfcWindow">—</b><small>Validated daily data</small></div><div class="kpi"><span>Estimated break</span><b id="wfcBreak">—</b><small>Minimum variance cost</small></div><div class="kpi"><span>Volatility ratio</span><b id="wfcRatio">—</b><small>Post / pre annualized volatility</small></div></div>
 <div class="chart-grid"><div class="chart-card"><div class="chart-label">WFC closing price with estimated variance break</div><div id="wfcPrice"></div></div><div class="chart-card"><div class="chart-label">21-day annualized rolling volatility</div><div id="wfcVol"></div></div></div>
 <div class="notes"><div class="note"><h4>Interpretation</h4><p>The estimated change point identifies the date at which the return series is most strongly separated into two volatility regimes. Comparing pre- and post-break volatility helps reveal whether risk conditions were stable or whether the market experienced a material structural shift during the selected period.</p></div><div class="evidence"><h4>Regime methodology</h4><div class="e-row"><span>Search</span><b>All candidate splits with ≥60 observations per side</b></div><div class="e-row"><span>Cost</span><b>n₁ ln(σ̂²₁,MLE) + n₂ ln(σ̂²₂,MLE)</b></div><div class="e-row"><span>Returns</span><b>Daily log returns</b></div></div></div>
 </div></section>
-
-<section id="option" class="panel"><div class="card">
-<div class="head"><div><div class="eyebrow">Derivative pricing</div><h2>Option Pricing</h2><p>Estimate historical volatility from the selected reference company and compare closed-form Black–Scholes pricing with Monte Carlo valuation for an at-the-money European call.</p></div><span id="s5" class="inline-status status loading">Loading…</span></div>
-
+<section class="panel" id="option"><div class="card">
+<div class="head"><div><div class="eyebrow">Derivative pricing</div><h2>Option Pricing</h2><p>Estimate historical volatility from the selected reference company and compare closed-form Black–Scholes pricing with Monte Carlo valuation for an at-the-money European call.</p></div><span class="inline-status status loading" id="s5">Loading…</span></div>
 <div class="kpis"><div class="kpi"><span>Spot S₀</span><b id="jnjSpot">—</b><small>Last close in calibration window</small></div><div class="kpi"><span>Historical σ</span><b id="jnjSigma">—</b><small>Annualized daily log-return sd</small></div><div class="kpi"><span>BS call</span><b id="jnjBS">—</b><small>K=S₀, r=2%, T=30/252</small></div><div class="kpi"><span>MC call</span><b id="jnjMC">—</b><small>100,000 antithetic paths</small></div></div>
 <div class="chart-grid"><div class="chart-card"><div class="chart-label">JNJ calibration-window closing price</div><div id="jnjPrice"></div></div><div class="chart-card"><div class="chart-label">Black–Scholes vs Monte Carlo with simulation uncertainty</div><div id="jnjPricing"></div></div><div class="chart-card wide"><div class="chart-label">Volatility sensitivity</div><div id="jnjSensitivity"></div></div></div>
 <div class="notes"><div class="note"><h4>Interpretation</h4><p>Black–Scholes provides a closed-form benchmark, while Monte Carlo estimates the same option value through simulated risk-neutral price paths. Close agreement indicates numerical consistency under the same assumptions. The volatility-sensitivity view shows how strongly option value responds to changes in the estimated risk environment.</p></div><div class="evidence"><h4>Pricing assumptions</h4><div class="e-row"><span>Calibration</span><b>Global period / selected reference company</b></div><div class="e-row"><span>Contract</span><b>European call, K=S₀, T=30/252</b></div><div class="e-row"><span>Rate</span><b>2% annual continuously compounded benchmark assumption</b></div></div></div>
 </div></section>
-
-<section id="mc" class="panel"><div class="card">
-<div class="head"><div><div class="eyebrow">Simulation analytics</div><h2>Monte Carlo Method</h2><p>Use the selected company’s empirical volatility to examine Monte Carlo convergence, simulation uncertainty and terminal payoff behaviour.</p></div><span id="s6" class="inline-status status loading">Loading…</span></div>
-
+<section class="panel" id="mc"><div class="card">
+<div class="head"><div><div class="eyebrow">Simulation analytics</div><h2>Monte Carlo Method</h2><p>Use the selected company’s empirical volatility to examine Monte Carlo convergence, simulation uncertainty and terminal payoff behaviour.</p></div><span class="inline-status status loading" id="s6">Loading…</span></div>
 <div class="kpis"><div class="kpi"><span>AXP spot</span><b id="axpSpot">—</b><small>Last validated close</small></div><div class="kpi"><span>Annualized σ</span><b id="axpSigma">—</b><small>From empirical log returns</small></div><div class="kpi"><span>MC value</span><b id="axpMC">—</b><small>M=1000, seed-stable PRNG</small></div><div class="kpi"><span>BS benchmark</span><b id="axpBS">—</b><small>Same S₀,K,r,T,σ</small></div></div>
 <div class="chart-grid"><div class="chart-card"><div class="chart-label">AXP source-period closing price</div><div id="axpPrice"></div></div><div class="chart-card"><div class="chart-label">Monte Carlo convergence with 95% confidence band</div><div id="axpConv"></div></div><div class="chart-card wide"><div class="chart-label">Terminal payoff distribution</div><div id="axpPayoff"></div></div></div>
 <div class="notes"><div class="note"><h4>Interpretation</h4><p>Monte Carlo convergence shows how the simulated option-value estimate stabilizes as the number of scenarios increases. A narrowing confidence band indicates declining simulation uncertainty. Comparison with the analytical benchmark helps distinguish numerical uncertainty from differences caused by alternative stochastic assumptions.</p></div><div class="evidence"><h4>Simulation assumptions</h4><div class="e-row"><span>Source window</span><b>Global empirical period; repository AXP constants retained separately</b></div><div class="e-row"><span>Contract rule</span><b>AXP: repository K=105.98, r=0.0019, T=3/252; other companies: K=S₀, r=2%, T=30/252</b></div><div class="e-row"><span>Data caveat</span><b>Open CSV close may be provider-adjusted; original quantmod close may differ</b></div></div></div>
 </div></section>
-
-<section id="levy" class="panel"><div class="card">
-<div class="head"><div><div class="eyebrow">Tail-risk analytics</div><h2>Lévy / Heavy-Tail Diagnostics</h2><p>Assess skewness, excess kurtosis and Gaussian-model adequacy, and compare standard diffusion-based pricing with a heavier-tailed Lévy/NIG reference.</p></div><span id="s7" class="inline-status status loading">Loading…</span></div>
+<section class="panel" id="levy"><div class="card">
+<div class="head"><div><div class="eyebrow">Tail-risk analytics</div><h2>Lévy / Heavy-Tail Diagnostics</h2><p>Assess skewness, excess kurtosis and Gaussian-model adequacy, and compare standard diffusion-based pricing with a heavier-tailed Lévy/NIG reference.</p></div><span class="inline-status status loading" id="s7">Loading…</span></div>
 <div class="kpis"><div class="kpi"><span>Empirical skew</span><b id="axpSkew">—</b><small>Open-data log returns</small></div><div class="kpi"><span>Excess kurtosis</span><b id="axpKurt">—</b><small>Open-data log returns</small></div><div class="kpi"><span>JB p-value</span><b id="axpJB">—</b><small>Normality diagnostic</small></div><div class="kpi"><span>R-source Lévy value</span><b>0.06857733</b><small>Discounted value comment</small></div></div>
 <div class="chart-grid"><div class="chart-card"><div class="chart-label">Empirical AXP return histogram vs fitted Gaussian</div><div id="axpDensity"></div></div><div class="chart-card"><div class="chart-label">Source-reported payoff/value comparison</div><div id="levySource"></div></div></div>
 <div class="notes"><div class="note"><h4>Interpretation</h4><p>Heavy-tail diagnostics evaluate whether observed returns depart materially from a Gaussian distribution. Significant skewness, excess kurtosis and a low Jarque–Bera p-value indicate asymmetric or fat-tailed behaviour, conditions under which Gaussian models may understate extreme-move risk. The Lévy/NIG comparison illustrates how a richer return process can capture these features more flexibly.</p></div><div class="evidence"><h4>Lévy model reference</h4><div class="e-row"><span>R σ̂</span><b>0.01526479</b></div><div class="e-row"><span>R μ̂</span><b>0.0005116106</b></div><div class="e-row"><span>Lévy payoff</span><b>0.06857888</b></div><div class="e-row"><span>Discounted</span><b>0.06857733</b></div></div></div>
 </div></section>
 </main></div>
-
 <div class="footer"><b>Methodology.</b> Daily market prices are converted to log returns for correlation, dependence, volatility and distribution analysis. Volatility is annualized using 252 trading days. Option-pricing views use standard risk-neutral Black–Scholes and Monte Carlo methods, while heavy-tail diagnostics evaluate departures from Gaussian return assumptions. Results depend on the selected companies, period and available market observations.</div>
 </div>
-
 <script>
 const cfg={displaylogo:false,responsive:true,modeBarButtonsToRemove:["lasso2d","select2d"]};
 const base={paper_bgcolor:"#fff",plot_bgcolor:"#fff",margin:{l:50,r:20,t:45,b:45},font:{family:"Inter,Segoe UI,Arial",size:10,color:"#425158"},legend:{orientation:"h",y:1.08},hovermode:"closest"};

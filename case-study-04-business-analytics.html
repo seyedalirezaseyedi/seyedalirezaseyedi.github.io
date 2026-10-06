@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Business Analytics &amp; Profitability Case Study | Seyedalireza Seyedi, PhD</title>
+<meta content="Business analytics case study using 9,994 Superstore transaction lines to analyze growth, profitability, customer value, discount risk, product economics and chronologically validated profit prediction." name="description"/>
+<style>
+:root{
+  --ink:#202529;--muted:#687177;--line:#d9dddf;--soft:#f6f7f7;
+  --accent:#0f7280;--accent2:#168a95;--dark:#17383e;
+  --shadow:0 14px 36px rgba(23,56,62,.07);--max:1180px
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#f5f7f8;color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif}
+a{color:inherit}.shell{max-width:var(--max);margin:auto;padding:22px 24px 72px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:800;color:#455158}
+.pill:hover{border-color:var(--accent);color:var(--accent)}
+.hero{background:linear-gradient(135deg,#17383e 0%,#1b5058 58%,#0f7280 100%);color:#fff;border-radius:24px;padding:34px 36px;box-shadow:0 20px 46px rgba(23,56,62,.16)}
+.hero-grid{display:grid;grid-template-columns:1.28fr .72fr;gap:28px;align-items:end}
+.eyebrow,.label{font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+.eyebrow{color:#a8d9dd}.label{color:var(--accent)}
+h1{font-size:44px;line-height:1.03;letter-spacing:-.045em;margin:7px 0 12px}
+.hero p{margin:0;max-width:830px;color:#deeaec;font-size:15px;line-height:1.65}
+.hero-side{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.stat{border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.06);border-radius:13px;padding:13px}
+.stat span{display:block;font-size:8.5px;text-transform:uppercase;letter-spacing:.07em;color:#c5e0e3;font-weight:850}
+.stat b{display:block;font-size:18px;margin-top:4px}
+.summary,.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.summary{margin:15px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}
+.box{padding:18px}.box h3{margin:4px 0 8px;font-size:15px;color:var(--dark)}
+.box p,.section p{margin:0;color:#556269;font-size:12px;line-height:1.62}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:15px 0}
+.fact{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px}
+.fact span{display:block;font-size:8.3px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:850}
+.fact b{display:block;font-size:17px;color:var(--dark);margin-top:4px}.fact small{display:block;color:var(--muted);font-size:9px;margin-top:4px;line-height:1.4}
+.story{display:grid;grid-template-columns:300px 1fr;gap:16px;align-items:start}
+.sidebar{padding:17px;position:sticky;top:14px}.sidebar h3{font-size:12px;color:var(--dark);margin:0 0 10px}
+.jump{display:block;text-decoration:none;padding:9px 10px;border-radius:9px;font-size:10.5px;font-weight:800;color:#58666c}.jump:hover{background:#f0f6f7;color:var(--accent)}
+.meta{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}.meta span{display:block;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:850}.meta b{display:block;font-size:10px;line-height:1.45;margin-top:4px}
+.content{display:grid;gap:13px}.section{padding:21px 22px}.section h2{font-size:22px;margin:4px 0 9px;letter-spacing:-.025em;color:var(--dark)}
+.block{border:1px solid #e2e7e8;border-radius:12px;background:#fafbfb;padding:13px}.block strong{display:block;font-size:10px;color:#415158;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}.block p{font-size:11px}
+.methods{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.methods span{padding:6px 9px;border-radius:999px;background:#edf6f7;border:1px solid #d4e5e7;color:#365c61;font-size:10px;font-weight:800}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}.step{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fbfcfc}.step .num{font-family:Georgia,serif;font-size:22px;color:#a9b3b6}.step b{display:block;font-size:11px;color:var(--dark);margin:4px 0}.step span{display:block;font-size:9.7px;color:var(--muted);line-height:1.5}
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.result{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fbfcfc}.result b{display:block;font-size:11px;color:var(--dark);margin-bottom:4px}.result span{font-size:9.7px;color:var(--muted);line-height:1.5;display:block}
+.callout{margin-top:12px;border-left:3px solid var(--accent);background:#f1f7f8;border-radius:10px;padding:12px 14px;color:#45585c;font-size:11px;line-height:1.55}
+.verified-label{display:inline-flex;padding:5px 8px;border-radius:999px;background:#edf6f7;border:1px solid #cde2e4;color:#28575e;font-size:9px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:7px}
+.service-links,.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.service-link,.btn{display:inline-flex;text-decoration:none;padding:8px 11px;border:1px solid var(--line);border-radius:9px;background:#fff;color:#315a60;font-size:10.5px;font-weight:850}
+.service-link:hover,.btn:hover{border-color:var(--accent);color:var(--accent)}.btn.primary{background:var(--dark);color:#fff;border-color:var(--dark)}.btn.primary:hover{background:var(--accent);color:#fff}
+.case-nav{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-top:14px;padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:#fff}
+.case-nav a{text-decoration:none;font-size:10px;font-weight:850;color:#315a60}.case-nav .next{text-align:right}.case-nav .backcases{text-align:center}
+.footer{margin-top:16px;font-size:9.5px;color:var(--muted);line-height:1.55}
+@media(max-width:960px){.hero-grid,.story{grid-template-columns:1fr}.sidebar{position:relative;top:auto}.flow{grid-template-columns:1fr 1fr}.hero-side{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:700px){.shell{padding:14px 12px 48px}.hero{padding:25px 20px}h1{font-size:33px}.summary,.grid2,.results{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}.hero-side{grid-template-columns:1fr 1fr}.case-nav{grid-template-columns:1fr}.case-nav .next,.case-nav .backcases{text-align:left}}
+@media(max-width:460px){.facts,.flow{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main class="shell">
+<div class="topbar"><a class="pill" href="index.html">Gateway</a><a class="pill" href="business-index.html">Business Home</a><a class="pill" href="business-index.html#case-studies">All Case Studies</a></div>
+<section class="hero"><div class="hero-grid">
+<div>
+<div class="eyebrow">Case Study 04 · Business Analytics &amp; Decision Support</div>
+<h1>From Raw Business Data to Profitability Decisions</h1>
+<p>Transforming 9,994 retail transaction lines into an integrated decision-support workflow for growth quality, product economics, customer value, pricing risk and chronologically validated profit prediction.</p>
+</div>
+<div class="hero-side">
+<div class="stat"><span>Transaction lines</span><b>9,994</b></div>
+<div class="stat"><span>Orders</span><b>5,009</b></div>
+<div class="stat"><span>Customers</span><b>793</b></div>
+<div class="stat"><span>Period</span><b>2014–2017</b></div>
+</div></div></section>
+<section class="summary">
+<div class="card box">
+<div class="label">Executive summary</div>
+<h3>Integrated business intelligence from transaction-level data</h3>
+<p>Built an end-to-end retail analytics workflow that connects executive KPIs, product and regional economics, RFM customer segmentation, discount diagnostics and out-of-sample profit prediction so that revenue growth can be evaluated together with margin quality and customer economics.</p>
+</div>
+<div class="card box">
+<div class="label">Domain</div>
+<h3>Business intelligence · Customer analytics · Pricing · Predictive modelling</h3>
+<p>This is a public analytical portfolio case study using the Sample Superstore dataset. It demonstrates business decision-support capability and is not presented as a confidential client engagement.</p>
+</div>
+</section>
+<section class="facts">
+<div class="fact"><span>Sales</span><b>$2.297M</b><small>Total transaction sales in the dataset</small></div>
+<div class="fact"><span>Profit</span><b>$286.4K</b><small>Total recorded profit</small></div>
+<div class="fact"><span>Overall margin</span><b>12.5%</b><small>Profit divided by sales</small></div>
+<div class="fact"><span>Units sold</span><b>37,873</b><small>Total quantity across transaction lines</small></div>
+</section>
+<div class="story">
+<aside class="card sidebar">
+<h3>Case study</h3>
+<a class="jump" href="#context">01 · Business Context</a>
+<a class="jump" href="#challenge">02 · Challenge</a>
+<a class="jump" href="#data">03 · Data</a>
+<a class="jump" href="#role">04 · My Role / Build</a>
+<a class="jump" href="#methods">05 · Methods</a>
+<a class="jump" href="#workflow">06 · Analytical Workflow</a>
+<a class="jump" href="#results">07 · Results</a>
+<a class="jump" href="#predictive">08 · Predictive Validation</a>
+<a class="jump" href="#relevance">09 · Decision Relevance</a>
+<a class="jump" href="#demonstrates">10 · What This Demonstrates</a>
+<a class="jump" href="#services">11 · Related Services</a>
+<a class="jump" href="#evidence">12 · Evidence</a>
+<div class="meta"><span>Project type</span><b>Public portfolio case study · Retail decision analytics</b></div>
+<div class="meta"><span>Data source</span><b>Sample Superstore dataset · Kaggle</b></div>
+</aside>
+<div class="content">
+<section class="card section" id="context">
+<div class="label">01 · Business Context</div>
+<h2>Revenue alone does not reveal the quality of growth</h2>
+<p>A retail transaction dataset can show rising sales while masking weak margins, loss-making products, costly discounting or unprofitable customer relationships. The analytical goal is therefore to connect scale, profitability, customer value and predictive risk within one consistent view.</p>
+<div class="grid2">
+<div class="block"><strong>Performance question</strong><p>Where is revenue growth translating into profit, and where is commercial scale masking margin leakage?</p></div>
+<div class="block"><strong>Customer question</strong><p>Which customer relationships combine spend with healthy contribution, and which show meaningful sales but negative profitability?</p></div>
+</div>
+</section>
+<section class="card section" id="challenge">
+<div class="label">02 · Challenge</div>
+<h2>How can raw transaction data be converted into practical profitability decisions?</h2>
+<p>The analysis needed to answer several connected questions: which products and regions create value, which customers drive economically healthy revenue, how discount intensity relates to margin, and whether future transaction profit can be predicted with defensible out-of-sample validation.</p>
+<div class="callout"><strong>Core analytical challenge:</strong> Build a decision-support workflow that separates top-line growth from margin quality and links descriptive business intelligence with customer segmentation and predictive modelling.</div>
+</section>
+<section class="card section" id="data">
+<div class="label">03 · Data</div>
+<h2>Validated transaction-level retail data covering four years</h2>
+<div class="results">
+<div class="result"><b>9,994 transaction lines</b><span>Source records dated from 3 January 2014 to 30 December 2017.</span></div>
+<div class="result"><b>5,009 unique orders</b><span>Order-level structure supporting revenue, order-value and volume analysis.</span></div>
+<div class="result"><b>793 customers</b><span>Customer history supports recency, frequency, monetary and profitability segmentation.</span></div>
+<div class="result"><b>4 regions</b><span>Central, East, South and West support regional profitability comparison.</span></div>
+<div class="result"><b>3 categories</b><span>Furniture, Office Supplies and Technology with sub-category and product detail.</span></div>
+<div class="result"><b>Validated data quality</b><span>No missing values, duplicate rows, invalid discounts, negative sales or ship dates preceding order dates were found.</span></div>
+</div>
+</section>
+<section class="card section" id="role">
+<div class="label">04 · My Role / Build</div>
+<h2>End-to-end analytical design, modelling, validation and dashboard implementation</h2>
+<p>This case study represents a public analytical build rather than a named client engagement. The work covers data validation, KPI architecture, segmentation, commercial diagnostics, predictive modelling, validation and interactive decision-support presentation.</p>
+<div class="grid2">
+<div class="block"><strong>Business KPI architecture</strong><p>Structured sales, profit, margin, orders, average order value and units into an executive performance layer.</p></div>
+<div class="block"><strong>Customer analytics</strong><p>Built RFM-style customer features and profitability-aware segmentation to distinguish value profiles.</p></div>
+<div class="block"><strong>Pricing &amp; portfolio diagnostics</strong><p>Connected discount intensity, product economics, category performance and regional margin to identify leakage and concentration.</p></div>
+<div class="block"><strong>Predictive validation</strong><p>Built and evaluated profit-prediction models using chronological holdouts and walk-forward testing rather than relying on random splits.</p></div>
+</div>
+</section>
+<section class="card section" id="methods">
+<div class="label">05 · Methods</div>
+<h2>Methods spanning business intelligence, segmentation and predictive analytics</h2>
+<div class="methods">
+<span>Data-quality validation</span>
+<span>Executive KPI architecture</span>
+<span>Time-series aggregation</span>
+<span>Regional &amp; category analysis</span>
+<span>Product portfolio analysis</span>
+<span>RFM feature engineering</span>
+<span>K-means clustering</span>
+<span>Silhouette-based cluster selection</span>
+<span>Customer concentration analysis</span>
+<span>Discount–margin diagnostics</span>
+<span>Gradient boosting regression</span>
+<span>Huber loss</span>
+<span>Chronological holdout validation</span>
+<span>Walk-forward validation</span>
+<span>Permutation feature importance</span>
+<span>Residual diagnostics</span>
+</div>
+</section>
+<section class="card section" id="workflow">
+<div class="label">06 · Analytical Workflow</div>
+<h2>From transaction records to commercial decision signals</h2>
+<div class="flow">
+<div class="step"><div class="num">01</div><b>Validate</b><span>Check transaction integrity, dates, discounts, sales, duplicates and completeness before analysis.</span></div>
+<div class="step"><div class="num">02</div><b>Diagnose</b><span>Build KPI, regional, category, sub-category and product views to separate growth from profitability.</span></div>
+<div class="step"><div class="num">03</div><b>Segment</b><span>Profile customer value using recency, frequency, spend, profit and discount exposure.</span></div>
+<div class="step"><div class="num">04</div><b>Predict</b><span>Estimate transaction-level profit with chronological validation and monitor model stability across future holdout years.</span></div>
+</div>
+</section>
+<section class="card section" id="results">
+<div class="label">07 · Results</div>
+<h2>Evidence-backed commercial signals from the dataset</h2>
+<div class="results">
+<div class="result"><b>Growth quality diverged in 2017</b><span>Sales increased 20.4% versus 2016, while profit increased 14.2%, so earnings did not grow proportionally with revenue.</span></div>
+<div class="result"><b>Technology led category profit</b><span>Technology generated approximately $145,455 profit at a 17.4% margin in the full-period view.</span></div>
+<div class="result"><b>West led regional profit</b><span>The West generated approximately $108,418 profit at a 14.9% margin.</span></div>
+<div class="result"><b>Tables was the largest sub-category loss contributor</b><span>Tables generated approximately −$17,725 profit over the full-period dataset.</span></div>
+<div class="result"><b>Deep discounts were loss-making in this sample</b><span>Transactions with discounts of 30% or more generated about −$135,376 aggregate profit, equivalent to a −37.3% margin on those sales.</span></div>
+<div class="result"><b>Customer value was highly differentiated</b><span>The validated three-cluster solution identified Core Value, Margin Risk and Occasional / Emerging profiles, with Core Value accounting for 74.3% of sales.</span></div>
+</div>
+<div class="callout"><strong>Interpretation boundary:</strong> These patterns describe this dataset. Discount relationships are associative, not causal, and the analysis does not claim that the same thresholds automatically generalize to another retailer.</div>
+</section>
+<section class="card section" id="predictive">
+<div class="label">08 · Predictive Validation</div>
+<h2>Profit prediction tested on future periods rather than random in-sample splits</h2>
+<div class="results">
+<div class="result"><b>Gradient boosting R² ≈ 0.772</b><span>Primary model performance on the 2017 chronological holdout after training on 2014–2016.</span></div>
+<div class="result"><b>Linear baseline R² ≈ 0.383</b><span>The nonlinear model materially improved explanatory performance relative to the linear baseline on the same future-period holdout.</span></div>
+<div class="result"><b>MAE ≈ $23</b><span>Average absolute prediction error on the primary 2017 holdout.</span></div>
+<div class="result"><b>RMSE ≈ $115</b><span>Provides a more error-sensitive measure by giving greater weight to larger misses.</span></div>
+<div class="result"><b>Walk-forward validation</b><span>Additional tests use 2015, 2016 and 2017 as successive future holdouts to examine model stability through time.</span></div>
+<div class="result"><b>Dominant predictive drivers</b><span>Permutation importance and model interpretation identify transaction sales value and discount intensity as leading drivers, followed by sub-category context.</span></div>
+</div>
+<div class="callout">The predictive model is a portfolio demonstration on historical Superstore data. It is not presented as a production forecast deployed by a retailer.</div>
+</section>
+<section class="card section" id="relevance">
+<div class="label">09 · Decision Relevance</div>
+<h2>Why This Matters for Business Analytics</h2>
+<p>The transferable value is not a single chart or model. It is the ability to connect descriptive performance analytics, customer economics, pricing diagnostics and forward-looking model validation in one decision-support structure.</p>
+<div class="grid2">
+<div class="block"><strong>Growth-quality analysis</strong><p>Assess whether revenue expansion is translating into proportional profit rather than treating sales growth as sufficient evidence of performance.</p></div>
+<div class="block"><strong>Customer economics</strong><p>Distinguish high-value customers from relationships where meaningful spend is accompanied by negative profitability or elevated discount exposure.</p></div>
+<div class="block"><strong>Pricing discipline</strong><p>Identify discount bands and product areas associated with margin erosion, while treating thresholds as dataset-specific diagnostics rather than universal rules.</p></div>
+<div class="block"><strong>Predictive monitoring</strong><p>Use chronological validation, residual diagnostics and walk-forward testing to evaluate whether a predictive model remains useful over time.</p></div>
+</div>
+</section>
+<section class="card section" id="demonstrates">
+<div class="label">10 · What This Demonstrates</div>
+<h2>Transferable Quantitative Capabilities</h2>
+<div class="grid2">
+<div class="block"><strong>Business Intelligence Design</strong><p>Ability to convert raw transaction records into a coherent KPI, profitability and portfolio-performance architecture.</p></div>
+<div class="block"><strong>Customer Segmentation</strong><p>Ability to engineer behavioral and economic customer features and translate clusters into interpretable value profiles.</p></div>
+<div class="block"><strong>Pricing &amp; Margin Analytics</strong><p>Ability to connect discount behavior, sales exposure and contribution economics to identify potential commercial leakage.</p></div>
+<div class="block"><strong>Predictive Decision Support</strong><p>Ability to combine machine learning with chronological validation, feature importance and model-stability diagnostics.</p></div>
+</div>
+</section>
+<section class="card section" id="services">
+<div class="label">11 · Related Services</div>
+<h2>Relevant Consulting &amp; Analytical Services</h2>
+<p>This case study is most closely connected to the following business service lines.</p>
+<div class="service-links">
+<a class="service-link" href="business-index.html#services">Statistical &amp; Data Analysis</a>
+<a class="service-link" href="business-index.html#services">Machine Learning &amp; Predictive Analytics</a>
+<a class="service-link" href="business-index.html#services">Econometrics &amp; Quantitative Strategy</a>
+</div>
+</section>
+<section class="card section" id="evidence">
+<div class="verified-label">Verified Evidence</div>
+<div class="label">12 · Evidence</div>
+<h2>Interactive dashboard, public dataset and public analytical repository</h2>
+<p><strong>Data source:</strong> Sample Superstore dataset published on Kaggle. The analyzed file contains 9,994 transaction lines covering 3 January 2014 through 30 December 2017.</p>
+<p><strong>Analytical evidence:</strong> The Business Analytics &amp; Decision Support dashboard contains the KPI, product, customer, pricing and predictive modules summarized in this case study, including chronological model validation.</p>
+<p><strong>Code / repository:</strong> Public Business-Analytics-Portfolios repository.</p>
+<div class="links">
+<a class="btn primary" href="business-analytics-decision-support.html" rel="noopener" target="_blank">Open Business Analytics Dashboard ↗</a>
+<a class="btn" href="https://www.kaggle.com/datasets/vivek468/superstore-dataset-final" rel="noopener" target="_blank">View Dataset ↗</a>
+<a class="btn" href="https://github.com/59alireza59/Business-Analytics-Portfolios" rel="noopener" target="_blank">View Repository ↗</a>
+</div>
+</section>
+</div></div>
+<div class="case-nav"><a href="case-study-03-water-governance.html">← Previous · Water Governance</a><a class="backcases" href="business-index.html#case-studies">All Case Studies</a><a class="next" href="case-study-05-quantitative-finance.html">Next · Quantitative Finance →</a></div>
+<div class="footer"><strong>Evidence boundary.</strong> This is a portfolio case study using a public retail dataset. All numerical findings and model metrics are tied to the analyzed Sample Superstore records and dashboard implementation. The page does not claim a named client engagement, realized commercial impact, production deployment or causal pricing effects.</div>
+</main></body>
+</html>

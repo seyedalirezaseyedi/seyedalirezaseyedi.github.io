@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Quantitative Market Dynamics &amp; Risk Case Study | Seyedalireza Seyedi, PhD</title>
+<meta content="Technical quantitative-finance case study covering market co-movement, lead-lag structure, Black-Scholes diagnostics, regime shifts, option valuation, Monte Carlo simulation and heavy-tail risk." name="description"/>
+<style>
+:root{
+  --ink:#202529;--muted:#687177;--line:#d9dddf;--soft:#f6f7f7;
+  --accent:#0f7280;--accent2:#168a95;--dark:#17383e;
+  --shadow:0 14px 36px rgba(23,56,62,.07);--max:1180px
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#f5f7f8;color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif}
+a{color:inherit}.shell{max-width:var(--max);margin:auto;padding:22px 24px 72px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:800;color:#455158}
+.pill:hover{border-color:var(--accent);color:var(--accent)}
+.hero{background:linear-gradient(135deg,#17383e 0%,#194a53 58%,#0f7280 100%);color:#fff;border-radius:24px;padding:34px 36px;box-shadow:0 20px 46px rgba(23,56,62,.16)}
+.hero-grid{display:grid;grid-template-columns:1.28fr .72fr;gap:28px;align-items:end}
+.eyebrow,.label{font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+.eyebrow{color:#a8d7dc}.label{color:var(--accent)}
+h1{font-size:43px;line-height:1.03;letter-spacing:-.045em;margin:7px 0 12px}
+.hero p{margin:0;max-width:840px;color:#deeaec;font-size:15px;line-height:1.65}
+.hero-side{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.stat{border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.06);border-radius:13px;padding:13px}
+.stat span{display:block;font-size:8.5px;text-transform:uppercase;letter-spacing:.07em;color:#c5e0e3;font-weight:850}
+.stat b{display:block;font-size:18px;margin-top:4px}
+.summary,.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.summary{margin:15px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}
+.box{padding:18px}.box h3{margin:4px 0 8px;font-size:15px;color:var(--dark)}
+.box p,.section p{margin:0;color:#556269;font-size:12px;line-height:1.62}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:15px 0}
+.fact{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px}
+.fact span{display:block;font-size:8.3px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:850}
+.fact b{display:block;font-size:17px;color:var(--dark);margin-top:4px}.fact small{display:block;color:var(--muted);font-size:9px;margin-top:4px;line-height:1.4}
+.story{display:grid;grid-template-columns:300px 1fr;gap:16px;align-items:start}
+.sidebar{padding:17px;position:sticky;top:14px}.sidebar h3{font-size:12px;color:var(--dark);margin:0 0 10px}
+.jump{display:block;text-decoration:none;padding:9px 10px;border-radius:9px;font-size:10.5px;font-weight:800;color:#58666c}.jump:hover{background:#f0f6f7;color:var(--accent)}
+.meta{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}.meta span{display:block;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:850}.meta b{display:block;font-size:10px;line-height:1.45;margin-top:4px}
+.content{display:grid;gap:13px}.section{padding:21px 22px}.section h2{font-size:22px;margin:4px 0 9px;letter-spacing:-.025em;color:var(--dark)}
+.block{border:1px solid #e2e7e8;border-radius:12px;background:#fafbfb;padding:13px}.block strong{display:block;font-size:10px;color:#415158;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}.block p{font-size:11px}
+.methods{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.methods span{padding:6px 9px;border-radius:999px;background:#edf6f7;border:1px solid #d4e5e7;color:#365c61;font-size:10px;font-weight:800}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}.step{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fbfcfc}.step .num{font-family:Georgia,serif;font-size:22px;color:#a9b3b6}.step b{display:block;font-size:11px;color:var(--dark);margin:4px 0}.step span{display:block;font-size:9.7px;color:var(--muted);line-height:1.5}
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.result{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fbfcfc}.result b{display:block;font-size:11px;color:var(--dark);margin-bottom:4px}.result span{font-size:9.7px;color:var(--muted);line-height:1.5;display:block}
+.callout{margin-top:12px;border-left:3px solid var(--accent);background:#f1f7f8;border-radius:10px;padding:12px 14px;color:#45585c;font-size:11px;line-height:1.55}
+.verified-label{display:inline-flex;padding:5px 8px;border-radius:999px;background:#edf6f7;border:1px solid #cde2e4;color:#28575e;font-size:9px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:7px}
+.service-links,.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.service-link,.btn{display:inline-flex;text-decoration:none;padding:8px 11px;border:1px solid var(--line);border-radius:9px;background:#fff;color:#315a60;font-size:10.5px;font-weight:850}
+.service-link:hover,.btn:hover{border-color:var(--accent);color:var(--accent)}.btn.primary{background:var(--dark);color:#fff;border-color:var(--dark)}.btn.primary:hover{background:var(--accent);color:#fff}
+.case-nav{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-top:14px;padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:#fff}
+.case-nav a{text-decoration:none;font-size:10px;font-weight:850;color:#315a60}.case-nav .next{text-align:right}.case-nav .backcases{text-align:center}
+.footer{margin-top:16px;font-size:9.5px;color:var(--muted);line-height:1.55}
+@media(max-width:960px){.hero-grid,.story{grid-template-columns:1fr}.sidebar{position:relative;top:auto}.flow{grid-template-columns:1fr 1fr}.hero-side{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:700px){.shell{padding:14px 12px 48px}.hero{padding:25px 20px}h1{font-size:32px}.summary,.grid2,.results{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}.hero-side{grid-template-columns:1fr 1fr}.case-nav{grid-template-columns:1fr}.case-nav .next,.case-nav .backcases{text-align:left}}
+@media(max-width:460px){.facts,.flow{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main class="shell">
+<div class="topbar"><a class="pill" href="index.html">Gateway</a><a class="pill" href="business-index.html">Business Home</a><a class="pill" href="business-index.html#case-studies">All Case Studies</a></div>
+<section class="hero"><div class="hero-grid">
+<div>
+<div class="eyebrow">Case Study 05 · Quantitative Finance &amp; Risk Analytics</div>
+<h1>Quantitative Market Dynamics and Risk Analysis</h1>
+<p>Building a multi-model analytical workflow for market co-movement, delayed dependence, option-model diagnostics, volatility-regime shifts, derivative valuation, Monte Carlo uncertainty and heavy-tail risk across U.S.-listed equities.</p>
+</div>
+<div class="hero-side">
+<div class="stat"><span>Repository modules</span><b>7</b></div>
+<div class="stat"><span>Market universe</span><b>U.S.-listed</b></div>
+<div class="stat"><span>Risk views</span><b>Multi-model</b></div>
+<div class="stat"><span>Data</span><b>Daily prices</b></div>
+</div></div></section>
+<section class="summary">
+<div class="card box">
+<div class="label">Executive summary</div>
+<h3>One workflow spanning market structure, model risk and derivative valuation</h3>
+<p>Built a technical quantitative-finance framework that combines return co-movement, lead–lag analysis, Black–Scholes assumption diagnostics, change-point detection, option pricing, Monte Carlo simulation and Lévy/heavy-tail analysis so that pricing and risk assumptions can be evaluated rather than taken for granted.</p>
+</div>
+<div class="card box">
+<div class="label">Domain</div>
+<h3>Quantitative finance · Market risk · Stochastic modelling</h3>
+<p>This is a technical portfolio case study based on public historical market data and public repository modules. It is not presented as investment advice, portfolio management, or professional financial advisory experience.</p>
+</div>
+</section>
+<section class="facts">
+<div class="fact"><span>Market structure</span><b>Correlation</b><small>Normalized price paths and aligned log-return similarity</small></div>
+<div class="fact"><span>Dependence</span><b>Lead–lag</b><small>Lagged return relationships across selected companies</small></div>
+<div class="fact"><span>Derivative pricing</span><b>BS + MC</b><small>Closed-form and simulation-based valuation</small></div>
+<div class="fact"><span>Tail risk</span><b>Lévy / NIG</b><small>Heavy-tail diagnostics and richer return-process reference</small></div>
+</section>
+<div class="story">
+<aside class="card sidebar">
+<h3>Case study</h3>
+<a class="jump" href="#context">01 · Market Context</a>
+<a class="jump" href="#challenge">02 · Challenge</a>
+<a class="jump" href="#data">03 · Data &amp; Scope</a>
+<a class="jump" href="#role">04 · My Role / Build</a>
+<a class="jump" href="#methods">05 · Methods</a>
+<a class="jump" href="#workflow">06 · Analytical Workflow</a>
+<a class="jump" href="#modules">07 · Module Architecture</a>
+<a class="jump" href="#results">08 · Results &amp; Diagnostics</a>
+<a class="jump" href="#relevance">09 · Risk Relevance</a>
+<a class="jump" href="#demonstrates">10 · What This Demonstrates</a>
+<a class="jump" href="#services">11 · Related Services</a>
+<a class="jump" href="#evidence">12 · Evidence</a>
+<div class="meta"><span>Project type</span><b>Technical portfolio case study · Quantitative finance</b></div>
+<div class="meta"><span>Evidence source</span><b>Public Quantitative-Finance repository + interactive dashboard</b></div>
+</aside>
+<div class="content">
+<section class="card section" id="context">
+<div class="label">01 · Market Context</div>
+<h2>Financial models depend on assumptions that can fail when market structure changes</h2>
+<p>Correlation, volatility, distribution shape, serial dependence and tail behaviour are not fixed properties. A useful quantitative-finance workflow therefore needs to examine whether assumptions remain plausible across the selected market window before relying on pricing or risk outputs.</p>
+<div class="grid2">
+<div class="block"><strong>Dependence dimension</strong><p>Assets may move together contemporaneously or exhibit delayed relationships that vary with the selected period.</p></div>
+<div class="block"><strong>Model-risk dimension</strong><p>Gaussian return assumptions, stable volatility and diffusion-based pricing can become less reliable when skewness, excess kurtosis or regime changes are material.</p></div>
+</div>
+</section>
+<section class="card section" id="challenge">
+<div class="label">02 · Challenge</div>
+<h2>How can market dependence, model assumptions and pricing uncertainty be assessed in one coherent workflow?</h2>
+<p>The analytical challenge was to connect market-structure analysis with model diagnostics and derivative valuation, rather than treating correlation, volatility, option pricing and heavy-tail risk as unrelated exercises.</p>
+<div class="callout"><strong>Core analytical challenge:</strong> Build a transparent workflow that reveals co-movement, delayed dependence, volatility shifts, distribution departures and pricing sensitivity before interpreting model outputs.</div>
+</section>
+<section class="card section" id="data">
+<div class="label">03 · Data &amp; Scope</div>
+<h2>Daily historical prices across a selectable U.S.-listed equity universe</h2>
+<p>The dashboard uses daily historical closing prices for selected U.S.-listed companies. Price histories are checked for valid dates, positive values, duplicates, sufficient sample length and finite returns before analytics are displayed.</p>
+<div class="results">
+<div class="result"><b>Healthcare &amp; diversified equities</b><span>Examples include Johnson &amp; Johnson, Pfizer, Amgen and Merck.</span></div>
+<div class="result"><b>Banks &amp; financial institutions</b><span>Examples include JPMorgan, Bank of America, Wells Fargo, Citigroup, Goldman Sachs and Morgan Stanley.</span></div>
+<div class="result"><b>Asset managers</b><span>Examples include BlackRock, Franklin Resources, Invesco and T. Rowe Price.</span></div>
+<div class="result"><b>American Express</b><span>Used in source-aligned Monte Carlo and Lévy/heavy-tail modules.</span></div>
+<div class="result"><b>Daily log returns</b><span>Used for correlation, dependence, volatility, normality and tail-shape diagnostics.</span></div>
+<div class="result"><b>Runtime validation</b><span>Results are shown only when sufficient valid observations are available for the selected analysis.</span></div>
+</div>
+</section>
+<section class="card section" id="role">
+<div class="label">04 · My Role / Build</div>
+<h2>Technical modelling, source audit, validation and interactive quantitative implementation</h2>
+<p>This case study represents a technical portfolio build based on the public Quantitative-Finance repository. The work consolidates seven source modules into an interactive analytical workflow while preserving source-specific assumptions and distinguishing live market diagnostics from source-reported model outputs.</p>
+<div class="grid2">
+<div class="block"><strong>Source reconstruction</strong><p>Mapped seven R-based analytical modules into a coherent interactive workflow without inventing unsupported historical results.</p></div>
+<div class="block"><strong>Market-data validation</strong><p>Added checks for dates, prices, duplicates, sample sufficiency and finite returns before model outputs are shown.</p></div>
+<div class="block"><strong>Model diagnostics</strong><p>Connected normality, volatility, dependence, regime and tail-risk diagnostics to the assumptions used in pricing models.</p></div>
+<div class="block"><strong>Simulation &amp; valuation</strong><p>Implemented Black–Scholes and Monte Carlo comparison views and preserved source-reported Lévy/NIG reference outputs where exact refitting was not warranted.</p></div>
+</div>
+</section>
+<section class="card section" id="methods">
+<div class="label">05 · Methods</div>
+<h2>Methods spanning market dependence, regime analysis, pricing and heavy-tail diagnostics</h2>
+<div class="methods">
+<span>Daily log returns</span>
+<span>Pearson correlation</span>
+<span>Normalized price trajectories</span>
+<span>Lagged correlation analysis</span>
+<span>Annualized volatility</span>
+<span>Jarque–Bera normality testing</span>
+<span>Skewness</span>
+<span>Excess kurtosis</span>
+<span>Lag-1 autocorrelation</span>
+<span>Variance change-point search</span>
+<span>Black–Scholes pricing</span>
+<span>Monte Carlo simulation</span>
+<span>Antithetic simulation</span>
+<span>Volatility sensitivity</span>
+<span>Residual / convergence diagnostics</span>
+<span>Lévy / NIG heavy-tail reference</span>
+</div>
+</section>
+<section class="card section" id="workflow">
+<div class="label">06 · Analytical Workflow</div>
+<h2>From market structure to model-risk diagnostics and valuation</h2>
+<div class="flow">
+<div class="step"><div class="num">01</div><b>Validate</b><span>Load and check historical price series before generating any market or risk analytics.</span></div>
+<div class="step"><div class="num">02</div><b>Diagnose</b><span>Measure correlation, delayed dependence, volatility stability, normality, skewness, kurtosis and regime changes.</span></div>
+<div class="step"><div class="num">03</div><b>Value</b><span>Use empirical volatility to compare closed-form Black–Scholes pricing with Monte Carlo valuation under matched assumptions.</span></div>
+<div class="step"><div class="num">04</div><b>Stress model assumptions</b><span>Compare Gaussian-style modelling with heavy-tail diagnostics and a Lévy/NIG reference where the source supports it.</span></div>
+</div>
+</section>
+<section class="card section" id="modules">
+<div class="label">07 · Module Architecture</div>
+<h2>Seven analytical modules with distinct quantitative questions</h2>
+<div class="results">
+<div class="result"><b>01 · Time-Series Clustering</b><span>Compare normalized paths and aligned return correlations to identify market co-movement and similarity around a reference company.</span></div>
+<div class="result"><b>02 · Lead–Lag Effect</b><span>Measure delayed return relationships, with the dashboard using a ±10-day lag range for selected companies.</span></div>
+<div class="result"><b>03 · Black–Scholes Test</b><span>Assess volatility stability, normality, skewness, kurtosis and serial dependence across selected financial companies.</span></div>
+<div class="result"><b>04 · Change-Point Detection</b><span>Identify the strongest single variance-regime change and compare pre- versus post-break volatility.</span></div>
+<div class="result"><b>05 · Option Pricing</b><span>Estimate empirical volatility and compare at-the-money European-call values from Black–Scholes and Monte Carlo methods.</span></div>
+<div class="result"><b>06 · Monte Carlo Method</b><span>Examine convergence, simulation uncertainty and terminal payoff behaviour using empirical calibration.</span></div>
+<div class="result"><b>07 · Lévy / Heavy Tails</b><span>Evaluate skewness, excess kurtosis and Gaussian-model adequacy, and retain source-reported Lévy/NIG outputs for comparison.</span></div>
+</div>
+</section>
+<section class="card section" id="results">
+<div class="label">08 · Results &amp; Diagnostics</div>
+<h2>Evidence-backed outputs focused on model interpretation rather than trading claims</h2>
+<div class="results">
+<div class="result"><b>Co-movement is descriptive, not causal</b><span>Correlation-based similarity identifies companies whose aligned daily return patterns move together more closely over the selected period.</span></div>
+<div class="result"><b>Lead–lag relationships require stability checks</b><span>A non-zero lag may indicate delayed response or information transmission, but the dashboard explicitly treats these relationships as descriptive.</span></div>
+<div class="result"><b>Black–Scholes assumptions can be stress-tested</b><span>Volatility shifts, significant non-normality, skewness, excess kurtosis and serial dependence all signal greater model risk.</span></div>
+<div class="result"><b>Regime breaks expose changing risk conditions</b><span>Change-point analysis separates the return series into two candidate volatility regimes and compares pre/post annualized volatility.</span></div>
+<div class="result"><b>Pricing methods can be cross-checked numerically</b><span>Black–Scholes provides a closed-form benchmark while Monte Carlo estimates the same contract through simulated risk-neutral paths under aligned assumptions.</span></div>
+<div class="result"><b>Heavy-tail diagnostics challenge Gaussian adequacy</b><span>Skewness, excess kurtosis and Jarque–Bera evidence help identify conditions where Gaussian models may understate extreme-move risk.</span></div>
+</div>
+<div class="callout"><strong>Source-specific Lévy evidence:</strong> the repository records an AXP Lévy call payoff of approximately 0.06857888 and discounted value of approximately 0.06857733 for the documented source setup. These are preserved as source-reported outputs, not generalized market values.</div>
+</section>
+<section class="card section" id="relevance">
+<div class="label">09 · Risk Relevance</div>
+<h2>Why This Matters for Quantitative Finance &amp; Model Risk</h2>
+<p>The transferable value is the ability to test whether market data support the assumptions behind a quantitative model, compare alternative valuation approaches, and make simulation and distributional uncertainty visible before relying on a numerical result.</p>
+<div class="grid2">
+<div class="block"><strong>Market-structure diagnostics</strong><p>Measure contemporaneous and delayed dependence across companies and selected market windows.</p></div>
+<div class="block"><strong>Model-risk assessment</strong><p>Evaluate whether volatility stability and Gaussian return assumptions are plausible enough for standard diffusion-based modelling.</p></div>
+<div class="block"><strong>Derivative valuation consistency</strong><p>Cross-check closed-form and Monte Carlo prices under aligned assumptions and inspect sensitivity to volatility.</p></div>
+<div class="block"><strong>Tail-risk awareness</strong><p>Recognize when skewness and excess kurtosis suggest that richer stochastic processes may be needed for risk interpretation.</p></div>
+</div>
+</section>
+<section class="card section" id="demonstrates">
+<div class="label">10 · What This Demonstrates</div>
+<h2>Transferable Quantitative Capabilities</h2>
+<div class="grid2">
+<div class="block"><strong>Market Data Analysis</strong><p>Ability to validate, align and transform historical price series into reproducible return-based diagnostics.</p></div>
+<div class="block"><strong>Stochastic Modelling</strong><p>Ability to work with diffusion-based pricing, Monte Carlo simulation and richer Lévy-style process references.</p></div>
+<div class="block"><strong>Risk &amp; Regime Diagnostics</strong><p>Ability to quantify volatility shifts, return-shape departures, delayed dependence and structural breaks.</p></div>
+<div class="block"><strong>Source-Audited Quantitative Implementation</strong><p>Ability to reconstruct public analytical code while preserving source assumptions and avoiding unsupported backtest or return claims.</p></div>
+</div>
+</section>
+<section class="card section" id="services">
+<div class="label">11 · Related Services</div>
+<h2>Relevant Consulting &amp; Analytical Services</h2>
+<p>This technical case study is most closely connected to the following analytical service lines.</p>
+<div class="service-links">
+<a class="service-link" href="business-index.html#services">Statistical &amp; Data Analysis</a>
+<a class="service-link" href="business-index.html#services">Machine Learning &amp; Predictive Analytics</a>
+<a class="service-link" href="business-index.html#services">Optimization &amp; Decision Science</a>
+</div>
+</section>
+<section class="card section" id="evidence">
+<div class="verified-label">Verified Evidence</div>
+<div class="label">12 · Evidence</div>
+<h2>Interactive dashboard and public quantitative-finance repository</h2>
+<p><strong>Repository evidence:</strong> Seven R-based modules covering time-series clustering, lead–lag analysis, Black–Scholes testing, change-point detection, option pricing, Monte Carlo simulation and Lévy-market modelling.</p>
+<p><strong>Dashboard evidence:</strong> Interactive Quantitative Finance &amp; Risk Analytics dashboard with live historical-price diagnostics and source-aligned model modules.</p>
+<p><strong>Important scope:</strong> Runtime numerical outputs depend on the selected companies, dates and availability of public market data. Source-reported constants are retained only where the repository explicitly documents them.</p>
+<div class="links">
+<a class="btn primary" href="quantitative-finance-risk-analytics.html" rel="noopener" target="_blank">Open Quantitative Finance Dashboard ↗</a>
+<a class="btn" href="https://github.com/59alireza59/Quantitative-Finance" rel="noopener" target="_blank">View Repository ↗</a>
+</div>
+</section>
+</div></div>
+<div class="case-nav"><a href="case-study-04-business-analytics.html">← Previous · Business Analytics</a><a class="backcases" href="business-index.html#case-studies">All Case Studies</a><span></span></div>
+<div class="footer"><strong>Evidence boundary.</strong> This is a technical quantitative-finance portfolio case study. It does not claim professional investment advisory experience, trading performance, alpha generation, portfolio-management results, or suitability of any model for live financial decision-making without further validation.</div>
+</main></body>
+</html>

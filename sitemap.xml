@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://seyedalirezaseyedi.github.io/</loc>
-  </url>
-  <url>
-    <loc>https://seyedalirezaseyedi.github.io/water-governance-analytics.html</loc>
-  </url>
-  <url>
-    <loc>https://seyedalirezaseyedi.github.io/forest-governance-biodiversity-analytics.html</loc>
-  </url>
-  <url>
-    <loc>https://seyedalirezaseyedi.github.io/longitudinal-immunity-analytics.html</loc>
-  </url>
-  <url>
-    <loc>https://seyedalirezaseyedi.github.io/business-analytics-decision-support.html</loc>
-  </url>
-  <url>
-    <loc>https://seyedalirezaseyedi.github.io/quantitative-finance-risk-analytics.html</loc>
-  </url>
+  <url><loc>https://seyedalirezaseyedi.github.io/index.html</loc></url>
+  <url><loc>https://seyedalirezaseyedi.github.io/academic-index.html</loc></url>
+  <url><loc>https://seyedalirezaseyedi.github.io/business-index.html</loc></url>
+  <url><loc>https://seyedalirezaseyedi.github.io/business-analytics-decision-support.html</loc></url>
+  <url><loc>https://seyedalirezaseyedi.github.io/forest-governance-biodiversity-analytics.html</loc></url>
+  <url><loc>https://seyedalirezaseyedi.github.io/longitudinal-immunity-analytics.html</loc></url>
+  <url><loc>https://seyedalirezaseyedi.github.io/quantitative-finance-risk-analytics.html</loc></url>
+  <url><loc>https://seyedalirezaseyedi.github.io/water-governance-analytics.html</loc></url>
+  <url><loc>https://seyedalirezaseyedi.github.io/case-study-01-health-analytics.html</loc></url>
+  <url><loc>https://seyedalirezaseyedi.github.io/case-study-02-forest-optimization.html</loc></url>
+  <url><loc>https://seyedalirezaseyedi.github.io/case-study-03-water-governance.html</loc></url>
+  <url><loc>https://seyedalirezaseyedi.github.io/case-study-04-business-analytics.html</loc></url>
+  <url><loc>https://seyedalirezaseyedi.github.io/case-study-05-quantitative-finance.html</loc></url>
 </urlset>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Water Governance Fit Case Study | Seyedalireza Seyedi, PhD</title>
+<meta content="Case study on quantitative water-governance fit in the Urmia Lake Basin, using statistical-mechanics, Hamiltonian-cost modelling, institutional analysis and scenario comparison." name="description"/>
+<style>
+:root{
+  --ink:#202529;--muted:#687177;--line:#d9dddf;--soft:#f6f7f7;
+  --accent:#0b63c7;--accent2:#2f7fcf;--dark:#17364e;--teal:#116c76;
+  --shadow:0 14px 36px rgba(18,48,74,.07);--max:1180px
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#f6f8fa;color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif}
+a{color:inherit}.shell{max-width:var(--max);margin:auto;padding:22px 24px 72px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:800;color:#455158}
+.pill:hover{border-color:var(--accent);color:var(--accent)}
+.hero{background:linear-gradient(135deg,#17364e 0%,#225e70 55%,#0b63c7 100%);color:#fff;border-radius:24px;padding:34px 36px;box-shadow:0 20px 46px rgba(18,48,74,.16)}
+.hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:28px;align-items:end}
+.eyebrow,.label{font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+.eyebrow{color:#b8dbea}.label{color:var(--accent)}
+h1{font-size:43px;line-height:1.03;letter-spacing:-.045em;margin:7px 0 12px}
+.hero p{margin:0;max-width:820px;color:#e2edf2;font-size:15px;line-height:1.65}
+.hero-side{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.stat{border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.06);border-radius:13px;padding:13px}
+.stat span{display:block;font-size:8.5px;text-transform:uppercase;letter-spacing:.07em;color:#c9e0ec;font-weight:850}
+.stat b{display:block;font-size:18px;margin-top:4px}
+.summary,.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.summary{margin:15px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}
+.box{padding:18px}.box h3{margin:4px 0 8px;font-size:15px;color:var(--dark)}
+.box p,.section p{margin:0;color:#556269;font-size:12px;line-height:1.62}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:15px 0}
+.fact{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px}
+.fact span{display:block;font-size:8.3px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:850}
+.fact b{display:block;font-size:17px;color:var(--dark);margin-top:4px}.fact small{display:block;color:var(--muted);font-size:9px;margin-top:4px;line-height:1.4}
+.story{display:grid;grid-template-columns:300px 1fr;gap:16px;align-items:start}
+.sidebar{padding:17px;position:sticky;top:14px}.sidebar h3{font-size:12px;color:var(--dark);margin:0 0 10px}
+.jump{display:block;text-decoration:none;padding:9px 10px;border-radius:9px;font-size:10.5px;font-weight:800;color:#58666c}.jump:hover{background:#f1f5f9;color:var(--accent)}
+.meta{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}.meta span{display:block;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:850}.meta b{display:block;font-size:10px;line-height:1.45;margin-top:4px}
+.content{display:grid;gap:13px}.section{padding:21px 22px}.section h2{font-size:22px;margin:4px 0 9px;letter-spacing:-.025em;color:var(--dark)}
+.block{border:1px solid #e2e7eb;border-radius:12px;background:#fafbfd;padding:13px}.block strong{display:block;font-size:10px;color:#415158;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}.block p{font-size:11px}
+.methods{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.methods span{padding:6px 9px;border-radius:999px;background:#eef4fb;border:1px solid #d5e2f1;color:#31577b;font-size:10px;font-weight:800}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}.step{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fbfcfd}.step .num{font-family:Georgia,serif;font-size:22px;color:#a9b3b8}.step b{display:block;font-size:11px;color:var(--dark);margin:4px 0}.step span{display:block;font-size:9.7px;color:var(--muted);line-height:1.5}
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.result{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fbfcfd}.result b{display:block;font-size:11px;color:var(--dark);margin-bottom:4px}.result span{font-size:9.7px;color:var(--muted);line-height:1.5;display:block}
+.callout{margin-top:12px;border-left:3px solid var(--accent);background:#f2f6fb;border-radius:10px;padding:12px 14px;color:#455864;font-size:11px;line-height:1.55}
+.verified-label{display:inline-flex;padding:5px 8px;border-radius:999px;background:#edf4fb;border:1px solid #cedff1;color:#24517c;font-size:9px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:7px}
+.service-links,.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.service-link,.btn{display:inline-flex;text-decoration:none;padding:8px 11px;border:1px solid var(--line);border-radius:9px;background:#fff;color:#315b83;font-size:10.5px;font-weight:850}
+.service-link:hover,.btn:hover{border-color:var(--accent);color:var(--accent)}.btn.primary{background:var(--dark);color:#fff;border-color:var(--dark)}.btn.primary:hover{background:var(--accent);color:#fff}
+.case-nav{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-top:14px;padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:#fff}
+.case-nav a{text-decoration:none;font-size:10px;font-weight:850;color:#315b83}.case-nav .next{text-align:right}.case-nav .backcases{text-align:center}
+.footer{margin-top:16px;font-size:9.5px;color:var(--muted);line-height:1.55}
+@media(max-width:960px){.hero-grid,.story{grid-template-columns:1fr}.sidebar{position:relative;top:auto}.flow{grid-template-columns:1fr 1fr}.hero-side{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:700px){.shell{padding:14px 12px 48px}.hero{padding:25px 20px}h1{font-size:32px}.summary,.grid2,.results{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}.hero-side{grid-template-columns:1fr 1fr}.case-nav{grid-template-columns:1fr}.case-nav .next,.case-nav .backcases{text-align:left}}
+@media(max-width:460px){.facts,.flow{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main class="shell">
+<div class="topbar"><a class="pill" href="index.html">Gateway</a><a class="pill" href="business-index.html">Business Home</a><a class="pill" href="business-index.html#case-studies">All Case Studies</a></div>
+<section class="hero"><div class="hero-grid">
+<div>
+<div class="eyebrow">Case Study 03 · Water Governance &amp; Environmental Decision Analytics</div>
+<h1>Diagnosing Institutional–Hydrological Mismatch in Complex Water Systems</h1>
+<p>Using statistical-mechanics and Hamiltonian-cost modelling to compare alternative governance structures, quantify institutional fit, and expose where administrative organization diverges from the hydrological structure of the Urmia Lake Basin.</p>
+</div>
+<div class="hero-side">
+<div class="stat"><span>Study area</span><b>Urmia Lake Basin</b></div>
+<div class="stat"><span>Reference period</span><b>2005</b></div>
+<div class="stat"><span>Structures</span><b>1 · 2 · 3 core</b></div>
+<div class="stat"><span>Sectors</span><b>3 sectors</b></div>
+</div></div></section>
+<section class="summary">
+<div class="card box">
+<div class="label">Executive summary</div>
+<h3>Quantitative comparison of governance structure and hydrological fit</h3>
+<p>Developed a quantitative framework for comparing how alternative administrative water-governance structures align with the hydrological organization of the Urmia Lake Basin, using interaction handling, Hamiltonian structural system cost and zonal pressure as interpretable structural diagnostics.</p>
+</div>
+<div class="card box">
+<div class="label">Domain</div>
+<h3>Water governance · Institutional analysis · Environmental decision science</h3>
+<p>The work combines statistical mechanics, institutional analysis, hydrological system structure, scenario comparison and spatial/environmental interpretation.</p>
+</div>
+</section>
+<section class="facts">
+<div class="fact"><span>Governance configurations</span><b>3 structures</b><small>1-core · 2-core · 3-core</small></div>
+<div class="fact"><span>Core outputs</span><b>H · P · interactions</b><small>Hamiltonian cost · zonal pressure · interaction handling</small></div>
+<div class="fact"><span>Water-use sectors</span><b>3 sectors</b><small>Drinking · Agriculture · Industry</small></div>
+<div class="fact"><span>Published evidence</span><b>2022–2025</b><small>Water Research and Current Research in Environmental Sustainability</small></div>
+</section>
+<div class="story">
+<aside class="card sidebar">
+<h3>Case study</h3>
+<a class="jump" href="#context">01 · System Context</a>
+<a class="jump" href="#challenge">02 · Challenge</a>
+<a class="jump" href="#framework">03 · Quantitative Framework</a>
+<a class="jump" href="#role">04 · My Role / Contribution</a>
+<a class="jump" href="#methods">05 · Methods</a>
+<a class="jump" href="#workflow">06 · Analytical Workflow</a>
+<a class="jump" href="#scenarios">07 · Scenario Analysis</a>
+<a class="jump" href="#results">08 · Results</a>
+<a class="jump" href="#relevance">09 · Decision Relevance</a>
+<a class="jump" href="#demonstrates">10 · What This Demonstrates</a>
+<a class="jump" href="#services">11 · Related Services</a>
+<a class="jump" href="#evidence">12 · Evidence</a>
+<div class="meta"><span>Research line</span><b>Water governance · institutional fit · environmental decision analytics</b></div>
+<div class="meta"><span>Spatial connection</span><b>QGIS and basin-level environmental/spatial interpretation are presented only in connection with this water-governance research line.</b></div>
+</aside>
+<div class="content">
+<section class="card section" id="context">
+<div class="label">01 · System Context</div>
+<h2>Administrative structures and hydrological systems do not necessarily align</h2>
+<p>The Urmia Lake Basin provides a setting in which water demand, supply, administrative responsibilities and environmental constraints interact across multiple zones and sectors. The analytical problem is structural: a governance system may be administratively coherent while still being poorly aligned with the basin’s hydrological organization.</p>
+<div class="grid2">
+<div class="block"><strong>Institutional layer</strong><p>Administrative arrangements determine how interactions are coordinated across governance cores and water-use sectors.</p></div>
+<div class="block"><strong>Hydrological layer</strong><p>The basin’s environmental and water-system structure creates interdependencies that may not match administrative boundaries or responsibilities.</p></div>
+</div>
+</section>
+<section class="card section" id="challenge">
+<div class="label">02 · Challenge</div>
+<h2>How can institutional–hydrological mismatch be quantified rather than described qualitatively?</h2>
+<p>The central challenge was to move from a descriptive governance assessment to a quantitative comparison of alternative structures, while retaining the interactions among basin zones, sectors and administrative configurations.</p>
+<div class="callout"><strong>Core analytical challenge:</strong> How can institutional structures and hydrological systems be quantitatively compared to identify governance mismatch and evaluate alternative structural configurations?</div>
+</section>
+<section class="card section" id="framework">
+<div class="label">03 · Quantitative Framework</div>
+<h2>A statistical-mechanics representation of governance fit</h2>
+<div class="results">
+<div class="result"><b>Curie–Weiss mean-field formulation</b><span>Represents system interactions in a statistical-mechanics framework adapted to water governance.</span></div>
+<div class="result"><b>Hamiltonian structural system cost</b><span>Provides a quantitative measure of the structural cost associated with a given governance configuration.</span></div>
+<div class="result"><b>Zonal pressure / gain</b><span>Supports interpretation of where pressure or advantage is concentrated across the system under alternative configurations.</span></div>
+</div>
+<div class="callout">The dashboard extends the published framework into a scenario-analysis environment while preserving the underlying model logic and reproducing the workbook baseline to numerical precision.</div>
+</section>
+<section class="card section" id="role">
+<div class="label">04 · My Role / Contribution</div>
+<h2>Mathematical modelling, governance-system comparison and environmental decision analytics</h2>
+<p>The documented evidence supports contribution to the quantitative water-governance research line through statistical-mechanics modelling, governance-fit analysis, scenario comparison and environmental/spatial interpretation. The published papers and dashboard provide the primary evidence base for this work.</p>
+<div class="grid2">
+<div class="block"><strong>Quantitative modelling</strong><p>Applied mathematical structure to governance-system interactions and institutional–hydrological fit.</p></div>
+<div class="block"><strong>Governance comparison</strong><p>Compared alternative 1-core, 2-core and 3-core administrative configurations using common structural metrics.</p></div>
+<div class="block"><strong>Scenario analysis</strong><p>Extended the published framework into an interactive environment for structural and economic scenario comparison.</p></div>
+<div class="block"><strong>Environmental &amp; spatial interpretation</strong><p>Integrated hydrological, environmental and spatial context to support basin-level interpretation; QGIS is linked only to this research line.</p></div>
+</div>
+</section>
+<section class="card section" id="methods">
+<div class="label">05 · Methods</div>
+<h2>Methods for institutional fit and basin-level governance analysis</h2>
+<p>The methods below are limited to techniques explicitly supported by the current website, publications and water-governance dashboard.</p>
+<div class="methods">
+<span>Statistical mechanics</span>
+<span>Curie–Weiss mean-field modelling</span>
+<span>Hamiltonian-cost framework</span>
+<span>Institutional analysis</span>
+<span>Vertical-fit analysis</span>
+<span>Governance-structure comparison</span>
+<span>Scenario analysis</span>
+<span>Sector supply–demand interpretation</span>
+<span>Hydrological data</span>
+<span>Meteorological data</span>
+<span>Satellite-derived data</span>
+<span>QGIS-supported spatial interpretation</span>
+</div>
+</section>
+<section class="card section" id="workflow">
+<div class="label">06 · Analytical Workflow</div>
+<h2>From system structure to governance-fit diagnostics</h2>
+<div class="flow">
+<div class="step"><div class="num">01</div><b>Structure</b><span>Represent the basin’s governance cores, sectors and interaction structure in a common quantitative framework.</span></div>
+<div class="step"><div class="num">02</div><b>Measure</b><span>Calculate interaction handling, Hamiltonian structural cost and zonal pressure for each governance configuration.</span></div>
+<div class="step"><div class="num">03</div><b>Compare</b><span>Evaluate 1-core, 2-core and 3-core structures against common basin-level indicators.</span></div>
+<div class="step"><div class="num">04</div><b>Interpret</b><span>Translate model outputs into institutional-fit, sector-imbalance and restructuring insights without claiming automatic policy implementation.</span></div>
+</div>
+</section>
+<section class="card section" id="scenarios">
+<div class="label">07 · Scenario Analysis</div>
+<h2>Testing alternative governance structures and economic assumptions</h2>
+<div class="results">
+<div class="result"><b>Structural scenarios</b><span>Compare 1-core, 2-core and 3-core governance configurations under the same model framework.</span></div>
+<div class="result"><b>Sector interpretation</b><span>Examine drinking, agricultural and industrial water-use dimensions to identify where imbalances are concentrated.</span></div>
+<div class="result"><b>Economic layer</b><span>The dashboard adds editable 2005-oriented IRR proxy assumptions for scenario analysis; these are scenario inputs rather than direct outputs of the original structural model.</span></div>
+</div>
+</section>
+<section class="card section" id="results">
+<div class="label">08 · Results</div>
+<h2>Evidence-backed outputs for structural fit, regional comparison and governance interpretation</h2>
+<div class="results">
+<div class="result"><b>Governance structure can be quantified</b><span>The published framework converts institutional–hydrological fit into a comparable mathematical representation rather than relying only on qualitative assessment.</span></div>
+<div class="result"><b>Alternative structures produce different system costs</b><span>1-core, 2-core and 3-core configurations can be compared using common Hamiltonian and interaction-handling metrics.</span></div>
+<div class="result"><b>Vertical fit can be assessed regionally</b><span>The 2024 study extends the framework to examine alignment between water-governance institutions and hydrological systems at regional scale.</span></div>
+<div class="result"><b>Institutional structures can be formalized mathematically</b><span>The 2025 work extends the research line toward a mathematical representation of the Institutional Analysis and Development framework in the water arena.</span></div>
+<div class="result"><b>Scenario analysis supports structural interpretation</b><span>The dashboard makes the published model operational for comparative scenario exploration across governance configurations and sector assumptions.</span></div>
+<div class="result"><b>Fit metrics are diagnostic, not implementation proof</b><span>The outputs identify structural alignment and mismatch; they do not prove that a specific administrative reform was adopted or caused a realized environmental outcome.</span></div>
+</div>
+<div class="callout"><strong>Evidence boundary:</strong> This case study presents a quantitative diagnostic and scenario framework. It does not claim that the analysis itself implemented a governance reform or generated realized basin-level outcomes.</div>
+</section>
+<section class="card section" id="relevance">
+<div class="label">09 · Decision Relevance</div>
+<h2>Why This Matters for Water &amp; Environmental Decision Analytics</h2>
+<p>The transferable value is the ability to represent a complex institutional-environmental system quantitatively, compare alternative organizational structures on a common basis, and expose where governance design may be poorly matched to the physical system it is intended to manage.</p>
+<div class="grid2">
+<div class="block"><strong>Institutional diagnostics</strong><p>Translate governance structure into measurable system-level indicators rather than relying solely on narrative assessment.</p></div>
+<div class="block"><strong>Structural scenario comparison</strong><p>Compare alternative administrative configurations under consistent analytical assumptions.</p></div>
+<div class="block"><strong>Environmental-system alignment</strong><p>Connect governance interpretation with hydrological, environmental and spatial structure at basin and regional scales.</p></div>
+<div class="block"><strong>Decision communication</strong><p>Turn an abstract statistical-mechanics model into an interactive decision-support view for interpreting fit, cost and pressure.</p></div>
+</div>
+</section>
+<section class="card section" id="demonstrates">
+<div class="label">10 · What This Demonstrates</div>
+<h2>Transferable Quantitative Capabilities</h2>
+<div class="grid2">
+<div class="block"><strong>Institutional Quantification</strong><p>Ability to convert governance and organizational structure into a mathematically comparable analytical system.</p></div>
+<div class="block"><strong>Complex-System Modelling</strong><p>Ability to use statistical-mechanics concepts to represent interacting sectors, zones and governance cores.</p></div>
+<div class="block"><strong>Environmental Scenario Analysis</strong><p>Ability to combine structural metrics with hydrological and spatial context for comparative basin-level interpretation.</p></div>
+<div class="block"><strong>Research-to-Decision Translation</strong><p>Ability to move from peer-reviewed mathematical formulation to an interactive scenario and decision-support workflow.</p></div>
+</div>
+</section>
+<section class="card section" id="services">
+<div class="label">11 · Related Services</div>
+<h2>Relevant Consulting &amp; Analytical Services</h2>
+<p>This case study is most closely connected to the following business service lines.</p>
+<div class="service-links">
+<a class="service-link" href="business-index.html#services">Econometrics &amp; Policy Analytics</a>
+<a class="service-link" href="business-index.html#services">Optimization &amp; Decision Science</a>
+<a class="service-link" href="business-index.html#services">Statistical &amp; Data Analysis</a>
+</div>
+</section>
+<section class="card section" id="evidence">
+<div class="verified-label">Verified Evidence</div>
+<div class="label">12 · Evidence</div>
+<h2>Peer-reviewed publications and interactive water-governance dashboard</h2>
+<p><strong>2022:</strong> Arjomandi A., P., Seyedi, S. A., Nabavi, E., &amp; Alikhani, S. — <em>Exploring Water Governing System Fit Through a Statistical Mechanics Approach</em>, <em>Water Research</em>, 215, 118272.</p>
+<p><strong>2024:</strong> Arjomandi, P., Seyedi, S. A., Komendantova, N., &amp; Hulasu, E. V. — <em>Vertical Fit of Water Governing Systems: A Regional Assessment</em>, <em>Current Research in Environmental Sustainability</em>, 7, 100248.</p>
+<p><strong>2025:</strong> Arjomandi A., P., Seyedi, S. A., Komendantova, N., Yazdanpanah, M., &amp; Mannocchi, M. — <em>The Institutional Analysis and Development Framework: A Mathematical Representation in Water Arena</em>, <em>Current Research in Environmental Sustainability</em>, 10, 100307.</p>
+<div class="links">
+<a class="btn primary" href="water-governance-analytics.html" rel="noopener" target="_blank">Open Water Governance Dashboard ↗</a>
+<a class="btn" href="https://doi.org/10.1016/j.watres.2022.118272" rel="noopener" target="_blank">Water Research 2022 ↗</a>
+<a class="btn" href="https://doi.org/10.1016/j.crsust.2024.100248" rel="noopener" target="_blank">Regional Assessment 2024 ↗</a>
+<a class="btn" href="https://doi.org/10.1016/j.crsust.2025.100307" rel="noopener" target="_blank">IAD Framework 2025 ↗</a>
+</div>
+</section>
+</div></div>
+<div class="case-nav"><a href="case-study-02-forest-optimization.html">← Previous · Forest Optimization</a><a class="backcases" href="business-index.html#case-studies">All Case Studies</a><a class="next" href="case-study-04-business-analytics.html">Next · Business Analytics →</a></div>
+<div class="footer"><strong>Evidence boundary.</strong> This case study uses business-facing language, but all substantive claims are limited to documented evidence from the current portfolio, the water-governance dashboard and the peer-reviewed publication record. It does not claim direct policy implementation, causal environmental impact, or commercial ROI.</div>
+</main></body>
+</html>
