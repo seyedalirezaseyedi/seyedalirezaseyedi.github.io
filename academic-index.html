@@ -1211,9 +1211,9 @@ a{color:inherit}
 </div>
 <div class="acad-note"><h3>Helpful context</h3><p>Please indicate the research question or academic opportunity, relevant data or modelling context, expected contribution, and any important timing or institutional constraints.</p></div>
 <form class="contact-form" id="contactForm" style="margin-top:20px">
-<input autocomplete="off" class="honey" name="_honey" tabindex="-1" type="text"/>
-<input name="_subject" type="hidden" value="New message from Seyedi professional website"/>
-<input name="_template" type="hidden" value="table"/>
+<input name="access_key" type="hidden" value="YOUR_WEB3FORMS_ACCESS_KEY"/>
+<input name="subject" type="hidden" value="New academic enquiry from Seyedi professional website"/>
+<input autocomplete="off" class="honey" name="botcheck" tabindex="-1" type="checkbox"/>
 <div class="form-row">
 <div class="field">
 <label for="contactName">Your name *</label>
@@ -1276,7 +1276,7 @@ showView(location.hash.slice(1)||'home',false);
 // Company-style contact form.
 // The destination email is intentionally not displayed in the page UI.
 // Static sites still require a form relay service to deliver messages.
-const CONTACT_ENDPOINT='https://formsubmit.co/ajax/seyedalireza.seyedi2@gmail.com';
+const CONTACT_ENDPOINT='https://api.web3forms.com/submit';
 const contactForm=document.getElementById('contactForm');
 const formStatus=document.getElementById('formStatus');
 const sendButton=document.getElementById('sendButton');
@@ -1311,7 +1311,7 @@ if(contactForm){
       });
 
       const result=await response.json().catch(()=>({}));
-      if(!response.ok || result.success===false) throw new Error(result.message||'Unable to send message.');
+      if(!response.ok || result.success!==true) throw new Error(result.message||'Unable to send message.');
 
       contactForm.reset();
       setFormStatus('ok','Thank you. Your message has been sent successfully.');

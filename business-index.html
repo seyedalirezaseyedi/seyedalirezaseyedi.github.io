@@ -721,7 +721,11 @@ a{color:inherit}
 <h2>Tell me what you are working on</h2>
 <p>Share the essentials below. The form is designed to capture enough context to assess fit without asking you to prepare a formal brief.</p>
 </div>
-<form class="contact-form" id="businessContactForm"><div class="form-grid">
+<form class="contact-form" id="businessContactForm">
+<input name="access_key" type="hidden" value="YOUR_WEB3FORMS_ACCESS_KEY"/>
+<input name="subject" type="hidden" value="Business project enquiry from website"/>
+<input name="botcheck" style="display:none" tabindex="-1" type="checkbox"/>
+<div class="form-grid">
 <div class="form-field"><label>Name *</label><input name="name" placeholder="Your name" required=""/></div>
 <div class="form-field"><label>Email *</label><input name="email" placeholder="you@company.com" required="" type="email"/></div>
 <div class="form-field"><label>Organization / Team</label><input name="organization" placeholder="Company, university or organization"/></div>
@@ -748,7 +752,7 @@ function showView(id,push=true){
 function sync(){showView(location.hash.slice(1)||'home',false)}
 window.addEventListener('popstate',sync);window.addEventListener('hashchange',sync);sync();
 const f=document.getElementById('businessContactForm');
-if(f)f.addEventListener('submit',async e=>{e.preventDefault();const s=document.getElementById('businessStatus');s.textContent='Sending…';try{const d=new FormData(f);d.append('_subject','Business project enquiry from website');d.append('_template','table');const r=await fetch('https://formsubmit.co/ajax/seyedalireza.seyedi2@gmail.com',{method:'POST',headers:{Accept:'application/json'},body:d});if(!r.ok)throw new Error();s.textContent='Message sent successfully.';f.reset();}catch(err){s.textContent='The message could not be sent automatically. Please try again later.';}});
+if(f)f.addEventListener('submit',async e=>{e.preventDefault();const s=document.getElementById('businessStatus');s.textContent='Sending…';try{const d=new FormData(f);const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{Accept:'application/json'},body:d});const result=await r.json().catch(()=>({}));if(!r.ok||result.success!==true)throw new Error(result.message||'Unable to send message.');s.textContent='Message sent successfully.';f.reset();}catch(err){s.textContent='The message could not be sent automatically. Please try again later.';}});
 </script>
 </body>
 </html>
